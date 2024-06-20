@@ -1,0 +1,68 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Labevents.hadm_id = 12345
+Labevents.valuenum=20
+Labevents.charttime = 2149-02-16
+D_labitems.label = 'Wbc'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'labevents' and 'd_labitems' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Labevents JOIN D_labitems ON Labevents.itemid = D_labitems.itemid WHERE Labevents.hadm_id = 12345 AND Labevents.valuenum = 20 AND strftime('%Y-%m-%d', Labevents.charttime) = '2149-02-16' AND D_labitems.label = 'Wbc'"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Labevents.hadm_id = 20202
+Labevents.valueuom = mg/dL
+Labevents.valuenum= 116.0
+Labevents.charttime = 2121-07-03
+D_labitems.label = 'Glucose'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'labevents' and 'd_labitems' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Labevents JOIN D_labitems ON Labevents.itemid = D_labitems.itemid WHERE Labevents.hadm_id = 20202 AND Labevents.valueuom = 'mg/dL' AND Labevents.valuenum = 116.0 AND strftime('%Y-%m-%d', Labevents.charttime) = '2121-07-03' AND D_labitems.label = 'Glucose'"}]
+
+Example 3) 
+[{table}.{column}={condition value}]
+Labevents.hadm_id = 5677
+Labevents.valuenum= 77
+Labevents.charttime = 2121-08-14 18:00:11
+D_labitems.label = 'creat'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'labevents' and 'd_labitems' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Labevents JOIN D_labitems ON Labevents.itemid = D_labitems.itemid WHERE Labevents.hadm_id = 5677 AND Labevents.valuenum = 77.0 AND strftime('%Y-%m-%d %H:%M:%S', Labevents.charttime) = '2121-08-14 18:00:11' AND D_labitems.label = 'creat'"}]
+
+Example 4) 
+[{table}.{column}={condition value}]
+Labevents.hadm_id = 3333
+Labevents.valuenum= 100
+Labevents.charttime = 2133-09-11 10:10:00
+D_labitems.label = 'Red blood cells'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'labevents' and 'd_labitems' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Labevents JOIN D_labitems ON Labevents.itemid = D_labitems.itemid WHERE Labevents.hadm_id = 3333 AND Labevents.valuenum = 3333 AND strftime('%Y-%m-%d %H:%M:%S', Labevents.charttime) = '2133-09-11 10:10:00' AND D_labitems.label = 'Red blood cells'"}]
+
+Your task:
+[{table}.{column}={condition value}]
+Labevents.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'labevents' and 'd_labitems' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

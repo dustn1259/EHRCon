@@ -1,0 +1,43 @@
+Task: You are a highly intelligent and accurate sqlite3 creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Do not infer or predict, only use the information provided.  
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+[{table}.{column}={condition value}]
+Example 1)
+[{table}.{column}={condition value}]
+Diagnoses_icd.hadm_id = 12345
+D_icd_diagnoses.long_title= 'Mal hyp kid w cr kid V'
+D_icd_diagnoses.short_title = 'Mal hyp kid w cr kid V'
+
+[given extra information]
+1. Utilize strftime function.
+2. Shorttitle and long title must use ‘or’.
+3. The 'D_icd_diagnoses' and 'Diagnoses_icd' tables need to be joined using the 'ICD9_CODE' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Diagnoses_icd JOIN d_icd_diagnoses ON Diagnoses_icd.ICD9_CODE=d_icd_diagnoses.ICD9_CODE WHERE Diagnoses_icd.hadm_id=12345 AND (d_icd_diagnoses.LONG_TITLE='Mal hyp kid w cr kid V' OR d_icd_diagnoses.SHORT_TITLE='Mal hyp kid w cr kid V')" }]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Diagnoses_icd.hadm_id = 20202
+D_icd_diagnoses.long_title=CKD
+D_icd_diagnoses.short_title = CKD
+
+[given extra information]
+1. Utilize strftime function.
+2. Shorttitle and long title must use ‘or’.
+3. The 'D_icd_diagnoses' and 'Diagnoses_icd' tables need to be joined using the 'ICD9_CODE' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Diagnoses_icd JOIN d_icd_diagnoses ON Diagnoses_icd.ICD9_CODE=d_icd_diagnoses.ICD9_CODE WHERE Diagnoses_icd.hadm_id=20202 AND (d_icd_diagnoses.LONG_TITLE='CKD' OR d_icd_diagnoses.SHORT_TITLE='CKD')" }]
+
+Your task:
+[{table}.{column}={condition value}]
+D_icd_diagnoses.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Shorttitle and long title must use ‘or’.
+3. The 'D_icd_diagnoses' and 'Diagnoses_icd' tables need to be joined using the 'ICD9_CODE' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

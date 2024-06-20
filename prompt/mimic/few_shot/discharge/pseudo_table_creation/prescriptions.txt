@@ -1,0 +1,76 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. DRUG: drug, STARTDATE: startdate, ENDDATE: enddate, DOSE_VAL_RX: dose_val_rx, DOSE_UNIT_RX: dose_unit_rx'
+
+Additional Requirements:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 1 to 2 p.o'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for DOSE_VAL_RX, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. DRUG: The Drug column lists the name of the medication that was prescribed to the patient.
+    - Datatype: <class 'str'>
+2. STARTDATE: The Startdate column records the date when a prescribed medication was first ordered or administered to the patient.
+    - Datatype:  <class 'datetime'>
+3. ENDDATE: The Enddate column records the date when the administration of a prescribed medication was completed or discontinued.
+    - Datatype: <class 'datetime'>
+4. DOSE_VAL_RX: The Dose_val_rx column specifies the numeric value of the prescribed dose for the medication.
+    - Datatype:  <class 'float'>
+5. DOSE_UNIT_RX: The Dose_unit_rx column specifies the unit of measurement for the prescribed dose of the medication, such as milligrams (mg) or milliliters (mL).
+    - Datatype:  <class 'str'>
+    
+Example 1: Analyze the clinical note to extract {{**Acetaminophen**}} data and document the findings in the EHR table. When Extract data, do not make assumptions or infer details not directly stated in the clinical note, even if this is common knowledge.
+
+Clinical note:
+DISCHARGE MEDICATIONS:
+1. T4 100 mcg p.o. q.d.
+2. Toprol XL 50 mg p.o. 7 days
+3. {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)
+4. She was told to hold her hydrochlorothiazide.
+5. Effexor 75 mg p.o. q.d.
+
+**Step 1) Identify and Extract Information about '{{**Acetaminophen**}}' in the given text.
+[Answer in step 1]: DISCHARGE MEDICATIONS: ... {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)
+
+**Step 2) Determine the STARTDATE and ENDDATE step-by-step: Identify when the '{{**Acetaminophen**}}' occurs.**
+[Answer in step 2]: When I reviewed the notes, it was mentioned that the STARTDATE would be the discharge date. ENDDATE would be after discharge, so it would be NAN. 
+
+**Step 3) Fill the EHR table with information directly related to '{{**Acetaminophen**}}', ensuring that this table records only events that occurred from the date of admission to the date of discharge.**
+Based on the mentions of '{{**Acetaminophen**}}' in the given text found in Step 1 and Step 2, fill in the EHR table with these column headers: DRUG, STARTDATE, ENDDATE, DOSE_VAL_RX, DOSE_UNIT_RX. If specific details are not mentioned in the clinical note or do not pertain to the current hospitalization period like after discharge, record them as 'NaN'.
+[Answer in step 3]: As referred to in the answer from step 2, the drug is Acetaminophen. The starttime should be at discharge and enddate would be 'NAN'. The valuenum should be 650 (because 2 tab), and the dose_val_rx should be in mg.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Acetaminophen**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Acetaminophen**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. DRUG: Acetaminophen, STARTDATE: discharge, ENDDATE: NaN, DOSE_VAL_RX: 650, DOSE_UNIT_RX: mg"
+
+Example 2: Analyze the clinical note to extract {{**Lasix**}} data and document the findings in the EHR table. When Extract data, do not make assumptions or infer details not directly stated in the clinical note, even if this is common knowledge.
+
+Clinical note:
+"She presented to the catheterization laboratory area and was
+talking and then had acute severe pulmonary edema and was
+intubated in the catheterization laboratory, started on a
+nitro drip, and given 160 mg of {{**Lasix**}} IV."
+
+**Step 1) Identify and Extract Information about '{{**Lasix**}}' in the given text.
+[Answer in step 1]: She presented to the catheterization laboratory area and was talking and then had acute severe pulmonary edema and was intubated in the catheterization laboratory, started on a nitro drip, and given 160 mg of {{**Lasix**}} IV on admission.
+
+**Step 2) Determine the STARTDATE and ENDDATE step-by-step: Identify when the '{{**Lasix**}}' occurs.**
+[Answer in step 2]: The clinical note does not directly mention the timing information regarding the prescription of Lasix. Therefore, the STARTDATE would be 'NAN, and the ENDDATE would be 'NAN'
+
+**Step 3) Fill the EHR table with information directly related to '{{**Laisx**}}', ensuring that this table records only events that occurred from the date of admission to the date of discharge.**
+Based on the mentions of '{{**Lasix**}}' in the given text found in Step 1 and Step 2, fill in the EHR table with these column headers: DRUG, STARTDATE, ENDDATE, DOSE_VAL_RX, DOSE_UNIT_RX.  If specific details are not mentioned in the clinical note or do not pertain to the current hospitalization period like after discharge, record them as 'NaN'.
+[Answer in step 3]: The drug is Lasix, with 'dose_val_rx' being 160 and 'dose_unit_rx' being mg. According to the answer in step 2, startdate and enddate would be NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Lasix**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Lasix**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. DRUG: Lasix, STARTDATE: NaN, ENDDATE: NaN, DOSE_VAL_RX: 160, DOSE_UNIT_RX: mg"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

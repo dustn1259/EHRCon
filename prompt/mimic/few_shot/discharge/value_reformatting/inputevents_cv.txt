@@ -1,0 +1,57 @@
+Task: Transform Given Data to Match a Database Table Format. Your goal is to modify a set of given data so that it matches the format of an existing database table. The data transformation should adhere to any constraints evident from the table's structure. Focus solely on the fields provided in the given data and do not add or infer any additional fields.
+** Only transform and include the fields mentioned in the given data. Do not add, create, or infer any additional fields beyond what is specified (e.g., do not include fields like 'CHARTTIME' if they are not in the given data)**
+
+Table Information:
+1. Existing Table Schema: {'Inputevents_cv': {'CHARTTIME': <class 'datetime'>, 'AMOUNT': <class 'float'>, 'AMOUNTUOM': <class 'str'>, 'RATE': <class 'float'>, 'RATEUOM': <class 'str'>}, 'D_ITEMS': {'LABEL': <class 'str'>, 'LINKSTO': <class 'str'>}}
+    [Example row of Inputevents_cv and D_items table]
+    - Inputevents_cv.CHARTTIME: 2101-10-12 16:07:00
+    - Inputevents_cv.AMOUNT: 150
+    - Inputevents_cv.AMOUNTUOM: ml
+    - Inputevents_cv.RATE: 150.0
+    - Inputevents_cv.RATEUOM: ml/hour
+    - D_items.LABEL: Cryoprecipitate
+
+2. CHARTTIME use a 24-hour format.
+
+Extra Instructions: If the given data includes relative dates (like 'charttime'), replace it with the corresponding actual date from the patient's record.
+
+Example 1)
+Given data:
+Information:
+    - Patient Admission Date: 2201-11-18
+    - Note's Chartdate: 2201-12-02 (same as discharge summary note's chartdate)
+Inputevents_cv.CHARTTIME: [**2201-12-01**] 8:00 PM
+Inputevents_cv.RATE: 7.10
+Inputevents_cv.RATEUOM: mg/dL
+D_items.LABEL: Blasts
+
+Output:
+Inputevents_cv.CHARTTIME: 2208-11-08 20:00:00
+Inputevents_cv.RATE: 7.10
+Inputevents_cv.RATEUOM: mg/dL
+D_items.LABEL: Blasts
+
+Example 2)
+Given data:
+Information:
+    - Patient Admission Date: 2187-08-03
+    - Note's Chartdate: 2187-08-13(same as discharge summary note's chartdate)
+Inputevents_cv.CHARTTIME: charttime
+Inputevents_cv.AMOUNT: 60.0
+Inputevents_cv.AMOUNTUOM: mL
+D_items.LABEL: GT Flush
+
+Output:
+Inputevents_cv.CHARTTIME: 2187-08-13
+Inputevents_cv.AMOUNT: 60.0
+Inputevents_cv.AMOUNTUOM: mL
+D_items.LABEL: GT Flush
+
+Your task:
+Given data:
+Information:
+    - Patient Admission Date: <<<<Admission>>>>
+    - Note's Chartdate: <<<<Charttime>>>> (same as discharge summary note's chartdate)
+<<<<GIVEN_DATA>>>>
+
+Tell me output:

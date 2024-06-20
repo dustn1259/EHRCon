@@ -1,0 +1,58 @@
+Task: You are provided with a Discharge summary and are required to analyze time information related to an entity mentioned within the note. 
+
+Example 1) Please answer three questions that focus on {{**chloride**}}.
+Discharge summary: 
+    - Date of Note: 2000-11-13
+    - Admission Date: 2000-11-11
+    - Content:"LABORATORY DATA:  On admission, white count 12.5, hematocrit
+33.8, platelet count 364,000, PT 12.5, PTT 29.7, INR 1.1,
+sodium 139, potassium 4.8, {{**chloride**}} 102, CO2 26, BUN 51"
+
+[Question 1] Based on the discharge summary provided, did the measurement for {{**chloride**}} occur during the current hospitalization period? Respond with 'Yes' if it did, or 'No' if it pertains to past medical history or conditions.
+[Answer 1] Yes, because the chloride level was measured after the patient was admitted.
+
+[Question 2] Extract and note the specific section from the discharge summary that mentions {{**chloride**}}, including any time expression associated with it. Ensure your transcription is accurate and does not infer or add details not present in the note.
+Format your response as follows:
+[Answer 2] 
+Note: "LABORATORY DATA:  On admission, ... {{**chloride**}} 102 ..."
+Time: "admission"
+
+[Question 3] Determine how the time of the {{**chloride**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this if the note mentions the event in a vague or general timeframe without specific dates or times (e.g., "during physical exam").
+2. Directly written in the format yyyy-mm-dd: Choose this for notes with specific dates or times in a clear, standardized format (e.g., '2000-11-11'). Remember, Only standardized format!!!!!
+3. Inferable Time stamp from Narrative: Choose this if the note uses terms like 'admission', 'yesterday', etc., from which the exact time of the event can be inferred based on context provided in the note.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] Inferable Time stamp from Narrative
+
+Example 2) Please answer three questions that focus on {{**temperature**}}.
+Discharge summary: 
+    - Date of Note: 1214-12-13 (Today)
+    - Admission Date: 1214-12-08
+    - Content: "Physicial Exam: Patient's {{**temperature**}} is 99.6, blood
+pressure 120/50, heart rate 57, 96% on room air.  He is alert
+and oriented times three, pupils are equal, round and
+reactive to light.  Tongue is midline."
+
+[Question 1] Based on the discharge summary provided, did the measurement for {{**temperature**}} occur during the current hospitalization period? Respond with 'Yes' if it did, or 'No' if it pertains to past medical history or conditions.
+[Answer 1] Yes
+
+[Question 2] Extract and note the specific section from the discharge summary that mentions {{**temperature**}}, including any time expression associated with it. Ensure your transcription is accurate and does not infer or add details not present in the note.
+Format your response as follows:
+[Answer 2] 
+Note: "Physicial Exam: Patient's {{**temperature**}} is 99.6,"
+Time: Not specified
+
+[Question 3] Determine how the time of the {{**temperature**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this if the note mentions the event in a vague or general timeframe without specific dates or times (e.g., "during physical exam").
+2. Directly written in the format yyyy-mm-dd: Choose this for notes with specific dates or times in a clear, standardized format (e.g., '2000-11-11'). Remember, Only standardized format!!!!!
+3. Inferable Time stamp from Narrative: Choose this if the note uses terms like 'admission', 'yesterday', etc., from which the exact time of the event can be inferred based on context provided in the note.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] Indeterminate Time stamp
+
+Let's solve three questions that focus on {{**<<<ENTITY>>>**}}.
+Discharge summary:
+    - Date of Note: <<<CHARTTIME>>> (Today)
+    - Admission Date: <<<ADMISSION>>>
+    - Content: "<<<CLINICAL_NOTE>>>"
+
+Let's solve step by step!

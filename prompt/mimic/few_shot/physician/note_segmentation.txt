@@ -1,0 +1,77 @@
+Task: Our task is to analyze a clinical note and divide it into three sections based on thematic or semantic coherence. Each section should center around a unique theme or idea, providing a cohesive view of the content. 
+
+Please follow these guidelines:
+Guidelines 1) Thematic or Semantic Unity: Group content based on clear thematic or semantic relationships, ensuring that each section covers a distinct aspect related to the overall topic. Everything within a section should be related and contribute to a unified understanding of that theme.
+Guidelines 2) Equal Length and Comprehensive Coverage: Strive for a balance in the length of each section, but also consider the depth and breadth of the content. The division should reflect an equitable distribution of information, without sacrificing the completeness of any thematic area. This balance is essential to ensure no single section is overwhelmingly long or short compared to the others.
+Guidelines 3) Integrity of Sections: Pay close attention to the natural divisions within the text, such as headings or topic changes. (e.g., "History of Present Illness," "Past Medical History," "Medications"). Ensure that these content blocks are not fragmented across sections. A section should encompass complete thoughts or topics to preserve the logical flow and coherence of information. 
+Guidelines 4) Completeness of Sentences: When dividing the note, ensure each section ends with complete sentences, preventing sentences from being split across sections.
+Guidelines 5) Output format must be [section1: (start_line_number-end_line_number), section2: (start_line_number-end_line_number), section3: (start_line_number-end_line_number)].
+Guidelines 6) Precise Output Format and Continuous Line Coverage: The start line number in section 1 should match the start number of the given text and the end line number in section 3 should match the last line number of the given text. Ensure sections are contiguous; the end of one section immediately precedes the start of the next, with no gaps or overlaps.
+
+To prevent sentences from being split between sections, carefully review the end of each proposed section. If a sentence starts in one section and continues into the next, adjust the section boundaries accordingly to ensure sentence integrity. This may require you to slightly rebalance the length of the sections to accommodate full sentences while still adhering to the guidelines for thematic unity, comprehensive coverage, and equal length.
+
+
+Example 1)
+Clinical note:
+"10. Chief Complaint:
+11. 24 Hour Events:
+12. Continued to be anuric.  Tolerated HD well.  Decision today by pt and
+13. wife to convert to [**Name (NI) 617**].
+14. History obtained from Patient
+15. Allergies:
+16. History obtained from PatientHeparin Agents
+17. Thrombocytopeni
+18. Last dose of Antibiotics:
+19. Piperacillin - [**2138-3-20**] 08:00 PM
+20. Piperacillin/Tazobactam (Zosyn) - [**2138-3-21**] 09:00 AM
+21. Metronidazole - [**2138-3-21**] 10:12 AM
+22. Infusions:
+23. Other ICU medications:
+24. Other medications:
+25. Changes to medical and family history:"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 10-14, section2: 15-21, section3: 22-25]
+
+Example 2)
+Clinical note:
+"0. Review of systems:
+1. Flowsheet Data as of  [**2138-3-21**] 02:56 PM
+2. Vital signs
+3. Hemodynamic monitoring
+4. luid balance
+5.                                                                   24 hours
+6.                                                                Since 12 AM
+7.    Tmax: 36.6
+8.C (97.9
+9.   Tcurrent: 36.1
+10.C (96.9
+11.   HR: 113 (103 - 115) bpm
+12.   BP: 106/58(71){91/45(58) - 106/67(76)} mmHg
+13.   RR: 23 (16 - 26) insp/min
+14.   SpO2: 100%
+15.   Heart rhythm: ST (Sinus Tachycardia)
+16.   Height: 72 Inch
+17.             Total In:
+18.                                                                    700 mL
+19.                                                                    569 mL
+20.   PO:
+21.                                                                    200 mL
+22.                                                                    220 mL
+23.   TF:
+24.  IVF:
+25.                                                                    500 mL
+26.                                                                    349 mL
+27.   Blood products:
+28.   Total out:
+30.                                                                     43 mL
+31.                                                                   163 mL"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 0-6, section2: 7-26, section3: 27-31]
+
+Your task:
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 

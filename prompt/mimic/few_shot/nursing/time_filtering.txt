@@ -1,0 +1,66 @@
+Task: You are provided with a nursing note and are required to analyze time information related to an entity mentioned within the note. 
+
+Example 1) Please answer three questions that focus on {{**Sats**}}.
+
+Nursing note:
+"Assessment:
+{{**Sats**}} 92 on 3L; no wheezing noted; LS clear but diminished in bases
+Action:
+Prednisone; vanc and zosyn for MRSA PNA; nebs.
+Response:
+Pt returned to baseline O2 requirements
+Plan:
+Continue to monitor and assess resp status
+.H/O diabetes Mellitus (DM), Type II"
+
+[Question 1] Based on the clinical note provided, determine whether the specified entity {{**Sats**}} occurred during the current hospitalization period. If so, respond with 'Yes'; otherwise, respond with 'No'. If {{**Lasix**}} written as plan, please answer 'No'.
+[Answer 1] Yes.
+
+[Question 2] When referring to the {{**Sats**}}, extract and write down the relevant information directly from the provided clinical note. Your response should strictly adhere to the content of the note, without adding any details or making assumptions. Focus on identifying and reporting the exact part of the note that mentions the {{**chloride**}} and its associated time expression.
+Provide your response in the following format:
+Note: Transcribe the specific section from the clinical note that refers to the {{**Sats**}}, including its time expression. It's crucial to copy the text exactly as it appears in the note. For example, if the note states 'on admission glucose was 20', write 'Note: on admission glucose was 20'.
+Time: When specifying the time expression related to the {{**Sats**}} as mentioned in the note, it's important to recognize that terms encompassing a wide range of tests and observations conducted by medical professionals to assess a patient's physical state, such as 'Physical Exam' or 'Pulse Exam', are not considered time expressions. In this section, only actual time-related expressions such as 'yesterday', 'admission', or specific dates should be used. For instance, in the provided example, your response would be 'Time: Admission'.
+[Answer 2]
+Note: Assessment: {{**Sats**}} 92 on 3L
+Time: Current hospitalization
+
+[Question 3] Determine how the time of the {{**Sats**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this option if the note describes the timing of the event in a vague or generalized manner, without providing specific dates or times.
+2. Directly written in the format yyyy-mm-dd: Choose this option if the note includes specific dates or times in a clear, standardized format. This includes notations such as '2000-11-11' for dates, or '2000-11-11 10:00:00' for date and time combinations. The format should follow a structured pattern like 'yyyy-mm-dd' for dates and 'yyyy-mm-dd HH:MM:SS' for date and time.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] Indeterminate Time stamp
+
+Example 1) Please answer three questions that focus on {{**Non-invasive BP**}}.
+
+Nursing note:
+"{{**Non-invasive BP**}}:
+S:155
+D:61
+Temperature:
+99.3
+Arterial BP:
+S:121
+D:65
+
+[Question 1] Based on the clinical note provided, determine whether the specified entity {{**Non-invasive BP**}} occurred during the current hospitalization period. If so, respond with 'Yes'; otherwise, respond with 'No'. If {{**Non-invasive BP**}} written as plan, please answer 'No'.
+[Answer 1] Yes. 
+
+[Question 2] When referring to the {{**Non-invasive BP**}}, extract and write down the relevant information directly from the provided clinical note. Your response should strictly adhere to the content of the note, without adding any details or making assumptions. Focus on identifying and reporting the exact part of the note that mentions the {{**chloride**}} and its associated time expression.
+Provide your response in the following format:
+Note: Transcribe the specific section from the clinical note that refers to the {{**Non-invasive BP**}}, including its time expression. It's crucial to copy the text exactly as it appears in the note. For example, if the note states 'on admission glucose was 20', write 'Note: on admission glucose was 20'.
+Time: When specifying the time expression related to the {{**Non-invasive BP**}} as mentioned in the note, it's important to recognize that terms encompassing a wide range of tests and observations conducted by medical professionals to assess a patient's physical state, such as 'Physical Exam' or 'Pulse Exam', are not considered time expressions. In this section, only actual time-related expressions such as 'yesterday', 'admission', or specific dates should be used. For instance, in the provided example, your response would be 'Time: Admission'.
+[Answer 2]
+Note: "{{**Non-invasive BP**}}: S:155, D:61
+Time: It may happen on the charttime, when the note was written.
+
+[Question 3] Determine how the time of the {{**Non-invasive BP**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this option if the note describes the timing of the event in a vague or generalized manner, without providing specific dates or times.
+2. Directly written in the format yyyy-mm-dd: Choose this option if the note includes specific dates or times in a clear, standardized format. This includes notations such as '2000-11-11' for dates, or '2000-11-11 10:00:00' for date and time combinations. The format should follow a structured pattern like 'yyyy-mm-dd' for dates and 'yyyy-mm-dd HH:MM:SS' for date and time.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] Indeterminate Time stamp
+
+Let's solve three questions that focus on {{**<<<ENTITY>>>**}}.
+Nursing note:
+"<<<CLINICAL_NOTE>>>"
+
+Let's solve step by step!

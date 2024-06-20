@@ -1,0 +1,39 @@
+Task: You are a highly intelligent and accurate sqlite3 creator. You take a [{tablename}.{columnname}={condition value}] and [given extra information and turn it into a [SQLite3 query].
+
+Do not infer or predict, only use the information provided.  
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Prescriptions.hadm_id = 12345
+Prescriptions.DRUG=Vancomycin
+Prescriptions.DOSE_VAL_RX=20
+Prescriptions.DOSE_UNIT_RX=mg
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['prescriptions.startdate', 'prescriptions.enddate'] and the period from one day before 2149-02-16 to one day after 2149-02-19. And maintain 'yyyy-mm-dd' format. 
+
+Output: [{'Q': "SELECT * FROM Prescriptions WHERE hadm_id = 12345 AND DRUG = 'Vancomycin' AND DOSE_VAL_RX = 20 AND DOSE_UNIT_RX = 'mg' AND ((strftime('%Y-%m-%d', '2153-02-15') BETWEEN startdate AND enddate) OR (strftime('%Y-%m-%d', '2149-02-20') BETWEEN startdate AND enddate) OR (startdate BETWEEN strftime('%Y-%m-%d', '2149-02-15') AND strftime('%Y-%m-%d', '2153-02-20')) OR (enddate BETWEEN strftime('%Y-%m-%d', '2149-02-15') AND strftime('%Y-%m-%d', '2149-02-20')))" }]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Prescriptions.hadm_id = 25455
+Prescriptions.DRUG=Aspirin
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['prescriptions.startdate', 'prescriptions.enddate'] and the period from one day before 2137-03-12 to one day after 2137-03-16. And maintain 'yyyy-mm-dd' format. 
+
+Output: [{'Q': "SELECT * FROM Prescriptions WHERE hadm_id = 25455 AND DRUG = 'Aspirin' AND ((strftime('%Y-%m-%d', '2137-03-11') BETWEEN startdate AND enddate) OR (strftime('%Y-%m-%d', '2137-03-17') BETWEEN startdate AND enddate) OR (startdate BETWEEN strftime('%Y-%m-%d', '2137-03-11') AND strftime('%Y-%m-%d', '2137-03-17')) OR (enddate BETWEEN strftime('%Y-%m-%d', '2137-03-11') AND strftime('%Y-%m-%d', '2137-03-17')))" }]
+
+Your task:
+[{table}.{column}={condition value}]
+Prescriptions.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['prescriptions.startdate', 'prescriptions.enddate'] and the period from one day before <<<ADMISSION>>> to one day after <<<CHARTTIME>>>. And maintain 'yyyy-mm-dd' format. 
+
+Write the query in [{'Q'}] form!

@@ -1,0 +1,179 @@
+Task: You will be given a passage of physician note along with several questions that relate to specific details within that physician note. Your job is to determine whether the physician note explicitly mentions the details asked in the questions. 
+For each question, your response should be divided into two parts:
+1. Evidence quote: Provide a direct quote or the exact sentences from the physician note that either confirm or refute the detail in question. Additionally, include a brief explanation of why this evidence supports your answer.
+2. Answer: Respond with "Yes" if the detail is explicitly mentioned in the physician note using the exact words or phrases from the question. If the clnical note does not contain the specific detail, respond with "No". These are the only acceptable response options.
+Please format your responses according to the structure demonstrated in the examples below.
+
+Guidelines to Follow:
+    1. Time Interpretation: Unless stated otherwise, assume that physician's notes or any medical observations were recorded at the specified chart time.
+    2. Accuracy of Time-Value: Only consider the number of hours and entity values as accurate if they are explicitly stated. If there is a discrepancy between the number of hours and entity values, regard the information as inaccurate.
+    3. Interpretation of Valuenum: If a value is given as a range (e.g., 33-36) rather than a specific number, it should be considered incorrect.
+
+Example 1: Please answer the questions focusing on the specified entity named "PTT".
+
+physician note:
+"[**2149-1-29**]  09:00 PM
+[**2149-1-29**]  09:15 PM
+[**2149-1-30**]  03:45 AM
+WBC
+21.5
+21.3
+Hct
+36.9
+32.9
+35.5
+Other labs: PT / {{**PTT**}} / INR:15.0/28.5/1.3, CK / CKMB /
+Troponin-T:822/11/0.03, ALT / AST:35/88, Alk Phos "
+
+Questions:
+[1] Is it directly mentioned that PTT's charttime is '[**2149-1-29**]  09:00 PM'?
+[2] Is it directly mentioned that PTT's valuenum is '28.5'?
+[3] Is it directly mentioned that PTT's valueuom is 'sec'?
+[4] Is it directly mentioned that PTT refers to PTT?
+
+Answers:
+[1] Is it directly mentioned that PTT's charttime is '[**2149-1-29**]  09:00 PM'?
+Evidence quote: [] 
+Answer: No. It is impossible to know exactly when Other lab occurred.
+[2] Is it directly mentioned that PTT's valuenum is '28.5'?
+Evidence quote: [Other labs: PT / {{**PTT**}} / INR:15.0/28.5/1.3] 
+Answer: Yes.
+[3] Is it directly mentioned that PTT's valueuom is 'sec'?
+Evidence quote: []
+Answer:  No. The physician note mentions "PT / {{**PTT**}} / INR:15.0/28.5/1.3" but does not specify the unit of measurement for the PTT value.
+[4] Is it directly mentioned that PTT refers to PTT?
+Evidence quote: [Other labs: PT / {{**PTT**}} / INR:15.0/28.5/1.3]  
+Answer: Yes
+
+Example 2: Please answer the questions focusing on the specified entity named "Hct".
+
+physician note:
+"[**2149-1-29**]  09:00 PM
+[**2149-1-29**]  09:15 PM
+[**2149-1-30**]  03:45 AM
+WBC
+21.5
+21.3
+{{**Hct**}}
+36.9
+32.9
+35.5"
+
+Questions:
+[1] Is it directly mentioned that Hct's charttime is '[**2149-1-29**]  09:15:00'?
+[2] Is it directly mentioned that Hct's valuenum is '32.9'?
+[3] Is it directly mentioned that Hct's valueuom is '%'?
+[4] Is it directly mentioned that Hct refers to Hct?
+
+Answers:
+[1] Is it directly mentioned that Hct's charttime is '[**2149-1-29**]  09:15:00'?
+Evidence quote: [[**2149-1-29**]  09:15 PM {{**Hct**}} 32.9]  
+Answer: Yes.
+[2] Is it directly mentioned that Hct's valuenum is '32.9'?
+Evidence quote: [[**2149-1-29**]  09:15 PM {{**Hct**}} 32.9]
+Answer: Yes.
+[3] Is it directly mentioned that Hct's valueuom is '%'?
+Evidence quote: [[**2149-1-29**]  09:15 PM {{**Hct**}} 32.9]
+Answer: No. The physician note mentions "[**2149-1-29**]  09:15 PM {{**Hct**}} 32.9" but does not specify the unit of measurement for the Hct value.
+[4] Is it directly mentioned that Hct refers to Hct?
+Evidence quote: [[**2149-1-29**]  09:15 PM {{**Hct**}} 32.9]
+Answer: Yes.
+
+Example 3: Please answer the questions focusing on the specified entity named "Ca++".
+
+physician note:
+"Other labs: PT / PTT / INR:15.0/28.5/1.3, CK / CKMB /
+Troponin-T:822/11/0.03, ALT / AST:35/88, Alk Phos / T Bili:108/2.2,
+Differential-Neuts:74.0 %, Band:21.0 %, Lymph:2.0 %, Mono:1.0 %,
+Eos:0.0 %, Lactic Acid:4.3 mmol/L, Albumin:3.2 g/dL, LDH:321 IU/L,
+{{**Ca++**}}:7.5 mg/dL, Mg++:1.3 mg/dL, PO4:2.9 mg/dL"
+
+Questions:
+[1] Is it directly mentioned that Ca++'s charttime is 'charttime'?
+[2] Is it directly mentioned that Ca++'s valuenum is '7.5'?
+[3] Is it directly mentioned that Ca++'s valueuom is 'mg/dL'?
+[4] Is it directly mentioned that Ca++ refers to Ca++ ?
+
+Answers:
+[1] Is it directly mentioned that Ca++'s charttime is 'charttime'?
+Evidence quote: ["Other labs:... {{**Ca++**}}:7.5 mg/dL... ]  
+Answer: Yes. According to Guideline 1 (Time Interpretation), we assume that Ca++ occurs at the charttime.
+[2] Is it directly mentioned that Ca++'s valuenum is '7.5'?
+Evidence quote: ["Other labs:... {{**Ca++**}}:7.5 mg/dL... ]  
+Answer: Yes. 
+[3] Is it directly mentioned that Ca++'s valueuom is 'mg/dL'?
+Evidence quote: ["Other labs:... {{**Ca++**}}:7.5 mg/dL... ]  
+Answer:  Yes.
+[4] Is it directly mentioned that Ca++ refers to Ca++ ?
+Evidence quote: ["Other labs:... {{**Ca++**}}:7.5 mg/dL... ]  
+Answer: Yes
+
+Example 4: Please answer the questions focusing on the specified entity named "vasopressin".
+
+physician note:
+"Multifactorial: RVR and inadequate filling times; likely infection and
+sepsis leading to probable low SVR and effective intravascular
+hypovolemia; sedation possibly contributing though not varying
+considerably w levels of alertness. Possible that cardiac ischemia
+could be contributor, not to atrial fibrillation per se but to poor
+output state. Lactate elevated: consistent with poor perfusion.
+neo for now; add {{**vasopressin**}}"
+
+Questions:
+[1] Is it directly mentioned that vasopressin's starttime is 'charttime'?
+[2] Is it directly mentioned that vasopressin refers to vasopressin?
+
+Answers:
+[1] Is it directly mentioned that vasopressin's starttime is 'charttime'?
+Evidence quote: [Lactate elevated: consistent with poor perfusion. neo for now; add {{**vasopressin**}}]  
+Answer: Yes. According to Guideline 1 (Time Interpretation), we assume that Ca++ occurs at the charttime.
+[2] Is it directly mentioned that vasopressin refers to vasopressin?
+Evidence quote: Evidence quote: [Lactate elevated: consistent with poor perfusion. neo for now; add {{**vasopressin**}}]  
+Answer: Yes
+
+Example 5: Please answer the questions focusing on the specified entity named "HR".
+
+Physician note:
+"  Other medications:
+    Flowsheet Data as of [**2133-11-11**] 10:23 AM
+Fluid balance
+24 hours
+Since 12 AM
+Tmax: 39.3
+C (102.8
+Tcurrent: 38.1
+C (100.6
+{{**HR**}}: 82 (81 - 163) bpm
+BP: 100/59(66) {70/31(31) - 118/83(86)} mmHg
+RR: 23 (10 - 34) insp/min
+SpO2: 94%"
+
+Questions:
+[1] Is it directly mentioned that HR's charttime is '[**2133-11-11**] 10:23 AM'?
+[2] Is it directly mentioned that HR's valuenum is '(81 - 163)'?
+[3] Is it directly mentioned that HR's valueuom is 'bpm'?
+[4] Is it directly mentioned that HR refers to HR?
+
+Answers:
+[1] Is it directly mentioned that HR's charttime is '[**2133-11-11**] 10:23 AM'?
+Evidence quote: No. [2133-11-11] 10:23 AM This date simply indicates the day on which the physician note was written.
+Answer: Yes. According to Guideline 1 (Time Interpretation), we assume that HR++ occurs at the charttime.
+[2] Is it directly mentioned that HR's valuenum is '(81 - 163)'?
+Evidence quote: []
+Answer: No. According to the Guideline 3 (Interpretation of Valuenum), if a value is given as a range, it should be considered incorrect.
+[3] Is it directly mentioned that HR's valueuom is 'bpm'?
+Evidence quote: [{{**HR**}}: 82 (81 - 163) bpm]  
+Answer:  Yes.
+[4] Is it directly mentioned that HR refers to HR?
+Evidence quote:[{{**HR**}}: 82 (81 - 163) bpm]  
+Answer: Yes.
+
+
+Your task: Please answer the questions focusing on the specified entity named "<<<ENTITY>>>". 
+Pyhsician note:
+"<<<<CLINICAL_NOTE>>>>"      
+
+Questions:
+<<<Questions>>>
+
+Answer the Questions:

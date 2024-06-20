@@ -1,0 +1,95 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, VALUENUM: valuenum, VALUEUOM: valueuom'
+
+Additional Requirement:
+1. For instances like 'BP 120/70', treat it as two separate mentions of the entity BP—once for the systolic measurement (120) and once for the diastolic measurement (70). Each measurement should be recorded individually in the VALUENUM column without combining them as '120/70'.
+2. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for VALUENUM, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. Charttime: Charttime records the time at which an observation occurred and is usually the closest proxy to the time the data was measured, such as admission time or a specific date like 2112-12-12.
+    - Datatype: <class 'datetime'>
+2. VALUENUM: This column contains the numerical value of the laboratory test result, offering a quantifiable measure of the test outcome. If this data is not numeric, Valuenum must be null.
+    - Datatype:  <class 'float'>
+3. VALUEUOM: Valueuom is the unit of measurement.
+    - Datatype: <class 'str'>
+
+Example 1: Analyze the nursing note to extract {{**Arterial BP**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Demographics
+S:155
+D:61
+Temperature:
+99.3
+{{**Arterial BP**}}:
+S:121
+D:65
+Respiratory rate:
+23 insp/min
+Heart Rate:
+69 bpm
+Heart rhythm:
+SR (Sinus Rhythm)
+O2 delivery device:
+None
+O2 saturation:
+95% %
+O2 flow:
+2 L/min"
+
+**Step 1) Identify and Extract Information about '{{**Arterial BP**}}' in the given text.**
+[Answer in step 1]: Demographics  {{**Arterial BP**}}: S:121 D:65
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Arterial BP**}}' occurs.**
+[Answer in step 2]: The "{{Arterial BP}}" data from the nursing note is associated with real-time observations made at the time of charting. Therefore, the appropriate CHARTTIME is 'charttime = charttime'.
+
+**Step 3) Fill the table with information Directly Related to '{{**Arterial BP**}}' in the given text.**
+Based on the mentions of '{{**Arterial BP**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The systolic value was 155, and the diastolic value was 61. As referenced in Step 2, the charttime for Arterial BP is at charttime.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Arterial BP**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**blood pressure**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, VALUENUM: 155, VALUEUOM: NaN"
+- "Mentioned [2]. CHARTTIME: charttime, VALUENUM: 61, VALUEUOM: NaN"
+
+Example 2: Analyze the nursing note to extract {{**O2 sats**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Assessment:
+Breath sounds dim throughout, pt on home levels of O2 4L NC, {{**O2 sats**}}
+96, declined bipap overnight d/t frequent turning for incontinence
+Action:
+Maintaining on home levels of O2, offered bipap overnight, continuous
+O2 sat monitoring at this time, adm medications as ordered
+Response:
+Maintaining sats as noted above, COPD stable
+Plan:
+Continue on home O2 at this time, bipap on nights, meds as ordered
+Demographics"
+
+**Step 1) Identify and Extract Information about '{{**O2 sats**}}' in the given text.
+[Answer in step 1]: Breath sounds dim throughout, pt on home levels of O2 4L NC, {{**O2 sats**}} 96
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**O2 sats**}}' occurs.**
+[Answer in step 2]: The "O2 sats" data from the nursing note is associated with real-time observations made at the time of charting. Therefore, the appropriate CHARTTIME is 'charttime = charttime'.
+
+**Step 3) Fill the table with information Directly Related to '{{**O2 sats**}}' in the given text.**
+Based on the mentions of '{{**O2 sats**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The information directly related to "{{O2 sats}}" is that the patient's oxygen saturation level was 92. As referenced in Step 2, the charttime for Sats is at charttime. However, since explicit VALUEUOM is not mentioned in the clinical note, valueuom would be recorded as 'NaN'.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**O2 sats**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**O2 sats**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, VALUENUM: 92, VALUEUOM: %"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Nursing note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

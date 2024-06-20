@@ -1,0 +1,66 @@
+Task: Your task is to analyze a clinical note and divide it into three sections based on thematic or semantic coherence. Each section should center around a unique theme or idea, providing a cohesive view of the content. 
+
+Please follow these guidelines:
+Guidelines 1) Thematic or Semantic Unity: Group content based on clear thematic or semantic relationships, ensuring that each section covers a distinct aspect related to the overall topic. Everything within a section should be related and contribute to a unified understanding of that theme.
+Guidelines 2) Equal Length and Comprehensive Coverage: Strive for a balance in the length of each section, but also consider the depth and breadth of the content. The division should reflect an equitable distribution of information, without sacrificing the completeness of any thematic area. This balance is essential to ensure no single section is overwhelmingly long or short compared to the others.
+Guidelines 3) Integrity of Sections: Pay close attention to the natural divisions within the text, such as headings or topic changes. (e.g., "History of Present Illness," "Past Medical History," "Medications"). Ensure that these content blocks are not fragmented across sections. A section should encompass complete thoughts or topics to preserve the logical flow and coherence of information. 
+Guidelines 4) Completeness of Sentences: When dividing the note, ensure each section ends with complete sentences, preventing sentences from being split across sections.
+Guidelines 5) Output format must be [section1: (start_line_number-end_line_number), section2: (start_line_number-end_line_number), section3: (start_line_number-end_line_number)].
+Guidelines 6) Precise Output Format and Continuous Line Coverage: The start line number in section 1 should match the start number of the given text and the end line number in section 3 should match the last line number of the given text. Ensure sections are contiguous; the end of one section immediately precedes the start of the next, with no gaps or overlaps.
+
+To prevent sentences from being split between sections, carefully review the end of each proposed section. If a sentence starts in one section and continues into the next, adjust the section boundaries accordingly to ensure sentence integrity. This may require you to slightly rebalance the length of the sections to accommodate full sentences while still adhering to the guidelines for thematic unity, comprehensive coverage, and equal length.
+
+Example 1)
+Clinical note:
+"0 Admission Date:  [**2118-6-2**]       Discharge Date:  [**2118-6-14**]
+1 
+2 Date of Birth:                    Sex:  F
+3 
+4 Service:  MICU and then to [**Doctor Last Name **] Medicine
+5 
+6 HISTORY OF PRESENT ILLNESS:  This is an 81-year-old female
+7 with a history of emphysema (not on home O2), who presents
+8 with three days of shortness of breath thought by her primary
+9 care doctor to be a COPD flare.  Two days prior to admission,
+10
+11 MEDICATIONS ON ADMISSION:
+12 1. Hydrochlorothiazide 25 q.d.
+13 2. Prednisone 60 mg, 50 mg, 40 mg, 20 mg.
+14 3. Levofloxacin 500 mg q.d.
+15 4. Imdur 60 mg q.d.
+16 5. Synthroid 75 mcg q.d.
+17 6. Pulmicort nebulizer b.i.d.
+18 7. Albuterol nebulizer q.4. prn.
+19 8. Lexapro 10 mg q.d.
+20 9. Protonix 40 mg q.d.
+21 10. Aspirin 81 mg q.d.
+22 
+23  She has no known alcohol use and she is a full code.
+24 "
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 0-9, section2: 10-21, section3: 22-24]
+
+Example 2)
+Clinical note:
+"6 RADIOLOGIC STUDIES:  Radiologic studies also included a chest
+7 CT, which confirmed cavitary lesions in the left lung apex
+8 consistent with infectious process/tuberculosis.  This also
+9 moderate-sized left pleural effusion.
+10 
+11 HEAD CT:  Head CT showed no intracranial hemorrhage or mass
+12 effect, but old infarction consistent with past medical
+13 history.
+14 
+15 ABDOMINAL CT:  Abdominal CT showed lesions of
+16 T10 and sacrum most likely secondary to osteoporosis. These can
+17 be followed by repeat imaging as an outpatient."
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 6-10 section2: 11-14, section3: 15-17]
+
+Your task:
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 

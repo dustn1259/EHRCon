@@ -1,0 +1,74 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, ORG_NAME: org_name, SPEC_TYPE_DESC: spec_type_desc'
+
+Column Descriptions and Schema Information:
+1. Charttime: The Charttime column records the timestamp when the microbiological culture result was documented or charted.
+    - Datatype: <class 'datetime'>
+2. ORG_NAME: The Org_name column identifies the name of the organism (such as a bacterium or fungus) that was detected in a microbiological culture.
+    - Datatype:  <class 'str'>
+3. SPEC_TYPE_DESC: The Spec_type_desc column describes the type of specimen (such as blood, urine, or tissue) from which the microbiological culture was obtained.
+    - Datatype:  <class 'str'>
+
+Example 1: Analyze the nursing note to extract {{**Pseudomonas**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Assessment:
+The patient's sputum
+grew Serratia and {{**Pseudomonas**}} sensitive to meropenem and
+tobramycin respectively.
+Action:
+Start ABX therapy. Use MER for Serratia and TOB for Pseudomonas. 
+Monitor pt's vitals and provide supportive care as needed.
+Response:
+Closely monitor pt's response to ABX, including symptoms
+, temp, resp status. Watch for ABX adverse effects; adjust tx if needed.
+Plan:
+Reassess pt in 48-72 hrs. If improved, continue current regimen. 
+If no improvement or worsening, consider alt ABX or further diagnostics. Arrange follow-up for infection resolution monitoring."
+
+**Step 1) Identify and Extract Information about '{{**Pseudomonas**}}' in the given text.
+[Answer in step 1]: The patient's sputum grew Serratia and {{**Pseudomonas**}} sensitive to meropenem and tobramycin respectively.
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Pseudomonas**}}' occurs.**
+[Answer in step 2]: Since the mention of Pseudomonas is related to the patient's current infection status and the microbiological test results, which are typically part of the real-time events around the documentation period, the most appropriate choice for CHARTTIME in this context is charttime = 'charttime'. This indicates that the information is directly related to the real-time events occurring around the documentation period.
+
+**Step 3) Fill the table with information Directly Related to '{{**Pseudomonas**}}' in the given text.**
+Based on the mentions of '{{**Pseudomonas**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, ORG_NAME, SPEC_TYPE_DESC. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Considering the response from Step 2, the 'charttime' value would be 'charttime'. According to the clinical note, 'ORG_NAME' should be 'Pseudomonas,' and 'SPEC_TYPE_DESC' should be 'sputum'.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Pseudomonas**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Pseudomonas**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, ORG_NAME: Pseudomonas, SPEC_TYPE_DESC: sputum"
+
+Example 2: Analyze the nursing note to extract {{**ESCHERICHIA COLI**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Action: Fluid Culture: {{**ESCHERICHIA COLI**}}. Resistant to all organisms except E Coli
+plan: Ciprofloxacin , Ceftazidime  will be treated"
+
+**Step 1) Identify and Extract Information about '{{**ESCHERICHIA COLI**}}' in the given text.
+[Answer in step 1]: Fluid Culture: {{ESCHERICHIA COLI}}. Resistant to all organisms except E Coli
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**ESCHERICHIA COLI**}}' occurs.**
+[Answer in step 2]: Since the mention of ESCHERICHIA COLI is related to the patient's current infection status and the microbiological test results, which are typically part of the real-time events around the documentation period, the most appropriate choice for CHARTTIME in this context is charttime = 'charttime'. This indicates that the information is directly related to the real-time events occurring around the documentation period.
+
+**Step 3) Fill the table with information Directly Related to '{{**ESCHERICHIA COLI**}}' in the given text.**
+Based on the mentions of '{{**STAPH AUREUS COAG +**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, ORG_NAME, SPEC_TYPE_DESC. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: According to the answer from step 2, charttime for ESCHERICHIA COLI is charttime. And spec_type_desc would be ESCHERICHIA COLI.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**ESCHERICHIA COLI**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**ESCHERICHIA COLI**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, ORG_NAME: org_name, SPEC_TYPE_DESC: spec_type_desc"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Nursing note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

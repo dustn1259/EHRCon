@@ -1,0 +1,74 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, VALUENUM: valuenum, VALUEUOM: valueuom'
+
+Additional Requirement:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for VALUENUM, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. Charttime: Charttime records the timestamp when an output event, such as urine output or drainage, was documented.
+    - Datatype: <class 'datetime'>
+2. VALUENUM: Valuenum contains the numeric value representing the quantity of output, such as the volume of urine or other fluids, recorded as a floating-point number.
+    - Datatype:  <class 'float'>
+3. VALUEUOM: Valueuom specifies the unit of measurement for the numeric value recorded in the Valuenum column, such as milliliters (mL).
+    - Datatype:  <class 'str'>
+
+Example 1: Analyze the clinical note to extract {{**hematocrit**}} data and document the findings in the EHR table. When Extract data, do not make assumptions or infer details not directly stated in the clinical note, even if this is common knowledge.
+
+Clinical note:
+"LABORATORY DATA:  On admission, white count 12.5, {{**hematocrit**}}
+33.8, platelet count 364,000, PT 12.5, PTT 29.7, INR 1.1,
+sodium 139, potassium 4.8, chloride 102, CO2 26, BUN 51,
+creatinine 2.1, glucose 166, hemoglobin A1C of 7.2.  Wound
+cultures of his ankle wound showed pseudomonas which was
+pansensitive and staph coag positive which was resistant only
+to Penicillin."
+
+**Step 1) Identify and Extract Information about '{{**hematocrit**}}' in the given text.
+[Answer in step 1]: LABORATORY DATA:  On admission, white count 12.5, {{**hematocrit**}} 33.8
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**hematocrit**}}' occurs.**
+[Answer in step 2]: The hematocrit test is performed on the admission date. 
+
+**Step 3) Fill the table with information Directly Related to '{{**hematocrit**}}' in the given text.**
+Based on the mentions of '{{**hematocrit**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The hematocrit test, performed on the admission date, has a charttime corresponding to the admission. The VALUENUM for hematocrit is 33.8.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**hematocrit**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**hematocrit**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: admission, VALUENUM: 33.8, VALUEUOM: NaN"
+
+Example 2: Analyze the clinical note to extract {{**Platelet count**}} data and document the findings in the EHR table. When Extract data, do not make assumptions or infer details not directly stated in the clinical note, even if this is common knowledge.
+
+Clinical note:
+"6.  Infectious Disease:  On [**2149-01-09**], baby had a culture and
+a CBC sent because of prematurity and had a white count of 13
+with 27 polys, 0 bands.  {{**Platelet count**}} 341,000 with 29
+nucleated red blood cells.  She was started on Ampicillin and
+Gentamycin for 48 hours"
+
+**Step 1) Identify and Extract Information about '{{**Platelet count**}}' in the given text.
+[Answer in step 1]: On [**2149-01-09**], baby had a culture and a CBC sent because of prematurity and had a white count of 13 with 27 polys, 0 bands.  {{**Platelet count**}} 341,000
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Platelet count**}}' occurs.**
+[Answer in step 2]: The Platelet count test is performed on [**2149-01-09**].
+
+**Step 3) Fill the table with information Directly Related to '{{**Platelet count**}}' in the given text.**
+Based on the mentions of '{{**Platelet count**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The Platelet count test, performed on [**2149-01-09**], has a charttime corresponding to [**2149-01-09**]. The VALUENUM for Platelet count is 341,000.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Platelet count**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Platelet count**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: [**2149-01-09**], VALUENUM: 341,000, VALUEUOM: NaN"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

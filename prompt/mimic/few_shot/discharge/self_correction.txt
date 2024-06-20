@@ -1,0 +1,164 @@
+Task: You will be given a passage of clinical note along with several questions that relate to specific details within that clinical note. Your job is to determine whether the clinical note explicitly mentions the details asked in the questions. 
+
+For each question, your response should be divided into two parts:
+1. Evidence quote: Provide a direct quote or the exact sentences from the clinical note that either confirm or refute the detail in question. Additionally, include a brief explanation of why this evidence supports your answer.
+2. Answer: Respond with "Yes" if the detail is explicitly mentioned in the clinical note using the exact words or phrases from the question. If the clnical note does not contain the specific detail, respond with "No". These are the only acceptable response options.
+Please format your responses according to the structure demonstrated in the examples below.
+
+Example 1: Please answer the questions focusing on the specified entity named "Hgb".
+
+Clinical note:
+"The patient admitted on 2196-2-18 and this note charted on 2196-2-21.
+Pertinent Results:
+[**2196-2-20**] 09:25AM BLOOD WBC-8.8 RBC-4.04* {{**Hgb**}}-11.9* Hct-35.5*
+MCV-88 MCH-29.4 MCHC-33.5 RDW-13.4 Plt Ct-313"
+
+Questions:
+[1] Is it directly mentioned that Hgb's charttime is '2196-02-20 09:25:00'?
+[2] Is it directly mentioned that Hgb's valuenum is '11.9'?
+[3] Is it directly mentioned that Hgb's valueuom is 'g/dL'?
+[4] Is it directly mentioned that Hgb refers to White blood cells?
+[5] Is it directly mentioned that WBC's fluid is 'Blood'?
+
+Answers:
+[1] Is it directly mentioned that Hgb's charttime is '2196-02-20 09:25:00'?
+Evidence quote: "[[**2196-2-20**] 09:25AM BLOOD WBC-8.8 RBC-4.04* {{**Hgb**}}-11.9* Hct-35.5*]"
+Answer: Yes. The clinical note explicitly mentions the date and time as "2196-2-20" and "09:25AM" in relation to the Hgb measurement, indicating the charttime for the Hgb value.
+[2] Is it directly mentioned that Hgb's valuenum is '11.9'?
+Evidence quote: "[[**2196-2-20**] 09:25AM BLOOD WBC-8.8 RBC-4.04* {{**Hgb**}}-11.9* Hct-35.5*]"
+Answer: Yes. The note explicitly states the Hgb value as '11.9', directly mentioning the numerical value associated with the Hgb measurement.
+[3] Is it directly mentioned that Hgb's valueuom is 'g/dL'?
+Evidence quote: "[]"
+Answer:  No. The clinical note mentions "BLOOD {{Hgb}}-11.9" but does not specify the unit of measurement for the Hgb value.
+[4] Is it directly mentioned that Hgb refers to White blood cells?
+Evidence quote: "[]"
+Answer: No. The clinical note states "BLOOD {{WBC}}-8.8" but does not expand the acronym WBC to explicitly say "White blood cells".
+[5] Is it directly mentioned that WBC's fluid is 'Blood'?
+Evidence quote: "[[**2196-2-20**] 09:25AM BLOOD {{**WBC**}}-8.8]"
+Answer: Yes. The note explicitly mentions the measurement of WBC within the context of a blood test, indicated by the word "BLOOD" preceding the WBC measurement.
+
+
+Example 2: Please answer the questions focusing on the specified entity named "blood pressure".
+
+Clinical note: 
+"The patient admitted on 2117-11-13 and this note charted on 2117-11-15.
+PHYSICAL EXAMINATION:  Patient's temperature is 99.6, {{**blood
+pressure**}} 120/50, heart rate 57, 96% on room air."
+
+Questions:
+[1] Is it directly mentioned that blood pressure's charttime is 'admission'?
+[2] Is it directly mentioned that blood pressure's valuenum is '50'?
+[3] Is it directly mentioned that blood pressure's valueuom is 'mmHg'?
+[4] Is it directly mentioned that blood pressure refers to blood pressure?
+
+Answers:
+[1] Is it directly mentioned that blood pressure's charttime is 'admission'?
+Evidence quote: "[]"
+Answer: No. It does not explicitly link the blood pressure measurement to the admission date or state that the blood pressure's charttime is at admission.
+[2] Is it directly mentioned that blood pressure's valuenum is '50'?
+Evidence quote: "[Patient's temperature is 99.6, {{**blood pressure**}} 120/50]"
+Answer: Yes. The quote directly mentions the blood pressure reading as 120/50, indicating that part of the blood pressure value (diastolic pressure) is '50'.
+[3] Is it directly mentioned that blood pressure's valueuom is 'mmHg'?
+Evidence quote: "[]"
+Answer: No. The clinical note mentions "blood pressure 120/50" but does not specify the unit of measurement for the blood pressure values.
+[4] Is it directly mentioned that blood pressure refers to blood pressure?
+Evidence quote: "[Patient's temperature is 99.6, {{**blood pressure**}} 120/50]"
+Answer: Yes. The term "blood pressure" is explicitly mentioned in the context of providing a specific measurement (120/50), directly referring to blood pressure itself.
+
+Example 3: Please answer the questions focusing on the specified entity named "urine out Foley".
+
+Clinical note: 
+"The patient admitted on 2196-10-12 and this note charted on 2196-10-17.
+Brief Hospital Course:
+Mr [**Known lastname **] is a 64yo M who presented with a pituitary tumor. He
+was admitted to neurosurgery on [**2196-10-12**] and underwent
+trans-sphenoidal pituitary tumor resection. He tolerated the
+procedure well and went to the floor post-operatively. A few days later, 
+he was also placed on 200.0	ml{{**urine out Foley**}} for urinary management."
+
+Questions:
+[1] Is it directly mentioned that urine out Foley's charttime is '[2196-10-12]'?
+[2] Is it directly mentioned that urine out Foley's valuenum is '200.0'?
+[3] Is it directly mentioned that urine out Foley's valueuom is 'ml'?
+[4] Is it directly mentioned that urine out Foley refers to urine out Foley?
+
+Answers:
+[1] Is it directly mentioned that urine out Foley's charttime is '[2196-10-12]'?
+Evidence quote: "[He was admitted to neurosurgery on [**2196-10-12**], ... A few days later, he was also placed on 200.0 ml{{**urine out Foley**}} for urinary management.]"
+Answer: No. Clinical note does not provide a specific charttime for the urine out Foley event, only indicating it occurred "a few days later" after the admission.
+[2] Is it directly mentioned that urine out Foley's valuenum is '200.0'?
+Evidence quote: "[he was also placed on 200.0 ml{{**urine out Foley**}} for urinary management.]"
+Answer: Yes. The measurement of 200.0 is explicitly associated with "urine out Foley"
+[3] Is it directly mentioned that urine out Foley's valueuom is 'ml'?
+Evidence quote: "[he was also placed on 200.0 ml{{**urine out Foley**}} for urinary management.]"
+Answer:  Yes. The clinical note directly mentions "200.0 ml" in relation to "urine out Foley," indicating that the unit of measurement for the urine output is milliliters (ml).
+[4] Is it directly mentioned that urine out Foley refers to urine out Foley?
+Evidence quote: "[he was also placed on 200.0 ml{{**urine out Foley**}} for urinary management.]"
+Answer: Yes. The phrase "urine out Foley" explicitly refers to itself in the context of urinary management, indicating the measurement of urine output through a Foley catheter.
+
+Example 4: Please answer the questions focusing on the specified entity named "Acetaminophen".
+
+Clinical note:
+"The patient admitted on 2198-04-23 and this note charted on 2198-04-25.
+DISCHARGE MEDICATIONS:
+1. T4 100 mcg p.o. q.d.
+2. Toprol XL 50 mg p.o. 7 days
+3. {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)
+4. She was told to hold her hydrochlorothiazide.
+5. Effexor 75 mg p.o. q.d.
+
+Questions:
+[1] Is it directly mentioned that Acetaminophen's starttime is 'discharge'?
+[2] Is it directly mentioned that Acetaminophen's dose_val_rx is '650'?
+[3] Is it directly mentioned that Acetaminophen's dose_unit_rx is 'mg'?
+[4] Is it directly mentioned that Acetaminophen refers to Acetaminophen?
+
+Answers:
+[1] Is it directly mentioned that Acetaminophen's starttime is 'discharge'?
+Evidence quote: "[Discharge Medications: ...2. {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)]"
+Answer:Yes. The clnical note lists Acetaminophen under "Discharge Medications".
+[2] Is it directly mentioned that Acetaminophen's dose_val_rx is '650'?
+Evidence quote: "[Discharge Medications: ...2. {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)]"
+Answer: Yes. The clinical note explicitly mentions the dose_val_rx of Acetaminophen as 325 mg Tablet Sig: Two.
+[3] Is it directly mentioned that Acetaminophen's dose_unit_rx is 'mg'?
+Evidence quote: "[Discharge Medications: ...2. {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)]"
+Answer:  Yes. The clinical note explicitly states the unit for Acetaminophen as "mg'.
+[4] Is it directly mentioned that Acetaminophen refers to Acetaminophen?
+Evidence quote: "[Discharge Medications: ...2. {{**Acetaminophen**}} 325 mg Tablet Sig: Two (2) Tablet PO Q6H (every 6 hours)]"
+Answer: Yes. The name "Acetaminophen" itself includes the word "Acetaminophen".
+
+Example 5: Please answer the questions focusing on the specified entity named "Lasix".
+Clinical note: 
+"The patient admitted on 2147-02-23 and this note charted on 2147-03-21.
+MEDICATIONS:  On admission include {{**Lasix**}} 20 mg po q d."
+
+Questions:
+[1] Is it directly mentioned that Lasix's startdate is 'admission'?
+[2] Is it directly mentioned that Lasix's dose_val_rx is '20'?
+[3] Is it directly mentioned that Lasix's dose_unit_rx is 'mg'?
+[4] Is it directly mentioned that Lasix refers to Furosemide?
+
+Answers:
+[1] Is it directly mentioned that Lasix's startdate is 'admission'?
+Evidence quote: "[On admission include {{**Lasix**}} 20 mg po q d.]"
+Answer: Yes. The clinical note explicitly states that Lasix was included in the medications "On admission".
+[2] Is it directly mentioned that Lasix's dose_val_rx is '20'?
+Evidence quote: "[On admission include {{**Lasix**}} 20 mg po q d.]"
+Answer: Yes. The clinical note directly mentions the dose of Lasix as "20 mg". 
+[3] Is it directly mentioned that Lasix's dose_unit_rx is 'mg'?
+Evidence quote: "[On admission include {{**Lasix**}} 20 mg po q d.]"
+Answer:  Yes. The clinical note explicitly states the dosage unit for Lasix as "mg"
+[4] Is it directly mentioned that Lasix refers to Furosemide?
+Evidence quote: "[On admission include {{**Lasix**}} 20 mg po q d.]"
+Answer: No. The clinical note states "{{Lasix}} 20 mg po q d" but does not provide any information linking Lasix directly to Furosemide by name.
+
+Your task: Please answer the questions focusing on the specified entity named "<<<ENTITY>>>". 
+Clinical note:
+"The patient admitted on <<<Admission>>> and this note charted on <<<Charttime>>>.
+<<<<CLINICAL_NOTE>>>>"      
+
+Questions:
+Please maintain the output format.
+<<<Questions>>>
+
+Answer the Questions:

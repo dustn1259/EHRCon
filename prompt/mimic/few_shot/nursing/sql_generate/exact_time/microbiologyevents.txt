@@ -1,0 +1,64 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = 10304
+Microbiologyevents.charttime = 2149-02-16
+Microbiologyevents.spec_type_desc: sputum
+Microbiologyevents.org_name = Pseudomonas
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 10304 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) = '2149-02-16' AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas'"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = 20202
+Microbiologyevents.charttime = 2121-07-03
+Microbiologyevents.org_name= ESCHERICHIA COLI
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 20202 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) = '2121-07-03' AND Microbiologyevents.org_name = 'ESCHERICHIA COLI'"}]
+
+Example 3) 
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = 55552
+Microbiologyevents.charttime = 2818-11-11 15:11:14
+Microbiologyevents.org_name= Staphylococcus 
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 55552 AND strftime('%Y-%m-%d %H:%M:%S', Microbiologyevents.charttime) = '2818-11-11 15:11:14' AND Microbiologyevents.org_name = 'Staphylococcus'"}] 
+
+Example 4) 
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = 5555
+Microbiologyevents.charttime = 2122-06-11 15:30:11
+Microbiologyevents.spec_type_desc: blood
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 5555 AND strftime('%Y-%m-%d %H:%M:%S', Microbiologyevents.charttime) = '2122-06-11 15:30:11' AND Microbiologyevents.spec_type_desc= 'sputum'"}] 
+
+Your task:
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

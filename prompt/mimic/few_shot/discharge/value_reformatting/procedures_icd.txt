@@ -1,0 +1,40 @@
+Task: Transform Given Data to Match a Database Table Format. Your goal is to modify a set of given data so that it matches the format of an existing database table. The data transformation should adhere to any constraints evident from the table's structure. Focus solely on the fields provided in the given data and do not add or infer any additional fields.
+** Only transform and include the fields mentioned in the given data. Do not add, create, or infer any additional fields beyond what is specified (e.g., do not include fields like 'CHARTTIME' if they are not in the given data)**
+
+Table Information:
+1. Existing Table Schema: {'D_ICD_PROCEDURES': {'SHORT_TITLE': <class 'str'>, 'LONG_TITLE': <class 'str'>}}
+    [Example row of Chartevents and D_items tables]
+    - D_icd_procedures.SHORT_TITLE: bronchoscopy
+    - D_icd_procedures.LONG_TITLE: bronchoscopy
+
+Example 1)
+Given data:
+Information:
+    - Patient Admission Date: 2208-11-01
+    - Note's Chartdate: 2208-11-09 (same as discharge summary note's chartdate)
+D_icd_procedures.SHORT_TITLE: arterial line placement
+D_icd_procedures.LONG_TITLE: arterial line placement
+
+Output:
+D_icd_procedures.SHORT_TITLE: arterial line placement
+D_icd_procedures.LONG_TITLE: arterial line placement
+
+Example 2)
+Information:
+    - Patient Admission Date: 2134-01-03
+    - PNote's Chartdate: 2208-11-09 (same as discharge summary note's chartdate)
+D_icd_procedures.SHORT_TITLE: PICC line placement
+D_icd_procedures.LONG_TITLE: PICC line placement
+
+Output:
+D_icd_procedures.SHORT_TITLE: PICC line placement
+D_icd_procedures.LONG_TITLE: PICC line placement
+
+Your task:
+Given data:
+Information:
+    - Patient Admission Date: <<<<Admission>>>>
+    - Note's Chartdate: <<<<Charttime>>>> (same as discharge summary note's chartdate)
+<<<<GIVEN_DATA>>>>
+
+Tell me output:

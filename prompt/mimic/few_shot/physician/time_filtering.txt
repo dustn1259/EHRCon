@@ -1,0 +1,85 @@
+Task: You are provided with a Physician note and are required to analyze time information related to an entity mentioned within the note. 
+
+Example 1) Please answer three questions that focus on {{**HR**}}.
+Physician note:
+"Flowsheet Data as of  [**2144-05-21**] 08:42 AM
+Vital signs
+Hemodynamic monitoring
+Fluid balance
+         24 hours
+           Since 12 AM
+Tmax: 37.5 (36-38)
+C (99.5
+T current: 37
+C (98.6
+{{**HR**}}: 65 (58 - 82) bpm
+BP: 125/72(85) {103/55(67) - 125/82(91)} mmHg
+RR: 14 (10 - 22) insp/min
+SPO2: 100%
+Heart rhythm: SR (Sinus Rhythm)
+Total In:
+6,460 mL"
+
+
+[Question 1] Based on the physician note provided, determine whether the specified entity {{**HR**}} occurred during the current hospitalization period. If so, respond with 'Yes'.
+[Answer 1] Yes.
+
+[Question 2] When referring to the {{**HR**}}, extract and write down the relevant information directly from the provided physician note. Your response should strictly adhere to the content of the note, without adding any details or making assumptions. Focus on identifying and reporting the exact part of the note that mentions the {{**chloride**}} and its associated time expression.
+Provide your response in the following format:
+Note: Transcribe the specific section from the physician note that refers to the {{**HR**}}, including its time expression. It's crucial to copy the text exactly as it appears in the note. For example, if the note states 'on admission glucose was 20', write 'Note: on admission glucose was 20'.
+Time: When specifying the time expression related to the {{**HR**}} as mentioned in the note, it's important to recognize that terms encompassing a wide range of tests and observations conducted by medical professionals to assess a patient's physical state, such as 'Physical Exam' or 'Pulse Exam', are not considered time expressions. In this section, only actual time-related expressions such as 'yesterday', 'admission', or specific dates should be used. For instance, in the provided example, your response would be 'Time: Admission'.
+[Answer 2]
+Note: Assessment: {{**HR**}}: 65 (58 - 82) bpm
+Time: During current hospitalization
+
+[Question 3] Determine how the time of the {{**HR**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this option if the note describes the timing of the event in a vague or generalized manner, without providing specific dates or times.
+2. Directly written in the format yyyy-mm-dd: Choose this option if the note includes specific dates or times in a clear, standardized format. This includes notations such as '2000-11-11' for dates, or '2000-11-11 10:00:00' for date and time combinations. The format should follow a structured pattern like 'yyyy-mm-dd' for dates and 'yyyy-mm-dd HH:MM:SS' for date and time.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] Indeterminate Time stamp
+
+Example 1) Please answer three questions that focus on {{**Lipase**}}.
+Physician note:
+"[**2127-10-21**]  01:55 PM
+[**2127-10-21**]  05:21 PM
+WBC
+8.5
+3.6
+Hct
+36.9
+32.9
+35.5
+Plt
+234
+163
+Cr
+2.2
+3.7
+Other labs: PT / PTT / INR:14.8/29.2/1.3, CK / CK-MB / Troponin
+T:317/14/0.47, ALT / AST:38/76, Alk-Phos / T bili:41/1.7, Amylase /
+{{**Lipase**}}:35/30, Differential-Neuts:89.0 %, Band:2.0 %, Lymph:4.0 %,
+Mono:2.0 %, Eos:0.0 %, Fibrinogen:458 mg/dL, Albumin:3.2 g/dL, LDH:285
+IU/L, Ca:7.6 mg/dL, Mg:2.8 mg/dL, PO4:1.3 mg/dL"
+
+[Question 1] Based on the physician note provided, determine whether the specified entity {{**Lipase**}} occurred during the current hospitalization period. If so, respond with 'Yes'.
+[Answer 1] Yes. It may occur during the current hospitalization period.
+
+[Question 2] When referring to the {{**Lipase**}}, extract and write down the relevant information directly from the provided physician note. Your response should strictly adhere to the content of the note, without adding any details or making assumptions. Focus on identifying and reporting the exact part of the note that mentions the {{**chloride**}} and its associated time expression.
+Provide your response in the following format:
+Note: Transcribe the specific section from the physician note that refers to the {{**Lipase**}}, including its time expression. It's crucial to copy the text exactly as it appears in the note. For example, if the note states 'on admission glucose was 20', write 'Note: on admission glucose was 20'.
+Time: When specifying the time expression related to the {{**Lipase**}} as mentioned in the note, it's important to recognize that terms encompassing a wide range of tests and observations conducted by medical professionals to assess a patient's physical state, such as 'Physical Exam' or 'Pulse Exam', are not considered time expressions. In this section, only actual time-related expressions such as 'yesterday', 'admission', or specific dates should be used. For instance, in the provided example, your response would be 'Time: Admission'.
+[Answer 2]
+Note: Other labs: PT  ... {{**Lipase**}}:35/30
+Time: During current hospitalization
+
+[Question 3] Determine how the time of the {{**Lipase**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this option if the note describes the timing of the event in a vague or generalized manner, without providing specific dates or times.
+2. Directly written in the format yyyy-mm-dd: Choose this option if the note includes specific dates or times in a clear, standardized format. This includes notations such as '2000-11-11' for dates, or '2000-11-11 10:00:00' for date and time combinations. The format should follow a structured pattern like 'yyyy-mm-dd' for dates and 'yyyy-mm-dd HH:MM:SS' for date and time.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] Indeterminate Time stamp
+
+Let's solve three questions that focus on {{**<<<ENTITY>>>**}}.
+Physician note: 
+"<<<CLINICAL_NOTE>>>"
+
+Let's solve step by step!

@@ -1,0 +1,78 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, AMOUNT: amount, AMOUNTUOM: amountuom, RATE: rate, RATEUOM: rateuom'
+
+Additional Requirement:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for AMOUNT or RATE, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. CHARTTIME: Charttime represents the time at which the measurement was charted
+    - Datatype: <class 'datetime'>
+2. AMOUNT: Indicates the total quantity of the input given during the charted event.
+    - Datatype: <class 'float'>
+3. AMOUNTUOM: Amountuom is the unit of Amount.
+    - Datatype: <class 'str'>
+4. RATE: Details the rate at which the input was administered, typically relevant for intravenous fluids or medications.
+    -  Datatype: <class 'float'>
+5. RATEUOM: Rateuom is the unit of Rate.
+    -  Datatype: <class 'str'>
+
+Example 1: Analyze the nursing note to extract {{**0.9% Normal Saline**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Assessment:
+Sats 92-99 on 3L; no wheezing noted; LS clear but diminished in bases
+Action:
+Prednisone; vanc and zosyn for MRSA PNA; nebs.
+Administered 5.0 ml of {{**0.9% Normal Saline**}} IV 
+Response:
+Pt returned to baseline O2 requirements"
+
+**Step 1) Identify and Extract Information about '{{**0.9% Normal Saline**}}' in the given text.
+[Answer in step 1]: Administered 5.0 ml of {{**0.9% Normal Saline**}} IV 
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**0.9% Normal Saline**}}' occurs.**
+[Answer in step 2]: The note lacks a specific date or time for the administration of {{0.9% Normal Saline}}, and without structured dates (yyyy-mm-dd), we assume the event occurred in real-time with the documented nursing actions. Therefore, we designate the charttime as 'charttime'.
+
+**Step 3) Fill the table with information Directly Related to '{{**0.9% Normal Saline**}}' in the given text.**
+Based on the mentions of '{{**0.9% Normal Saline**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, AMOUNT, AMOUNTUOM, RATE, RATEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: As referred to in the answer from step 2, charttime should be at charttime. The amount should be 5.0, and the amoutuom should be in ml. However, The rate should be NaN, and the rateuom should be in NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**0.9% Normal Saline**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**0.9% Normal Saline**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, AMOUNT: 5.0, AMOUNTUOM: ml, RATE: NaN, RATEUOM: NaN"
+
+Example 2: Analyze the nursing note to extract {{**dopamine**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Action: She received 125 mg
+   solumedrol IV, 40mg lasix IV, cefepime and Levaquin, {{**dopamine**}} gtt
+   started
+   Response:
+   Pain & SOB relieved. No changes on EKG."
+
+**Step 1) Identify and Extract Information about '{{**dopamine**}}' in the given text.
+[Answer in step 1]: Action: She received 125 mg solumedrol IV, 40mg lasix IV, cefepime and Levaquin, {{**dopamine**}} 
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**dopamine**}}' occurs.**
+[Answer in step 2]: The note lacks a specific date or time for the administration of {{dopamine}}, and without structured dates, we assume the event occurred in real-time with the documented nursing actions. Therefore, we designate the charttime as 'charttime'.
+
+**Step 3) Fill the table with information Directly Related to '{{**dopamine**}}' in the given text.**
+Based on the mentions of '{{**dopamine**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, AMOUNT, AMOUNTUOM, RATE, RATEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Considering the response from Step 2, the charttime would be charttime. However, Both rate and amount should be NaN, and the rateuom and amountuom should be NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**dopamine**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**dopamine**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, AMOUNT: NaN, AMOUNTUOM: NaN, RATE: NaN, RATEUOM: NaN"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Nursing note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

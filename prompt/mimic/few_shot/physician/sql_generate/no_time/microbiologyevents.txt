@@ -1,0 +1,41 @@
+Task: You are a highly intelligent and accurate sqlite3 creator. You take a [{tablename}.{columnname}={condition value}] and [given extra information and turn it into a [SQLite3 query].
+
+Do not infer or predict, only use the information provided.  
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = 10304
+Microbiologyevents.spec_type_desc: sputum
+Microbiologyevents.org_name = Pseudomonas
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by  ['Microbiologyevents.charttime'] and the period from one day before 2149-02-16 to one day after 2149-02-19. And maintain 'yyyy-mm-dd' format. 
+3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 10304 AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas' AND (strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN '2149-02-15' AND '2149-02-20')"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = 20202
+Microbiologyevents.org_name= ESCHERICHIA COLI
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by  ['Microbiologyevents.charttime'] and the period from one day before 2121-07-03 to one day after 2121-07-10. And maintain 'yyyy-mm-dd' format. 
+3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 20202 AND Microbiologyevents.org_name = 'ESCHERICHIA COLI' AND (strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN '2121-07-02' AND '2121-07-11')"}]
+
+Your task:
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['Microbiologyevents.charttime'] and the period from one day before <<<ADMISSION>>> to one day after <<<CHARTTIME>>>. And maintain 'yyyy-mm-dd' format. 
+3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

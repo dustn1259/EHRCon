@@ -1,0 +1,73 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. LABEL: label'
+
+Additional Requirement:
+1. For instances like 'BP 120/70', treat it as two separate mentions of the entity BP—once for the systolic measurement (120) and once for the diastolic measurement (70). Each measurement should be recorded individually in the VALUENUM column without combining them as '120/70'.
+
+Column Descriptions and Schema Information:
+1. LABEL: The label column provides a human-readable name for this item. The label could be a description of a clinical observation such as Temperature, blood pressure, and heart rate.
+    - Datatype: <class 'str'>
+
+Example 1: Analyze the nursing note to extract {{**BP**}} data and document the findings in the EHR table.
+
+Physician note:
+"Initial vitals were HR:72 {{**BP**}}:119/80 RR:13 O2Sat:99% on RA.
+   Initially, for his chest pain, he received aspirin and sublingual
+   nitroglycerin.  He also received a normal saline bolus and morphine 4mg
+   IV."
+
+**Step 1) Identify and Extract Information about '{{**BP**}}' in the given text.
+[Answer in step 1]: Initial vitals in the ED were HR:72 {{**BP**}}:119/80 RR:13 O2Sat:99% on RA.
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**BP**}}' occurs.**
+[Answer in step 2]: We don't know when Sats occurs.
+
+**Step 3) Fill the table with information Directly Related to '{{**BP**}}' in the given text.**
+Based on the mentions of '{{**BP**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: LABEL, DBSOURCE. If specific details are not mentioned in the physician note, record it as 'NaN'.
+[Answer in step 3]: Label would be BP and dbsource would be NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**BP**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**BP**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. LABEL: BP"
+
+Example 2: Analyze the nursing note to extract {{*Tmax**}} data and document the findings in the EHR table.
+
+Physician note:
+"{{**Tmax**}}: 37.5 (36-38)
+C (99.5
+T current: 37
+C (98.6
+HR: 65 (58 - 82) bpm
+BP: 125/72(85) {103/55(67) - 125/82(91)} mmHg
+RR: 14 (10 - 22) insp/min
+SPO2: 100%
+Heart rhythm: SR (Sinus Rhythm)
+Total In:
+6,460 mL"
+
+**Step 1) Identify and Extract Information about '{{**Tmax**}}' in the given text.
+[Answer in step 1]: {{**Tmax**}}: Atrial demand
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Tmax**}}' occurs.**
+[Answer in step 2]: The exact time when it occurred is not specified in the physician note. Therefore, the charttime would be NaN.
+
+**Step 3) Fill the table with information Directly Related to '{{**Tmax**}}' in the given text.**
+Based on the mentions of '{{**Tmax**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: LABEL, DBSOURCE. If specific details are not mentioned in the physician note, record it as 'NaN'.
+[Answer in step 3]: Label would be Tmax and dbsource would be NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Tmax**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Tmax**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. LABEL: Tmax"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Physician note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

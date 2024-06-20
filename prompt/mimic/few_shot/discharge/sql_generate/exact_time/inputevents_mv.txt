@@ -1,0 +1,68 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = 12345
+Inputevents_mv.amount=3
+Inputevents_mv.starttime = 2149-02-16
+Inputevents_mv.amountuom=mL
+D_items.label = 'NaCl 0.9%'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Inputevents_mv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_mv INNER JOIN D_items ON Inputevents_mv.itemid = D_items.itemid WHERE Inputevents_mv.hadm_id = 12345 AND Inputevents_mv.amount = 3 AND strftime('%Y-%m-%d', Inputevents_mv.starttime) = '2149-02-16' AND Inputevents_mv.amountuom = 'mL' AND D_items.label = 'NaCl 0.9%'"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = 20202
+Inputevents_mv.rate=5
+Inputevents_mv.starttime = 2137-03-12
+D_items.label = 'phenylephrine'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Inputevents_mv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_mv INNER JOIN D_items ON Inputevents_mv.itemid = D_items.itemid WHERE Inputevents_mv.hadm_id = 20202 AND Inputevents_mv.rate = 5 AND strftime('%Y-%m-%d', Inputevents_mv.starttime) = '2137-03-12' AND D_items.label = 'phenylephrine'"}]
+
+Example 3) 
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = 30303
+Inputevents_mv.rate=55
+Inputevents_mv.starttime = 2140-05-11 17:24:55
+D_items.label = 'Serotonin'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Inputevents_mv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_mv INNER JOIN D_items ON Inputevents_mv.itemid = D_items.itemid WHERE Inputevents_mv.hadm_id = 30303 AND Inputevents_mv.rate = 55 AND strftime('%Y-%m-%d %H:%M:%S', Inputevents_mv.starttime) = '2140-05-11 17:24:55' AND D_items.label = 'Serotonin'"}]
+
+Example 4) 
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = 59591
+Inputevents_mv.amount=1.5
+Inputevents_mv.starttime = 2133-11-19 10:11:10
+D_items.label = 'Hydration'
+
+[given extra information]
+1. Utilize strftime function.
+2. The 'Inputevents_mv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_mv INNER JOIN D_items ON Inputevents_mv.itemid = D_items.itemid WHERE Inputevents_mv.hadm_id = 59591 AND Inputevents_mv.amount = 1.5 AND strftime('%Y-%m-%d %H:%M:%S', Inputevents_mv.starttime) = '2133-11-19 10:11:10' AND D_items.label = 'Hydration'"}]
+
+Your task:
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Inputevents_mv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

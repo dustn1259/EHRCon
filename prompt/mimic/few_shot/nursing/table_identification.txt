@@ -1,0 +1,119 @@
+Task: Select a table based on the provided table schemas and their interconnections within the database that can store specific entity-related information. Focus on tables that are likely to contain columns relevant to the entity you are searching.
+
+Requirements:
+1. Output format: [{table1, reference_table1},{table2, reference_table2},...].
+2. Choose from the set of table pairs: {Chartevents, D_items}, {Outputevents, D_items}, {Microbiologyevents, D_items}, {Inputevents_cv, D_items}, {Prescriptions}, {Inputevents_mv, D_items}, {Labevents, D_labitems}. If 'entity' is not clearly recorded in any of the tables, the output should be ['NONE'].
+
+Database Schema:
+1. D_items: D_items provides metadata for all recorded items, including medications, procedures, and other clinical measurements, with unique identifiers, labels, and descriptions.
+    -Columns: 'itemid', 'label', 'abbreviation'
+    - Example Rows:
+        - '1054', 'protonix', 'None',
+        - '1099', 'tegretol', 'None', 
+
+2. Chartevents: Chartevents contains time-stamped clinical data recorded by caregivers, such as vital signs, laboratory results, and other patient observations, with references to the D_items table for item details.
+    -Columns: 'subject_id', 'itemid', 'charttime', 'valuenum', 'valueuom'
+    -Example Rows:
+        - '3',  '128', '2101-10-25 04:00:00', '15.0', 'points'
+        - 13, '263738', '2167-01-10 08:30:00', '84.0', 'mmHg'
+
+3. Inputevents_cv: Inputevents_cv contains detailed data on all intravenous and fluid inputs for patients during their stay in the ICU and uses ITEMID to link to D_items.
+    -Columns: 'subject_id', 'itemid', 'charttime', 'valuenum', 'valueuom'
+    -Example Rows:
+        - '24457', '184834', '205776', '2193-09-11 12:00:00', '200.0', 'ml'
+        - '21271', '140427', '217526', '2187-08-24 14:00:00', '120.0', 'ml'
+
+4. Inputevents_mv: The inputevents_mv table records detailed information about medications and other fluids administered to patients, including dosages, timings, and routes of administration, specifically from the MetaVision ICU system.
+    - Columns: 'subject_id', 'starttime', 'itemid', 'amount', 'amountuom', 'rate', 'rateuom'
+    - Example Rows:
+        - '27063','2133-02-05 05:34:00', '225944', '28.1329972', 'ml', '30.142497', 'mL/hour'
+        - '139787','2133-02-05 09:43:00','225944', '83.60020668', 'ml', '30.0360024', 'mL/hour'
+
+5. Microbiologyevents: Microbiologyevents contains detailed information on microbiology tests, including specimen types, test results, and susceptibility data for pathogens identified in patient samples. This information is linked to D_items by ITEMID.
+    - Columns: 'subject_id', 'charttime', 'spec_itemid', 'spec_type_desc', 'org_itemid', 'org_name'
+    - Example Rows:
+        - '96', '2156-04-13 14:18:00', '70021', 'BRONCHOALVEOLAR LAVAGE', '80026', 'PSEUDOMONAS AERUGINOSA'
+        - '101', '2196-09-28 20:58:00', '70079', 'URINE', '80155', 'STAPHYLOCOCCUS', 'COAGULASE NEGATIVE'
+
+6. Outputevents: Records information about fluid outputs from patients, such as urine, blood, and other bodily fluids, including timestamps, amounts, and types of outputs, with references to the D_items table for item details.
+    - Columns: 'subject_id', 'charttime', 'itemid', 'value', 'valueuom'
+    - Example Rows:
+        - '21219', '2142-09-08 10:00:00', '40055', '200.0', 'ml'
+        - '21219', '2142-09-15 03:00:00', '40055', '250.0', 'ml'
+
+7. D_labitems: D_labitems contains metadata about laboratory tests, including unique identifiers, labels, and descriptions for each lab test performed.
+    - Columns: 'itemid', 'label', 'fluid', 'category',' loinc_code'
+    - Example Rows:
+        - '51346', 'Blasts', 'Hematology', '26447-3'
+        - '51347', 'Eosinophils Cerebrospinal Fluid (CSF)',	'Hematology', '26451-5'
+
+8. Labevents: Labevents contains detailed records of laboratory test results, including test values, collection times, and patient identifiers, with references to the D_labitems table for test-specific metadata.
+    - Columns: 'subject_id', 'hadm_id', 'itemid', 'charttime', 'valuenum', 'valueuom'
+    - Example Rows:
+        - '3', '50931', '2101-10-23 03:45:00', '108.0', 'mg/dL'
+        - '1495', '34594', '2134-05-23 12:17:00', '9.6', 'mg/dL'  
+                
+9. Prescriptions: Lists patient prescriptions with details on dose, administration route, and frequency. There is no reference table.
+    - Columns: 'subject_id', 'startdate', 'drug', 'dose_val_rx', 'dose_unit_rx'
+    - Example Rows:
+        - '6', '107064', '2175-06-11', 'Tacrolimus', '2', 'mg'
+        - '13', '349240', '2167-02-27', 'Calcium Gluconate', '2', 'gm'
+
+Inter-table Relationships:
+-Labevents is a child of D_Labitems.
+-Chartevents, Inputevents_mv, Inputevents_cv, Microbiology, Outputevents are children of D_items.
+
+Example 1: Identify the specific tables that contain definitive records of 'wbc'
+In order to locate the 'wbc' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'wbc'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Labevents, d_labitems},{chartevents, d_items}]
+
+Example 2: Identify the specific tables that contain definitive records of 'R'
+In order to locate the 'R' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'R'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{chartevents, d_items}]
+
+Example 3: Identify the specific tables that contain definitive records of 'BP'
+In order to locate the 'BP' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'BP'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{chartevents, d_items}]
+
+Example 4: Identify the specific tables that contain definitive records of 'Insulin'
+In order to locate the 'Insulin' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'Insulin'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{prescriptions},{inputevents_cv, d_items},{inputevents_mv, d_items}]
+
+Example 5: Identify the specific tables that contain definitive records of 'Effexor'
+In order to locate the 'Effexor' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'Effexor'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{prescriptions},{inputevents_cv, d_items},{inputevents_mv, d_items}]
+
+Example 6: Identify the specific tables that contain definitive records of 'Blood Culture'
+In order to locate the 'Blood Culture' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'Blood Culture'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Microbiologyevents, d_items},{Labevents, d_labitems},{chartevents, d_items}]
+
+Example 7: Identify the specific tables that contain definitive records of 'pseudomonas'
+In order to locate the 'pseudomonas' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'pseudomonas'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Microbiologyevents, d_items}]
+
+Example 8: Identify the specific tables that contain definitive records of 'Urine'
+In order to locate the 'Urine' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'Urine'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{outputevents, d_items},{Labevents, d_labitems},{chartevents, d_items}]
+
+Example 9: Identify the specific tables that contain definitive records of 'Dry weight'
+In order to locate the 'Dry weight' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'Dry weight'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Chartevents, d_items}]
+
+Example 10: Identify the specific tables that contain definitive records of 'CO2'
+In order to locate the 'CO2' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'CO2'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Chartevents, d_items}]
+
+Example 11: Identify the specific tables that contain definitive records of 'calcitonin'
+In order to locate the 'calcitonin' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'calcitonin'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Chartevents, d_items},{prescriptions}]
+
+Example 12: Identify the specific tables that contain definitive records of 'Calcium'
+In order to locate the 'Calcium' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'Calcium'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Labevents, d_labitems}]
+
+Example 13: Identify the specific tables that contain definitive records of 'pt'
+In order to locate the 'pt' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to 'pt'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+Selected-Table: [{Labevents, d_labitems}]
+
+Your task: Identify the specific tables that contain definitive records of '<<<<ENTITY>>>>'
+In order to locate the '<<<<ENTITY>>>>' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to '<<<<ENTITY>>>>'. If no explicit match is found for the entity in question, indicate this with '[none]'.

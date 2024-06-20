@@ -1,0 +1,97 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. LABEL: label'
+
+Column Descriptions and Schema Information:
+1. LABEL: The label column provides a human-readable name for this item. The label could be a description of a clinical observation such as wbc, glucose, and PTT.
+    - Datatype: <class 'str'>
+
+Example 1: Analyze the physician note to extract {{**WBC**}} data and document the findings in the EHR table.
+
+Physician note:
+"[**2127-10-21**]  01:55 PM
+[**2127-10-21**]  05:21 PM
+{{**WBC**}}
+8.5
+3.6
+Hct
+36.9
+32.9
+35.5
+Plt
+234
+163
+Cr
+2.2
+3.7
+
+Other labs: PT / PTT / INR:14.8/29.2/1.3, CK / CK-MB / Troponin
+T:317/14/0.47, ALT / AST:38/76, Alk-Phos / {{**T bili**}}:41/1.7, Amylase /
+Lipase:35/30, Differential-Neuts:89.0 %, Band:2.0 %, Lymph:4.0 %,
+Mono:2.0 %, Eos:0.0 %, Fibrinogen:458 mg/dL, Albumin:3.2 g/dL, LDH:285
+IU/L, Ca:7.6 mg/dL, Mg:2.8 mg/dL, PO4:1.3 mg/dL"
+
+**Step 1) Identify and Extract Information about '{{**WBC**}}' in the given text.
+[Answer in step 1]: [**2127-10-21**]  01:55 PM [**2127-10-21**]  05:21 PM {{**WBC**}} 8.5 10.1
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**WBC**}}' occurs.**
+[Answer in step 2]: WBC occured on [**2127-10-21**]  01:55 PM and [**2127-10-21**]  05:21 PM
+
+**Step 3) Fill the table with information Directly Related to '{{**WBC**}}' in the given text.**
+Based on the mentions of '{{**WBC**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: LABEL. If specific details are not mentioned in the physician note, record it as 'NaN'.
+[Answer in step 2]: Label would be WBC.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**WBC**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**WBC**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. LABEL: WBC"
+
+Example 2: Analyze the physician note to extract {{**Troponin T**}} data and document the findings in the EHR table.
+
+Physician note:
+"[**2127-10-21**]  01:55 PM
+[**2127-10-21**]  05:21 PM
+WBC
+8.5
+3.6
+Hct
+36.9
+32.9
+35.5
+Plt
+234
+163
+Cr
+2.2
+3.7
+
+Other labs: PT / PTT / INR:14.8/29.2/1.3, CK / CK-MB / {{**Troponin
+T**}}:317/14/0.47, ALT / AST:38/76, Alk-Phos / {{**T bili**}}:41/1.7, Amylase /
+Lipase:35/30, Differential-Neuts:89.0 %, Band:2.0 %, Lymph:4.0 %,
+Mono:2.0 %, Eos:0.0 %, Fibrinogen:458 mg/dL, Albumin:3.2 g/dL, LDH:285
+IU/L, Ca:7.6 mg/dL, Mg:2.8 mg/dL, PO4:1.3 mg/dL"
+
+**Step 1) Identify and Extract Information about '{{**Troponin T**}}' in the given text.
+[Answer in step 1]: Other labs: PT / PTT / INR:14.8/29.2/1.3, CK / CK-MB / {{**Troponin T**}}:317/14/0.47
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Troponin T**}}' occurs.**
+[Answer in step 2]: Given the task instructions, unless a specific time is directly associated with the {{Entity}} data, all times are considered based on the time when the note was charted. Therefore, the {{Troponin T}} values are associated with the chart times provided at the start of the note.
+
+**Step 3) Fill the table with information Directly Related to '{{**Troponin T**}}' in the given text.**
+Based on the mentions of '{{**Troponin T**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: LABEL. If specific details are not mentioned in the physician note, record it as 'NaN'.
+[Answer in step 2]: Label would be Troponin T.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Troponin T**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Troponin T**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. LABEL: Troponin T"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Physician note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

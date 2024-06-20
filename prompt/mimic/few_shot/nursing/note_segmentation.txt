@@ -1,0 +1,84 @@
+Task: Our task is to analyze a clinical note and divide it into three sections based on thematic or semantic coherence. Each section should center around a unique theme or idea, providing a cohesive view of the content. 
+
+Please follow these guidelines:
+Guidelines 1) Thematic or Semantic Unity: Group content based on clear thematic or semantic relationships, ensuring that each section covers a distinct aspect related to the overall topic. Everything within a section should be related and contribute to a unified understanding of that theme.
+Guidelines 2) Equal Length and Comprehensive Coverage: Strive for a balance in the length of each section, but also consider the depth and breadth of the content. The division should reflect an equitable distribution of information, without sacrificing the completeness of any thematic area. This balance is essential to ensure no single section is overwhelmingly long or short compared to the others.
+Guidelines 3) Integrity of Sections: Pay close attention to the natural divisions within the text, such as headings or topic changes. (e.g., "History of Present Illness," "Past Medical History," "Medications"). Ensure that these content blocks are not fragmented across sections. A section should encompass complete thoughts or topics to preserve the logical flow and coherence of information. 
+Guidelines 4) Completeness of Sentences: When dividing the note, ensure each section ends with complete sentences, preventing sentences from being split across sections.
+Guidelines 5) Output format must be [section1: (start_line_number-end_line_number), section2: (start_line_number-end_line_number), section3: (start_line_number-end_line_number)].
+Guidelines 6) Precise Output Format and Continuous Line Coverage: The start line number in section 1 should match the start number of the given text and the end line number in section 3 should match the last line number of the given text. Ensure sections are contiguous; the end of one section immediately precedes the start of the next, with no gaps or overlaps.
+
+To prevent sentences from being split between sections, carefully review the end of each proposed section. If a sentence starts in one section and continues into the next, adjust the section boundaries accordingly to ensure sentence integrity. This may require you to slightly rebalance the length of the sections to accommodate full sentences while still adhering to the guidelines for thematic unity, comprehensive coverage, and equal length.
+
+Example 1)
+Clinical note:
+"0. Assessment:
+ 1. No c/o pain @ all, even before coming into [**Hospital **] Hospital.  No c/o
+ 2. N/V. T 100.2 po.  LFT
+3. s improved since coming from [**Location (un) **] Hosital.
+4. [**8-2**] 2200 LFT
+5. Action:
+6. NPO since arrival to MICU. ( Had 490cc po intake [**5-3**] @ [**Hospital **]
+7. Hospital ).
+8. Response:
+9. Patient remained comfortable overnight.
+10. .H/O seizure, without status epilepticus
+11. Assessment:
+12. Neuro vss.  CIWA scale =0.  Hx drinking 2 mixed drinks/day.  Patient
+13. took last drink 4-5 days ago.  Has not had Sx of withdrawal.
+14. Action:
+15. Given 300mg po dilantin @ HS.  Checked CIWA scale q 4 hrs.
+16. Response:
+17. No S&S seizures.
+18. Assessment:
+19. HR: 70
+20. 220s Afib no ectopy  BP 90
+21. s-110
+22. s/systolic.  INR 1.2   Patient
+23. required 4 units PC
+24. s [**8-1**] to bring Hct up from 19 to 26.6.  Hct was
+25. 
+26. Response:
+27. [**8-3**] am  BUN       Cr"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 0-10, section2: 11-17, section3: 18-27]
+
+Example 2)
+Clinical note:
+"44.Events- Tf started.
+45. Anticoagulated.
+46.  Hypertension tx.
+47.  Resedated with propofol.
+48.  Spontaneous movement of lower extremities
+49.  Alteration in Nutrition
+50.   Assessment:
+51.   Min residuals from ogt that was clamped. Abd firm distended with
+52.   hypoactive bs.
+53.   Action:
+54.   Tf of norvasource renal started at 10cc/hr.
+55.  Response:
+56.   Min residuals.
+57.   Hypertension, benign
+58.   Assessment:
+59.   Sbp 170-200 with patient stimulation.
+60.   Action:
+61.   Additional 10mg iv hydralazine given this am. Amlodipine increased to
+62.   10mg per  ogt qd, lopressor 5mg iv q 4 hours and ntg drip added and
+63.   titrated up to 2.5mcgs/kg/min.
+64.   Response:
+65.   Still hypertensive with stimulation.  Attempted ps vent to see if she
+66.   was uncomfortable on a/c mode of vent. Did not help her bp. Patient
+67.   looking more stressed. 25mcgs iv fentanyl bolus given and propofol
+68.   10mcgs/kg/min started with good effect as evidenced by sbp down to
+69.   140
+70.   Respiratory failure, acute (not ARDS/[**Doctor Last Name **])"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 44-49, section2: 50-47, section3: 47-70]
+
+Your task:
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 

@@ -1,0 +1,169 @@
+Task: You will be given a passage of nursing note along with several questions that relate to specific details within that nursing note. Your job is to determine whether the nursing note explicitly mentions the details asked in the questions. 
+For each question, your response should be divided into two parts:
+1. Evidence quote: Provide a direct quote or the exact sentences from the nursing note that either confirm or refute the detail in question. Additionally, include a brief explanation of why this evidence supports your answer.
+2. Answer: Respond with "Yes" if the detail is explicitly mentioned in the nursing note using the exact words or phrases from the question. If the clnical note does not contain the specific detail, respond with "No". These are the only acceptable response options.
+Please format your responses according to the structure demonstrated in the examples below.
+
+Guidelines to Follow:
+    1. Time Interpretation: Unless stated otherwise, assume that nursing's notes or any medical observations were recorded at the specified chart time.
+    2. Accuracy of Time-Value: Only consider the number of hours and entity values as accurate if they are explicitly stated. If there is a discrepancy between the number of hours and entity values, regard the information as inaccurate.
+    3. Interpretation of Valuenum: If a value is given as a range (e.g., 33-36) rather than a specific number, it should be considered incorrect.
+
+Example 1: Please answer the questions focusing on the specified entity named "Sats".
+
+Nursing note: 
+"Assessment:
+{{**Sats**}} 92 on 3L; no wheezing noted; LS clear but diminished in bases
+Action:
+Prednisone; vanc and zosyn for MRSA PNA; nebs.
+Response:
+Pt returned to baseline O2 requirements
+Plan:
+Continue to monitor and assess resp status
+.H/O diabetes Mellitus (DM), Type II"
+
+Questions:
+[1] Is it directly mentioned that Sats's charttime is 'charttime'?
+[2] Is it directly mentioned that Sats's valuenum is '92'?
+[3] Is it directly mentioned that Sats's valueuom is '%'?
+[4] Is it directly mentioned that Sats refers to Sats?
+
+Answers:
+[1] Is it directly mentioned that Sats's charttime is 'charttime'?
+Evidence quote: [Assessment: {{**Sats**}} 92 on 3L; no wheezing noted; LS clear but diminished in bases]  
+Answer: Yes.
+[2] Is it directly mentioned that Sats's valuenum is '92'?
+Evidence quote: [{{**Sats**}} 92 on 3L; no wheezing noted; LS clear but diminished in bases]
+Answer: Yes.
+[3] Is it directly mentioned that Sats's valueuom is '%'?
+Evidence quote: []
+Answer:  No. "%" is not written in the nursing note.
+[4] Is it directly mentioned that Sats refers to Sats?
+Evidence quote: [{{**Sats**}} 92 on 3L; no wheezing noted; LS clear but diminished in bases]
+Answer: Yes.
+
+Example 2: Please answer the questions focusing on the specified entity named "Sodium".
+
+Nursing note:
+"Pertinent Lab Results:
+{{**Sodium**}}:
+142 mEq/L
+[**2119-9-18**] 02:34 AM
+Potassium:
+5.0 mEq/L
+[**2119-9-18**] 05:23 PM
+Chloride:
+96 mEq/L
+[**2119-9-18**] 02:34 AM
+CO2:
+45 mEq/L
+[**2119-9-18**] 02:34 AM"
+
+Questions:
+[1] Is it directly mentioned that Sodium's charttime is '[**2119-9-18**] 02:34 AM'?
+[2] Is it directly mentioned that Sodium's valuenum is '142'?
+[3] Is it directly mentioned that Sodium's valueuom is 'mEq/L'?
+[4] Is it directly mentioned that Sodium refers to Sodium?
+
+Answers:
+Questions:
+[1] Is it directly mentioned that Sodium's charttime is '[**2119-9-18**] 02:34 AM'?
+Evidence quote: [{{**Sodium**}}:142 mEq/L [**2119-9-18**] 02:34 AM ]  
+Answer: Yes
+[2] Is it directly mentioned that Sodium's valuenum is '142'?
+Evidence quote: [{{**Sodium**}}:142 mEq/L [**2119-9-18**] 02:34 AM ]
+Answer: Yes.
+[3] Is it directly mentioned that Sodium's valueuom is 'mEq/L'?
+Evidence quote: [{{**Sodium**}}:142 mEq/L [**2119-9-18**] 02:34 AM ]
+Answer: Yes.
+[4] Is it directly mentioned that Sodium refers to Sodium?
+Evidence quote: [{{**Sodium**}}:142 mEq/L [**2119-9-18**] 02:34 AM ]
+Answer: Yes
+
+Example 3: Please answer the questions focusing on the specified entity named "0.9% Normal Saline".
+
+Nursing note: 
+""Assessment:
+Sats 92-99 on 3L; no wheezing noted; LS clear but diminished in bases
+Action:
+Prednisone; vanc and zosyn for MRSA PNA; nebs.
+Administered 5.0 of {{**0.9% Normal Saline**}} IV 
+Response:
+Pt returned to baseline O2 requirements""
+
+Questions:
+[1] Is it directly mentioned that 0.9% Normal Saline's charttime is 'charttime'?
+[2] Is it directly mentioned that 0.9% Normal Saline's valuenum is '5.0'?
+[3] Is it directly mentioned that 0.9% Normal Saline's valueuom is 'ml'?
+[4] Is it directly mentioned that 0.9% Normal Saline refers to 0.9% Normal Saline?
+
+Answers:
+[1] Is it directly mentioned that 0.9% Normal Saline's charttime is 'charttime'?
+Evidence quote: [Administered 5.0 of {{**0.9% Normal Saline**}} IV ]
+Answer: No, Lasix received on ED not ICU.
+[2] Is it directly mentioned that 0.9% Normal Saline's valuenum is '5.0'?
+Evidence quote:  [Administered 5.0 of {{**0.9% Normal Saline**}} IV ]
+Answer: Yes.
+[3] Is it directly mentioned that 0.9% Normal Saline's valueuom is 'ml'?
+Evidence quote:  [Administered 5.0 of {{**0.9% Normal Saline**}} IV ]
+Answer:  No. Valueuom is not directly mentioned in the clinical note.
+[4] Is it directly mentioned that 0.9% Normal Saline refers to 0.9% Normal Saline?
+Evidence quote:  [Administered 5.0 of {{**0.9% Normal Saline**}} IV ]
+Answer: Yes
+
+Example 4: Please answer the questions focusing on the specified entity named "Chest tube".
+
+Nursing note
+"Assessment:{{**Chest tube**}} output 500 to 450, clear red drainage, no signs of infection
+Action: Monitored chest tube drainage regularly
+Response: No signs of increased drainage or infection at the chest tube site and breathing remains stable"
+
+Questions:
+[1] Is it directly mentioned that Chest tube's starttime is 'charttime'?
+[2] Is it directly mentioned that Chest tube's amount is '450'?
+[3] Is it directly mentioned that Chest tube's amoutuom is 'cc'?
+[4] Is it directly mentioned that Chest tube refers to Chest tube?
+
+Answers:
+[1] Is it directly mentioned that Chest tube's starttime is 'charttime'?
+Evidence quote: [Assessment:{{**Chest tube**}} output 500 to 450, clear red drainage, no signs of infection]  
+Answer: Yes. Chest tube output occurs on ICU.
+[2] Is it directly mentioned that Chest tube's amount is '450'?
+Evidence quote: [Assessment:{{**Chest tube**}} output 500 to 450, clear red drainage, no signs of infection]
+Answer: Yes.
+[3] Is it directly mentioned that Chest tube's amoutuom is 'cc'?
+Evidence quote: [Assessment:{{**Chest tube**}} output 500 to 450 , clear red drainage, no signs of infection]
+Answer:  No. The nursing note mentions "{{**Chest tube**}} output 500 to 450" but does not specify the unit of measurement for the Chest tube value.
+[4] Is it directly mentioned that Chest tube refers to Chest tube?
+Evidence quote: [Assessment:{{**Chest tube**}} output 500 to 450, clear red drainage, no signs of infection]
+Answer: Yes
+
+Example 5: Please answer the questions focusing on the specified entity named "phenylephrinee".
+
+Nursing note:
+"Assessment: VS 102 T Rectally, HR 104, BP 119/68, RR 37 Sats 97% on NRB.
+Action: chest x ray pulmonary edema. PRoBNP [**Numeric Identifier 1756**]. She received 125 mg
+   solumedrol IV, 40mg lasix IV, cefepime and Levaquin, {{**phenylephrinee**}} gtt
+   started"
+
+Questions:
+[1] Is it directly mentioned that phenylephrinee's startdate is 'charttime'?
+[2] Is it directly mentioned that phenylephrinee refers to phenylephrinee?
+
+Answers:
+[1] Is it directly mentioned that phenylephrinee's startdate is 'charttime'?
+Evidence quote: [She received 125 mg solumedrol IV, 40mg lasix IV, cefepime and Levaquin, {{**phenylephrinee**}} gtt started]
+Answer: Yes
+[2] Is it directly mentioned that phenylephrinee refers to phenylephrinee?
+Evidence quote: [She received 125 mg solumedrol IV, 40mg lasix IV, cefepime and Levaquin, {{**phenylephrinee**}} gtt started]
+Answer: Yes.
+
+Your task: Please answer the questions focusing on the specified entity named "<<<ENTITY>>>". 
+Nursing note:
+"<<<<CLINICAL_NOTE>>>>"      
+
+Questions:
+Please maintain the output format.
+<<<Questions>>>
+
+Answer the Questions:

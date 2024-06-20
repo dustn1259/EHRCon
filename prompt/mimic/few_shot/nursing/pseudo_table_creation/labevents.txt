@@ -1,0 +1,87 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, VALUENUM: valuenum, VALUEUOM: valueuom'
+
+Additional Requirement:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for VALUENUM, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. Charttime: Charttime records the timestamp when an output event, such as urine output or drainage, was documented.
+    - Datatype: <class 'datetime'>
+2. VALUENUM: Valuenum contains the numeric value representing the quantity of output, such as the volume of urine or other fluids, recorded as a floating-point number.
+    - Datatype:  <class 'float'>
+3. VALUEUOM: Valueuom specifies the unit of measurement for the numeric value recorded in the Valuenum column, such as milliliters (mL).
+    - Datatype:  <class 'str'>
+    
+Example 1: Analyze the nursing note to extract {{**glucose**}} data and document the findings in the EHR table.
+
+Nursing note:
+"Assessment:
+Sats 92-99 on 3L; no wheezing noted; LS clear but diminished in bases
+Action:
+Prednisone; vanc and zosyn for MRSA PNA; nebs.
+Response:
+Pt returned to baseline O2 requirements
+Plan:
+Continue to monitor and assess resp status
+.H/O diabetes Mellitus (DM), Type II
+Assessment:
+NPH and humalog SS patients glucose between 93-223; no signs or
+symptoms of hyperglycemia noted
+Action:
+Monitor and treat {{**glucose**}}; diabetic diet."
+
+**Step 1) Identify and Extract Information about '{{**glucose**}}' in the given text.
+[Answer in step 1]: Action: Monitor and treat {{**glucose**}}; diabetic diet."
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**glucose**}}' occurs.**
+[Answer in step 2]: The glucose information extracted from the nursing note is associated with the current care plan, indicating that monitoring and treatment of glucose levels are ongoing actions. Hence, the appropriate CHARTTIME for this data is 'charttime', reflecting its relevance to real-time care and observations at the time of documentation.
+
+**Step 3) Fill the table with information Directly Related to '{{**glucose**}}' in the given text.**
+Based on the mentions of '{{**glucose**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: According to the answer from step 2, the glucose test, performed at the specified chart time. The VALUENUM and VALUEUOM for glucose are both NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**glucose**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**glucose**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, VALUENUM: NaN, VALUEUOM: mEq/L"
+
+Example 2: Analyze the nursing note to extract {{**Hct**}} data and document the findings in the EHR table.
+
+Nursing note:
+""Assessment:
+Hr 70-80 nsr. Sbp 120-130. No signs of active bleeding. No stool or
+emesis today.
+Action:
+Received 2 u prbc today without signs or symptoms of reaction. Also
+received 1 u ffp. Protonix drip changed to protonix 40mg [**Hospital1 **] iv.
+Response:
+{{**Hct**}} up to 28.2 post transfusion. Dr [**Last Name (STitle) 2433**] made aware. Held off on
+giving more blood till hct at 1700 27.7. Dr [**Last Name (STitle) 2433**] made aware. To
+receive 1u prbc."
+"
+
+**Step 1) Identify and Extract Information about '{{**Hct**}}' in the given text.
+[Answer in step 1]: Response: {{**Hct**}} up to 28.2 post transfusion
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Hct**}}' occurs.**
+[Answer in step 2]: The Hct information extracted from the nursing note is associated with the current care plan, indicating that monitoring and treatment of Hct levels are ongoing actions. Hence, the appropriate CHARTTIME for this data is 'charttime', reflecting its relevance to real-time care and observations at the time of documentation.
+
+**Step 3) Fill the table with information Directly Related to '{{**Hct**}}' in the given text.**
+Based on the mentions of '{{**Hct**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Based on the information extracted: charttime would be charttime. we document the findings as follows: CHARTTIME: charttime, VALUENUM: 28.2, VALUEUOM: NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Hct**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Hct**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, VALUENUM: 28.2, VALUEUOM: NaN"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Nursing note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

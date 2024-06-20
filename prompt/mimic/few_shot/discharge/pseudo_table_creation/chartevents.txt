@@ -1,0 +1,76 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, VALUENUM: valuenum, VALUEUOM: valueuom'
+
+Additional Requirement:
+1. For instances like 'BP 120/70', treat it as two separate mentions of the entity BP—once for the systolic measurement (120) and once for the diastolic measurement (70). Each measurement should be recorded individually in the VALUENUM column without combining them as '120/70'.
+2. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for VALUENUM, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. Charttime: Charttime records the time at which an observation occurred and is usually the closest proxy to the time the data was measured, such as admission time or a specific date like 2112-12-12.
+    - Datatype: <class 'datetime'>
+2. VALUENUM: This column contains the numerical value of the laboratory test result, offering a quantifiable measure of the test outcome. If this data is not numeric, Valuenum must be null.
+    - Datatype:  <class 'float'>
+3. VALUEUOM: Valueuom is the unit of measurement.
+    - Datatype: <class 'str'>
+
+Example 1: Analyze the clinical note to extract {{**Blood Pressure**}} data and document the findings in the EHR table.
+
+Clinical note:
+"PHYSICAL EXAMINATION on admission: Patient's temperature is 99.6, {{**blood
+pressure**}} 120/50, heart rate 57, 96% on room air.  He is alert
+and oriented times three, pupils are equal, round and
+reactive to light.  Tongue is midline.  Oropharynx is clear.
+His neck is supple."
+
+**Step 1) Identify and Extract Information about '{{**blood pressure**}}' in the given text.**
+[Answer in step 1]: PHYSICAL EXAMINATION on admission: Patient's temperature is 99.6, {{**bloodpressure**}} 120/50, heart rate 57, 96% on room air. 
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**blood pressure**}}' occurs.**
+[Answer in step 2]: Blood pressure is one of the measures in the physical examination, which occurs upon admission. Therefore, the charttime would be the time of admission.
+
+**Step 3) Fill the table with information Directly Related to '{{**blood pressure**}}' in the given text.**
+Based on the mentions of '{{**blood pressure**}}' in the given text found in Step 1 and Step 2, fill in the EHR table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The systolic value was 120, and the diastolic value was 50. As referenced in Step 2, the chart time for blood pressure is at admission.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**blood pressure**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**blood pressure**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: admission, VALUENUM: 120, VALUEUOM: NaN"
+- "Mentioned [2]. CHARTTIME: admission, VALUENUM: 50, VALUEUOM: NaN"
+
+Example 2: Analyze the clinical note to extract {{**Pupil**}} data and document the findings in the EHR table.
+
+Clinical note:
+"On arrival te patient's blood pressure was 123/72.  Pulse 76.
+Respiratory rate 14.  Sat 98%.  He was intubated and
+breathing spontaneously on the ventilator.  He did not follow
+commands.  He withdrew all extremities to stimulation.  He
+had positive dolls eyes with decreased corneals bilaterally.
+{{**Pupil**}} on the right was 1.5 to 1 on the left was 1.  Deep tendon reflexes were 2 out of 4.  His toes
+were up going bilaterally."
+ 
+**Step 1) Identify and Extract Information about '{{**Pupil**}}' in the given text.
+[Answer in step 1]: {{**Pupil**}} on the right was 1.5 to 1.
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Pupil**}}' occurs.**
+[Answer in step 2]: The notes do not contain any information about the time related to the pupil observation, so determining the charttime is not possible. 
+
+**Step 3) Fill the table with information Directly Related to '{{**Pupil**}}' in the given text.**
+Based on the mentions of '{{**Pupil**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The value of the right pupil is 1. However, we cannot determine the numeric value of the left pupil.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Pupil**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Pupil**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: NaN, VALUENUM: 1, VALUEUOM: NaN"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

@@ -1,0 +1,40 @@
+Task: You are a highly intelligent and accurate sqlite3 creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Do not infer or predict, only use the information provided.  
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = 12345
+Inputevents_mv.amount=3
+Inputevents_mv.amountuom=mL
+D_items.label = 'NaCl 0.9%'
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['Inputevents_mv.starttime', 'Inputevents_mv.endtime'] and the period from one day before 2149-02-16 to one day after 2149-02-19. And maintain 'yyyy-mm-dd' format. 
+
+Output: [{'Q': "SELECT * FROM Inputevents_mv JOIN D_items ON Inputevents_mv.itemid = D_items.itemid WHERE Inputevents_mv.hadm_id = 12345 AND Inputevents_mv.amount = 3 AND Inputevents_mv.amountuom = 'mL' AND D_items.label = 'NaCl 0.9%' AND (strftime('%Y-%m-%d', Inputevents_mv.starttime) BETWEEN '2149-02-15' AND '2149-02-20' OR strftime('%Y-%m-%d', Inputevents_mv.endtime) BETWEEN '2149-02-15' AND '2149-02-20' OR (strftime('%Y-%m-%d', Inputevents_mv.starttime) < '2149-02-15' AND strftime('%Y-%m-%d', Inputevents_mv.endtime) > '2149-02-20'))"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = 20202
+Inputevents_mv.rate=5
+D_items.label = 'phenylephrine'
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['Inputevents_mv.starttime', 'Inputevents_mv.endtime'] and the period from one day before 2137-03-12 to one day after 2137-03-16. And maintain 'yyyy-mm-dd' format. 
+
+Output: [{'Q': "SELECT * FROM Inputevents_mv JOIN D_items ON Inputevents_mv.itemid = D_items.itemid WHERE Inputevents_mv.hadm_id = 20202 AND Inputevents_mv.rate = 5 AND D_items.label = 'phenylephrine' AND (strftime('%Y-%m-%d', Inputevents_mv.starttime) BETWEEN '2137-03-11' AND '2137-03-17' OR strftime('%Y-%m-%d', Inputevents_mv.endtime) BETWEEN '2137-03-11' AND '2137-03-17' OR (strftime('%Y-%m-%d', Inputevents_mv.starttime) < '2137-03-11' AND strftime('%Y-%m-%d', Inputevents_mv.endtime) > '2137-03-17'))"}]
+
+Your task:
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['Inputevents_mv.starttime', 'Inputevents_mv.endtime'] and the period from one day before <<<ADMISSION>>> to one day after <<<CHARTTIME>>>. And maintain 'yyyy-mm-dd' format. 
+
+Write the query in [{'Q'}] form!

@@ -1,0 +1,94 @@
+Objective: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+Guidelines: Extract entities step by step and classify entity.
+- Category 1: Entities Accompanied by Numeric Values
+     - Definition: This category includes entities that are mentioned along with specific numeric values. These numbers represent measurable data such as dosages, counts, measurements, etc., providing precise quantifiable information.
+     - Example: "The glucose level is 100 mg/dL" or "Administer 200 mg of ibuprofen." In these cases, the numeric values (e.g., glucose level, ibuprofen dosage) are explicitly stated.
+- Category 2: Entities Mentioned Without Any Numeric Values
+     - Definition: Entities that are discussed in terms of their presence, occurrence, or the fact that they were administered or performed, without providing any numerical or quantitative data, fall into this category.
+     - Example: "The patient has been prescribed antibiotics" or "An MRI scan was conducted." Here, no specific dosage of antibiotics or quantitative results from the MRI scan are mentioned.
+- Category 3: Entities with Condition-Related Information Excluding Numeric Values
+    -Definition: This category captures entities related to state, condition, or outcomes that are described through qualitative assessments or descriptions without the use of explicit numeric data. It may include references to changes in condition or stability, described not with numbers but in descriptive or qualitative terms.
+    -Example: "Pt had severe rise in ALT and AST." or "The patient's condition has stabilized." or "Puse was drop." Although these statements imply a change or assessment of condition, they do not provide specific numeric values. Instead, the focus is on qualitative descriptions of change or status, which may inherently rely on an understanding of baseline or previous values for context.
+ * Category 3 specifically addresses the portrayal of changes in condition or results through qualitative descriptions. These may indicate changes over time or relative to a previous state, without directly citing numerical values. Even though understanding these changes often requires some knowledge of initial numeric values, the category itself emphasizes descriptive or qualitative assessments rather than explicit numerical data.
+
+Example 1: Develop a NER system to identify and categorize specific named entities in clinical texts step by step. 
+
+- Clinical Text: 
+"Assessment:
+   Patient was sedated this am on 20mcgs/hr of propofol.  Patient opens
+   eyes when her name is called. Does not look at you when asked to.
+   Withdraws in all extremities and grimaces to painful stimuli.   Does
+   not follow commands. No spontaneous movement except for slight movement
+   of head.
+   Action:
+   Fentanyl drip dc
+   d and prn boluses ordered.
+   Response:
+   At one point today alarm in room sounded that her sbp was over 200. At
+   the time her hr was 120. She appeared terrified. Her eyes were wide
+   open. I asked her to lift her right leg. To this command x 2 in front
+   of another nurse [**First Name (Titles) **] [**Last Name (Titles) 6909**] her left leg. She followed no other
+   commands. Dr [**Last Name (STitle) 91**] in to see the patient. At the time he ws in the
+   room she did not follow command to lift leg. Her legs were very spastic
+   at the time. She was sedated with 25mcgs of fentanyl and  started on a
+   propofol drip to keep her sbp and hr down."
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 
+
+Step 1) Extract entities related to medication or inputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: propofol - category 1 (numeric value: 20), fentanyl - category 1 (numeric value: 25), propofol - category 2
+Step 2) Extract entities related to vital signs and classify each entity. Extract the entity written in the note without modifying it.
+Answer: sbp - category 1 (numeric value: 200), hr - category 1  (numeric value: 120), sbp - category 3 (qualitative assessments or descriptions: down), hr - category 3 (qualitative assessments or descriptions: down)
+Step 3) Extract entitites related to outputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: Nothing
+Step 4) Extract entities related to microbiologyevents or labevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: Nothing
+Step 5) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
+- Identified Entities and Output Format: [{'E': 'propofol', 'T': 1},{'E': 'fentanyl', 'T': 1},{'E': 'propofol', 'T': 2},{'E': 'sbp', 'T': 1},{'E': 'hr', 'T': 1},{'E': 'sbp', 'T': 3},{'E': 'hr', 'T': 3}]
+
+Example 2: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+- Clinical Text: 
+"67 y/o M h/o CAD, COPD, GERD, and diverticulosis a/w painless BRBPR. He
+   was well until a recent hospitalization [**Date range (1) 8191**] for COPD exacerbation
+   and UTI treated with a prednisone taper and broad-spectrum antibiotics
+   (given his history of resistant pathogens), respectively. The morning
+   of admission, he awoke at 4 AM to have a bowel movement and felt a
+   painless gush of bright red blood after the passage of formed stool. He
+   had 4 such bowel movements. He denies ever seeing bleeding like this
+   before. He endorses a 20 lb. unintentional weight loss over the past
+   year. He denies fever, chills, dizziness, lightheadedness, chest pain,
+   change in his baseline cough/sputum production/dyspnea, abdominal pain,
+   nausea, vomiting, melena, sick contacts, or recent travel. A
+   colonoscopy in [**11-12**] to workup GIB and weight loss showed
+   diverticulosis of the whole colon and Grade 1 internal hemorrhoids. In
+   the ED, initial V/S: T 98.3 HR 57 BP 115/71 RR 22 O2sat 93% RA. BRB on
+   rectal exam, no external hemorrhoids noted. WBC 17.9 Hct 33.2% plts
+   486K. Ninety minutes into his ED course his automated BP was found to
+   be 74/40, then 99/50 manually"
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 
+
+Step 1) Extract entities related to medication or inputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: Nothing. Medication information is available, but the event occurred before hospitalization.
+Step 2) Extract entities related to vital signs and classify each entity. Extract the entity written in the note without modifying it.
+Answer: weight - category 3 (qualitative assessments or descriptions : loss), T - category 1 (numeric value: 98.3), HR - category 1 (numeric value: 57), BP - category 1 (numeric value: 115/71), O2sat - category 1 (numeric value: 93), BP - catetgory 1 (numeric value: 74/40), BP - category 1 (numeric value: 99.50)
+Step 3) Extract entitites related to outputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: BRBPR - catetgory 2 , stool - catetgory 2
+Step 4) Extract entities related to microbiologyevents or labevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: WBC - category 1 (numeric value: 17.9), Hct - category 1 (numeric value: 33.2),  plts - category 1 (numeric value: 486),
+Step 5) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
+- Identified Entities and Output Format: [{'E': 'weight', 'T': 3},{'E': 'T', 'T': 1},{'E': 'HR', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'O2sat', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'BRBPR', 'T': 2},{'E': 'stool', 'T': 2},{'E': 'WBC', 'T': 1},{'E': 'Hct', 'T': 1},{'E': 'plts', 'T': 1}]
+
+Your task: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+- New Clinical Text: "<<<CLINICAL_NOTE>>>"
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 

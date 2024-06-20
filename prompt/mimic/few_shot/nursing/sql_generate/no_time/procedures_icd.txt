@@ -1,0 +1,43 @@
+Task: You are a highly intelligent and accurate sqlite3 creator. You take a [{tablename}.{columnname}={condition value}] and [given extra information and turn it into a [SQLite3 query].
+
+Do not infer or predict, only use the information provided.  
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+[{table}.{column}={condition value}]
+Example 1)
+[{table}.{column}={condition value}]
+Procedures_icd.hadm_id = 12345
+D_icd_procedures.long_title= 'Cont inv mec ven <96 hrs'
+D_icd_procedures.short_title = 'Cont inv mec ven <96 hrs'
+
+[given extra information]
+1. Utilize strftime function.
+2. Shorttitle and long title must use ‘or’.
+3. The 'D_icd_procedures' and 'Procedures_icd' tables need to be joined using the 'ICD9_CODE' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Procedures_icd JOIN D_icd_procedures ON Procedures_icd.ICD9_CODE=D_icd_procedures.ICD9_CODE WHERE Procedures_icd.hadm_id=12345 AND (D_icd_procedures.LONG_TITLE='Cont inv mec ven <96 hrs' OR D_icd_procedures.SHORT_TITLE='Cont inv mec ven <96 hrs')" }]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Procedures_icd.hadm_id = 20202
+D_icd_procedures.long_title=Extracorporeal circulat
+D_icd_procedures.short_titl = Extracorporeal circulat
+
+[given extra information]
+1. Utilize strftime function.
+2. Shorttitle and long title must use ‘or’.
+3. The 'D_icd_procedures' and 'Procedures_icd' tables need to be joined using the 'ICD9_CODE' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Procedures_icd JOIN D_icd_procedures ON Procedures_icd.ICD9_CODE=D_icd_procedures.ICD9_CODE WHERE Procedures_icd.hadm_id=20202 AND (D_icd_procedures.LONG_TITLE='Extracorporeal circulat' OR D_icd_procedures.SHORT_TITLE='Extracorporeal circulat')" }]
+
+Your task:
+[{table}.{column}={condition value}]
+D_icd_procedures.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Shorttitle and long title must use ‘or’.
+3. The 'D_icd_procedures' and 'Procedures_icd' tables need to be joined using the 'ICD9_CODE' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

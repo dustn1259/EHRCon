@@ -1,0 +1,68 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Inputevents_cv.hadm_id = 12345
+Inputevents_cv.valuenum= 94.0
+Inputevents_cv.valueuom = mmHg
+Inputevents_cv.charttime = '2000-11-11'
+D_items.label = 'Cryoprecipitate'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Inputevents_cv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_cv JOIN D_items ON Inputevents_cv.itemid = D_items.itemid WHERE Inputevents_cv.hadm_id = 12345 AND Inputevents_cv.valuenum = 94.0 AND Inputevents_cv.valueuom = 'mmHg' AND strftime('%Y-%m-%d', Inputevents_cv.charttime) = '2000-11-11' AND D_items.label = 'Cryoprecipitate'"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Inputevents_cv.hadm_id = 20202
+Inputevents_cv.charttime = 2133-11-11
+Inputevents_cv.rate= 3
+D_items.label = 'dopamine'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Inputevents_cv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output:  [{'Q': "SELECT * FROM Inputevents_cv JOIN D_items ON Inputevents_cv.itemid = D_items.itemid WHERE Inputevents_cv.hadm_id = 20202 AND strftime('%Y-%m-%d', Inputevents_cv.charttime) = '2133-11-11' AND Inputevents_cv.rate = 3 AND D_items.label = 'dopamine'"}]
+
+Example 3) 
+[{table}.{column}={condition value}]
+Inputevents_cv.hadm_id = 5671
+Inputevents_cv.charttime = 2133-11-11 10:23:55
+Inputevents_cv.rate= 1.5
+D_items.label = 'Hydration'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Inputevents_cv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_cv JOIN D_items ON Inputevents_cv.itemid = D_items.itemid WHERE Inputevents_cv.hadm_id = 5671 AND strftime('%Y-%m-%d %H:%M:%S', Inputevents_cv.charttime) = '2133-11-11 10:23:55' AND Inputevents_cv.rate = 1.5 AND D_items.label = 'Hydration'"}]
+
+Example 4) 
+[{table}.{column}={condition value}]
+Inputevents_cv.hadm_id = 4585
+Inputevents_cv.charttime = 2523-12-31 20:15:55
+Inputevents_cv.amount= 55
+D_items.label = 'serotonin'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Inputevents_cv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Inputevents_cv JOIN D_items ON Inputevents_cv.itemid = D_items.itemid WHERE Inputevents_cv.hadm_id = 4585 AND strftime('%Y-%m-%d %H:%M:%S', Inputevents_cv.charttime) = '2523-12-31 20:15:55' AND Inputevents_cv.amount = 55 AND D_items.label = 'serotonin'"}]
+
+Your task)
+[{table}.{column}={condition value}]
+Inputevents_cv.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Inputevents_cv' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

@@ -1,0 +1,51 @@
+Task: Transform Given Data to Match a Database Table Format. Your goal is to modify a set of given data so that it matches the format of an existing database table. The data transformation should adhere to any constraints evident from the table's structure. Focus solely on the fields provided in the given data and do not add or infer any additional fields.
+** Only transform and include the fields mentioned in the given data. Do not add, create, or infer any additional fields beyond what is specified (e.g., do not include fields like 'CHARTTIME' if they are not in the given data)**
+
+Table Information:
+1. Existing Table Schema: {'Microbiologyevents': {'CHARTTIME': <class 'datetime'>, 'ORG_NAME': <class 'str'>, 'SPEC_TYPE_DESC': <class 'str'>}, 'D_items': {'LABEL': <class 'str'>, 'LINKSTO': <class 'str'>}}
+    [Example row of Microbiologyevents and D_items tables]
+    - Microbiologyevents.CHARTTIME: 2101-10-12 13:00:00
+    - Microbiologyevents.ORG_NAME: PSEUDOMONAS AERUGINOSA
+    - Microbiologyevents.SPEC_TYPE_DESC: BRONCHOALVEOLAR LAVAGE
+    - D_items.LABEL: PSEUDOMONAS AERUGINOSA
+
+2. CHARTTIME uses a 24-hour format.
+
+Extra Instructions: If the given data includes relative dates (like 'charttime'), replace it with the corresponding actual date from the patient's record.
+
+Example 1)
+Given data:
+Information:
+    - Patient Admission Date: 2101-12-23
+    - Note's chartdate: 2101-12-27 (Today)
+Microbiologyevents.CHARTTIME: [**2101-12-23**] 9:31 PM
+Microbiologyevents.SPEC_TYPE_DESC: SPUTUM
+D_items.LABEL: SPUTUM
+
+Output:
+Microbiologyevents.CHARTTIME: 2101-12-23 21:31:00
+Microbiologyevents.SPEC_TYPE_DESC: SPUTUM
+D_items.LABEL: SPUTUM
+
+Example 2)
+Given data:
+Information:
+    - Patient Admission Date: 2149-11-03
+    - Note's chartdate: 2149-11-10 (Today)
+Microbiologyevents.ORG_NAME: STAPHYLOCOCCUS, COAGULASE NEGATIVE
+Microbiologyevents.SPEC_TYPE_DESC: BLOOD CULTURE
+D_items.LABEL: STAPHYLOCOCCUS, COAGULASE NEGATIVE
+
+Output:
+Microbiologyevents.ORG_NAME: STAPHYLOCOCCUS, COAGULASE NEGATIVE
+Microbiologyevents.SPEC_TYPE_DESC: BLOOD CULTURE
+D_items.LABEL: STAPHYLOCOCCUS, COAGULASE NEGATIVE
+
+Your task:
+Given data:
+Information:
+    - Patient Admission Date: <<<<Admission>>>>
+    - Note's Chartdate: <<<<Charttime>>>> (Today)
+<<<<GIVEN_DATA>>>> 
+
+Tell me output:

@@ -1,0 +1,41 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Prescriptions.hadm_id = 12345
+Prescriptions.DRUG=Vancomycin
+prescriptions.startdate = 2149-02-16
+Prescriptions.DOSE_VAL_RX=20
+Prescriptions.DOSE_UNIT_RX=mg
+
+[given extra information]
+1. Utilize strftime function.
+2. Construct a query that filters records where Prescriptions.startdate fall within one day before to one day after their respective specified dates, using the strftime function to keep the 'yyyy-mm-dd' format. 
+
+Output: [{'Q': "SELECT * FROM Prescriptions WHERE hadm_id = 12345 AND DRUG = 'Vancomycin' AND strftime('%Y-%m-%d', startdate) BETWEEN strftime('%Y-%m-%d', '2149-02-15') AND strftime('%Y-%m-%d', '2149-02-17') AND DOSE_VAL_RX = 20 AND DOSE_UNIT_RX = 'mg'"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Prescriptions.hadm_id = 25455
+prescriptions.startdate = 2137-03-11
+Prescriptions.DRUG=Aspirin
+
+[given extra information]
+1. Utilize strftime function.
+2. Construct a query that filters records where Prescriptions.startdate fall within one day before to one day after their respective specified dates, using the strftime function to keep the 'yyyy-mm-dd' format. 
+
+Output: [{'Q': "SELECT * FROM Prescriptions WHERE hadm_id = 25455 AND DRUG = 'Aspirin' AND strftime('%Y-%m-%d', startdate) BETWEEN strftime('%Y-%m-%d', '2137-03-10') AND strftime('%Y-%m-%d', '2137-03-12')"}]
+
+Your task:
+[{table}.{column}={condition value}]
+Prescriptions.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Construct a query that filters records where Prescriptions.startdate fall within one day before to one day after their respective specified dates, using the strftime function to keep the 'yyyy-mm-dd' format. 
+
+Write the query in [{'Q'}] form!

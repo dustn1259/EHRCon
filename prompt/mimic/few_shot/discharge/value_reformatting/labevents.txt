@@ -1,0 +1,54 @@
+Task: Transform Given Data to Match a Database Table Format
+Objective: Your goal is to modify a set of given data so that it matches the format of an existing database table. The data transformation should adhere to any constraints evident from the table's structure. Focus solely on the fields provided in the given data and do not add or infer any additional fields.
+** Only transform and include the fields mentioned in the given data. Do not add, create, or infer any additional fields beyond what is specified (e.g., do not include fields like 'CHARTTIME' if they are not in the given data)**
+
+Table Information:
+1. Existing Table Schema: {'Labevents': {'CHARTTIME': <class 'datetime'>, 'VALUENUM': <class 'float'>, 'VALUEUOM': <class 'str'>}, 'D_labitems': {'LABEL': <class 'str'>}}
+    [Example row of Labevents and D_labitems tables]
+        - Labevents.CHARTTIME: 2208-11-08 23:00:00
+        - Labevents.VALUENUM: 30.0 
+        - Labevents.VALUEUOM: % 
+        - D_labitems.LABEL: Monocytes
+
+2. CHARTTIME uses a 24-hour format.
+
+Extra Instructions: If the given data includes relative dates (like 'charttime'), replace it with the corresponding actual date from the patient's record.
+
+Example 1)
+Given data:
+Information:
+    - Patient Admission Date: 2101-10-01
+    - Note's Chartdate: 2101-10-11 (same as discharge summary note's chartdate)
+Chartevents.CHARTTIME: [**2101-10-11**] 8:00 PM
+Chartevents.VALUENUM: 7.10
+Chartevents.VALUEUOM: mg/dL
+D_items.LABEL: Blasts
+
+Output:
+Labevents.CHARTTIME: 2101-10-11 20:00:00
+Labevents.VALUENUM: 7.10
+Labevents.VALUEUOM: mg/dL 
+D_labitems.LABEL: Blasts
+
+Example 2)
+Given data:
+Information:
+    - Patient Admission Date: 2134-01-10
+    - Note's Chartdate: 2134-01-10 (same as discharge summary note's chartdate)
+Chartevents.CHARTTIME: charttime
+Chartevents.VALUENUM: 9.5
+D_items.LABEL: WBC
+
+Output:
+Chartevents.CHARTTIME: 2134-01-10 
+Chartevents.VALUENUM: 9.5
+D_items.LABEL: WBC
+
+Your task:
+Given data:
+Information:
+    - Patient Admission Date: <<<<Admission>>>>
+    - Note's Chartdate: <<<<Charttime>>>> (same as discharge summary note's chartdate)
+<<<<GIVEN_DATA>>>>
+
+Tell me output:

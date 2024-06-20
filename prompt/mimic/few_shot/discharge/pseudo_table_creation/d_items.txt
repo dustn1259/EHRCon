@@ -1,0 +1,71 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. LABEL: label'
+
+Additional Requirement:
+1. For instances like 'BP 120/70', treat it as two separate mentions of the entity BP—once for the systolic measurement (120) and once for the diastolic measurement (70). Each measurement should be recorded individually in the VALUENUM column without combining them as '120/70'.
+
+Column Descriptions and Schema Information:
+1. LABEL: The label column provides a human-readable name for this item. The label could be a description of a clinical observation such as Temperature, blood pressure, and heart rate.
+    - Datatype: <class 'str'>
+
+Example 1: Analyze the clinical note to extract {{**Urine Out Foley**}} data and document the findings in the EHR table.
+
+Clinical Note:
+"Mr [**Known lastname **] is a 64yo M who presented with a pituitary tumor. He
+was admitted to neurosurgery on [**2196-10-12**] and underwent
+trans-sphenoidal pituitary tumor resection. He tolerated the
+procedure well and went to the floor post-operatively. During this time, 
+he was also placed on a {{**urine out Foley**}} for urinary management. 
+However, on the first night after his surgery, he vomited a large amount
+of blood and became obtunded. CT showed no ICH."
+
+**Step 1) Identify and Extract Information about '{{**Urine Out Foley**}}' in the given text.
+[Answer in step 1]: During this time, he was also placed on a {{**urine out Foley**}} for urinary management. 
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**Urine Out Foley**}}' occurs.**
+[Answer in step 2]: From the phrase 'During this time', we can infer that the Foley catheter was inserted at some point after the patient underwent surgery and was moved to the ward. However, the exact date or time of the urine out Foley is not specified in the record.
+
+**Step 3) Fill the table with information Directly Related to '{{**Urine Out Foley**}}' in the given text.**
+Based on the mentions of '{{**Urine Out Foley**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: LABEL, DBSOURCE. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Label would be Urine Out Foley and dbsource would be NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**Urine Out Foley**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**Urine Out Foley**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. LABEL: Urine Out Foley"
+
+Example 2: Analyze the clinical note to extract {{**D5W**}} data and document the findings in the EHR table.
+
+Clinical Note:
+"Initial VS were noted to be T98.8, HR 116, BP 199/108,
+RR 18, Sat 100% on RA. Her initial labwork was notable for a
+negative serum tox screen including EtoH. He was noted to have
+tongue fasiculations, tremors and was given initially Diazepam
+10mg IV x 1, 10mg PO x 1. He was also noted to have nausea,
+vomiting, epigastric pain. He was started on {{**D5W**}} gtt."
+
+**Step 1) Identify and Extract Information about '{{**D5W**}}' in the given text.
+[Answer in step 1]: He was started on {{**D5W**}} gtt.
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**D5W**}}' occurs.**
+[Answer in step 2]: The exact time when it occurred is not specified in the clinical note. Therefore, the charttime would be NaN.
+
+**Step 3) Fill the table with information Directly Related to '{{**D5W**}}' in the given text.**
+Based on the mentions of '{{**D5W**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: LABEL, DBSOURCE. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Label would be D5W and dbsource would be NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**D5W**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**D5W**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. LABEL: D5W"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

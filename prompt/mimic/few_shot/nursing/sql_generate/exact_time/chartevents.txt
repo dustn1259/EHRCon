@@ -1,0 +1,68 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Example 1)
+[{table}.{column}={condition value}]
+Chartevents.hadm_id = 12345
+Chartevents.valuenum= 94.0
+Chartevents.valueuom = mmHg
+Chartevents.charttime = '2000-11-11'
+D_items.label = 'BP'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Chartevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output: [{'Q': "SELECT * FROM Chartevents JOIN D_items ON Chartevents.itemid = D_items.itemid WHERE Chartevents.hadm_id = 12345 AND Chartevents.valuenum = 94.0 AND Chartevents.valueuom = 'mmHg' AND strftime('%Y-%m-%d', Chartevents.charttime) = '2000-11-11' AND D_items.label = 'BP'"}]
+
+Example 2) 
+[{table}.{column}={condition value}]
+Chartevents.hadm_id = 20202
+Chartevents.valuenum= 97
+D_items.label = 'T'
+Chartevents.charttime = '2121-07-03'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Chartevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output:  [{'Q': "SELECT * FROM Chartevents JOIN D_items ON Chartevents.itemid = D_items.itemid WHERE Chartevents.hadm_id = 20202 AND Chartevents.valuenum = 97 AND D_items.label = 'T' AND strftime('%Y-%m-%d', Chartevents.charttime) = '2121-07-03'"}]
+
+Example 3) 
+[{table}.{column}={condition value}]
+Chartevents.hadm_id = 3131
+Chartevents.valuenum= 102
+D_items.label = 'hr'
+Chartevents.charttime = '2133-09-11 10:00:14'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Chartevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output:  [{'Q': "SELECT * FROM Chartevents JOIN D_items ON Chartevents.itemid = D_items.itemid WHERE Chartevents.hadm_id = 3131 AND Chartevents.valuenum = 102 AND D_items.label = 'hr' AND strftime('%Y-%m-%d %H:%M:%S', Chartevents.charttime) = '2133-09-11 10:00:14'"}]
+
+Example 4) 
+[{table}.{column}={condition value}]
+Chartevents.hadm_id = 14456
+Chartevents.valuenum= 36.7
+D_items.label = 'Temp'
+Chartevents.charttime = '2331-02-11 21:32:33'
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Chartevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Output:  [{'Q': "SELECT * FROM Chartevents JOIN D_items ON Chartevents.itemid = D_items.itemid WHERE Chartevents.hadm_id = 14456 AND Chartevents.valuenum = 36.7 AND D_items.label = 'Temp' AND strftime('%Y-%m-%d %H:%M:%S', Chartevents.charttime) = '2331-02-11 21:32:33'"}]
+
+Your task)
+[{table}.{column}={condition value}]
+Chartevents.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. The 'Chartevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

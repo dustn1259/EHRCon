@@ -1,0 +1,67 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. SHORT_TITLE: short_title, LONG_TITLE: long_title'
+
+Column Descriptions and Schema Information:
+1. SHORT_TITLE: Short_title provides a concise description of medical procedures encoded by ICD-9-CM codes.
+    - Datatype: <class 'str'>
+2. LONG_TITLE: Long_title offers a detailed and comprehensive description of medical procedures associated with ICD-9-CM codes. 
+    - Datatype:  <class 'str'>
+
+Example 1: Analyze the clinical note to extract {{**bronchoscopy**}} data and document the findings in the EHR table.
+
+Clinical Note:
+"Major Surgical or Invasive Procedure:
+{{**bronchoscopy**}} 3/31,4/2,3,[**6-12**], [**5-17**], [**5-19**]
+s/p trachealplasty [**5-5**]
+percutaneous tracheostomy [**5-13**] after failed extubation
+down size trach on [**5-25**] to size 6 cuffless"
+
+**Step 1) Identify and Extract Information about '{{**bronchoscopy**}}' in the given text.
+[Answer in step 1]: Major Surgical or Invasive Procedure: {{**bronchoscopy**}}
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**bronchoscopy**}}' occurs.**
+[Answer in step 2]: During hospitalization
+
+**Step 3) Fill the table with information Directly Related to '{{**bronchoscopy**}}' in the given text.**
+Based on the mentions of '{{**bronchoscopy**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: SHORT_TITLE, LONG_TITLE. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Long title would be bronchoscopy and Short title would be bronchoscopy.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**bronchoscopy**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**bronchoscopy**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. SHORT_TITLE: bronchoscopy, SHORT_TITLE: bronchoscopy"
+
+Example 2: Analyze the clinical note to extract {{**arterial line placement**}} data and document the findings in the EHR table.
+
+Clinical Note:
+"Major Surgical or Invasive Procedure:
+Intubation
+{{**arterial line placement**}}
+PICC line placement
+Esophagogastroduodenoscopy"
+
+**Step 1) Identify and Extract Information about '{{**arterial line placement**}}' in the given text.
+[Answer in step 1]: Major Surgical or Invasive Procedure: Intubation {{**arterial line placement**}}
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**arterial line placement**}}' occurs.**
+[Answer in step 2]: During hospitalization
+
+**Step 3) Fill the table with information Directly Related to '{{**arterial line placement**}}' in the given text.**
+Based on the mentions of '{{**arterial line placement**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: SHORT_TITLE, LONG_TITLE. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: Short title would be arterial line placement and Long title would be arterial line placement.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**arterial line placement**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**arterial line placement**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. SHORT_TITLE: arterial line placement, LONG_TITLE: arterial line placement"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

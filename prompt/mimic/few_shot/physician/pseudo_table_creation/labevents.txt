@@ -1,0 +1,105 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. CHARTTIME: charttime, VALUENUM: valuenum, VALUEUOM: valueuom'
+
+Additional Requirement:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for VALUENUM, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. Charttime: Charttime records the timestamp when an output event, such as urine output or drainage, was documented.
+    - Datatype: <class 'datetime'>
+2. VALUENUM: Valuenum contains the numeric value representing the quantity of output, such as the volume of urine or other fluids, recorded as a floating-point number.
+    - Datatype:  <class 'float'>
+3. VALUEUOM: Valueuom specifies the unit of measurement for the numeric value recorded in the Valuenum column, such as milliliters (mL).
+    - Datatype:  <class 'str'>
+    
+Example 1: Analyze the physician note to extract {{**WBC**}} data and document the findings in the EHR table.
+
+Physician note: 
+"[**2127-10-21**]  01:55 PM
+[**2127-10-21**]  05:21 PM
+{{**WBC**}}
+8.5
+3.6
+Hct
+36.9
+32.9
+35.5
+Plt
+234
+163
+Cr
+2.2
+3.7
+
+Other labs: PT / PTT / INR:14.8/29.2/1.3, CK / CK-MB / {{**Troponin
+T**}}:317/14/0.47, ALT / AST:38/76, Alk-Phos / T bili:41/1.7, Amylase /
+Lipase:35/30, Differential-Neuts:89.0 %, Band:2.0 %, Lymph:4.0 %,
+Mono:2.0 %, Eos:0.0 %, Fibrinogen:458 mg/dL, Albumin:3.2 g/dL, LDH:285
+IU/L, Ca:7.6 mg/dL, Mg:2.8 mg/dL, PO4:1.3 mg/dL"
+
+**Step 1) Identify and Extract Information about '{{**WBC**}}' in the given text.
+[Answer in step 1]: [**2127-10-21**]  01:55 PM [**2127-10-21**]  05:21 PM {{**WBC**}} 8.5 10.1
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**WBC**}}' occurs.**
+[Answer in step 2]: WBC occured on [**2127-10-21**]  01:55 PM and [**2127-10-21**]  05:21 PM
+
+**Step 3) Fill the table with information Directly Related to '{{**WBC**}}' in the given text.**
+Based on the mentions of '{{**WBC**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: First WBC test, performed on the [**2127-10-21**]  01:55 PM , has a charttime corresponding to the [**2127-10-21**]  01:55 PM. The VALUENUM for WBC is 9.5 and VALUEUOM for WBC is NaN. Second WBC test, performed on the [**2127-10-21**]  05:21 PM, has a charttime corresponding to the [**2127-10-21**]  05:21 PM. The VALUENUM for WBC is 10.1 and VALUEUOM for WBC is NaN.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**WBC**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**WBC**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: [**2127-10-21**]  01:55 PM, VALUENUM: 8.5, VALUEUOM: NaN"
+- "Mentioned [2]. CHARTTIME: [**2127-10-21**]  05:21 PM, VALUENUM: 10.1, VALUEUOM: NaN"
+
+Example 2: Analyze the physician note to extract {{**PTT**}} data and document the findings in the EHR table.
+
+Physician note:
+"[**2127-10-21**]  01:55 PM
+[**2127-10-21**]  05:21 PM
+WBC
+8.5
+3.6
+Hct
+36.9
+32.9
+35.5
+Plt
+234
+163
+Cr
+2.2
+3.7
+
+Other labs: PT / {{**PTT**}} / INR:14.8/29.2/1.3, CK / CK-MB / {{**Troponin
+T**}}:317/14/0.47, ALT / AST:38/76, Alk-Phos / T bili:41/1.7, Amylase /
+Lipase:35/30, Differential-Neuts:89.0 %, Band:2.0 %, Lymph:4.0 %,
+Mono:2.0 %, Eos:0.0 %, Fibrinogen:458 mg/dL, Albumin:3.2 g/dL, LDH:285
+IU/L, Ca:7.6 mg/dL, Mg:2.8 mg/dL, PO4:1.3 mg/dL"
+
+**Step 1) Identify and Extract Information about '{{**PTT**}}' in the given text.
+[Answer in step 1]: Other labs: PT / {{**PTT**}} / INR:14.8/29.2/1.3
+
+**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**PTT**}}' occurs.**
+[Answer in step 2]: Given the task instructions, unless a specific time is directly associated with the {{Entity}} data, all times are considered based on the time when the note was charted. Therefore, the {{PTT}} values are associated with the chart times provided at the start of the note.
+
+**Step 3) Fill the table with information Directly Related to '{{**PTT**}}' in the given text.**
+Based on the mentions of '{{**PTT**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, VALUENUM, VALUEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: The PTT test, performed on charttime, has a charttime corresponding to charttime. The VALUENUM for PTT is 29.2.
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**PTT**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**PTT**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. CHARTTIME: charttime, VALUENUM: 29.2, VALUEUOM: NaN"
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+Physician note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!
