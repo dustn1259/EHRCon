@@ -1,0 +1,15 @@
+Task: You are a highly intelligent and accurate sqlite3 creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Do not infer or predict, only use the information provided.  
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Your task)
+[{table}.{column}={condition value}]
+Inputevents_mv.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. Ensure that there is any overlap between the period defined by ['Inputevents_mv.starttime', 'Inputevents_mv.endtime'] and the period from one day before <<<ADMISSION>>> to one day after <<<CHARTTIME>>>. And maintain 'yyyy-mm-dd' format. 
+
+Write the query in [{'Q'}] form!

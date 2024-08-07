@@ -37,7 +37,7 @@ PRN."
 **Step 1) Identify and Extract Information about '{{**NaCl 0.9%**}}' in the given text.
 [Answer in step 1]: 16. {{**NaCl 0.9%**}} line flushes Please flush PICC line with 3mL normal saline every 8 hours and PRN.
 
-**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**NaCl 0.9%**}}' occurs.**
+**Step 2) Determine the STARTTIME and ENDTIME step-by-step: Identify when the '{{**NaCl 0.9%**}}' occurs.**
 [Answer in step 2]: According to the clinical note, the prescription of NaCl 0.9% was made during the discharge.
 
 **Step 3) Fill the table with information Directly Related to '{{**NaCl 0.9%**}}' in the given text.**

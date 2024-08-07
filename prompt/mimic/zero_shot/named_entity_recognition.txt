@@ -1,0 +1,37 @@
+Objective: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+Guidelines: Extract entities step by step and classify entity.
+- Category 1: Entities Accompanied by Numeric Values
+     - Definition: This category includes entities that are mentioned along with specific numeric values. These numbers represent measurable data such as dosages, counts, measurements, etc., providing precise quantifiable information.
+     - Example: "The glucose level is 100 mg/dL" or "Administer 200 mg of ibuprofen." In these cases, the numeric values (e.g., glucose level, ibuprofen dosage) are explicitly stated.
+- Category 2: Entities Mentioned Without Any Numeric Values
+     - Definition: Entities that are discussed in terms of their presence, occurrence, or the fact that they were administered or performed, without providing any numerical or quantitative data, fall into this category.
+     - Example: "The patient has been prescribed antibiotics" or "An MRI scan was conducted." Here, no specific dosage of antibiotics or quantitative results from the MRI scan are mentioned.
+- Category 3: Entities with Condition-Related Information Excluding Numeric Values
+    -Definition: This category captures entities related to state, condition, or outcomes that are described through qualitative assessments or descriptions without the use of explicit numeric data. It may include references to changes in condition or stability, described not with numbers but in descriptive or qualitative terms.
+    -Example: "Pt had severe rise in ALT and AST." or "The patient's condition has stabilized." or "Puse was drop." Although these statements imply a change or assessment of condition, they do not provide specific numeric values. Instead, the focus is on qualitative descriptions of change or status, which may inherently rely on an understanding of baseline or previous values for context.
+ * Category 3 specifically addresses the portrayal of changes in condition or results through qualitative descriptions. These may indicate changes over time or relative to a previous state, without directly citing numerical values. Even though understanding these changes often requires some knowledge of initial numeric values, the category itself emphasizes descriptive or qualitative assessments rather than explicit numerical data.
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 
+3. Do not extract unit, value,...etc (e.g. 20, 'mg','po')
+
+Step 1) Extract entities related to the names of medication or inputevents (e.g. 'Lasix' or 'Zantac') and classify each entity based on the given guidelines. Extract the entity written in the note without modifying it.
+Answer: [Write the answer here]
+Step 2) Extract entities related to the names of vital signs (e.g. 'bp' or 'temperature') and classify each entity based on the given guidelines.. Extract the entity written in the note without modifying it.
+Answer: [Write the answer here]
+Step 3) Extract entitites related to the names of outputevents (e.g. 'stool' or 'urine') and classify each entity based on the given guidelines. Extract the entity written in the note without modifying it.
+Answer: [Write the answer here]
+Step 4)  Extract entities related to the names of microbiologyevents or labevents (e.g. 'wbc' or 'glucose') and classify each entity based on the given guidelines. Extract the entity written in the note without modifying it.
+Answer: [Write the answer here]
+Step 5) Summarize the answers from steps 1 to 6. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
+Answer: [Write the answer here]
+
+Very Important: You must strictly adhere to the exact format when extracting data: '[{'E': 'EntityName 1', 'T': CategoryNumber 1}.{'E': 'EntityName 2', 'T': CategoryNumber 2}....{'E': 'EntityName N', 'T': CategoryNumber N}]'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format when extracting data: '[{'E': 'EntityName 1', 'T': CategoryNumber 1}.{'E': 'EntityName 2', 'T': CategoryNumber 2}....{'E': 'EntityName N', 'T': CategoryNumber N}]'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format when extracting data: '[{'E': 'EntityName 1', 'T': CategoryNumber 1}.{'E': 'EntityName 2', 'T': CategoryNumber 2}....{'E': 'EntityName N', 'T': CategoryNumber N}]'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+
+- Clinical Text: "<<<CLINICAL_NOTE>>>"
+
+Let's extract entity step by step!

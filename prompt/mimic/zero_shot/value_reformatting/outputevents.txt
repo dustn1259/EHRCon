@@ -1,0 +1,49 @@
+Task: Transform Given Data to Match a Database Table Format
+Objective: Your goal is to modify a set of given data so that it matches the format of an existing database table. The data transformation should adhere to any constraints evident from the table's structure. Focus solely on the fields provided in the given data and do not add or infer any additional fields.
+
+Guidelines:
+ 1. Only transform and include the fields mentioned in the given data. Do not add, create, or infer any additional fields beyond what is specified (e.g., do not include fields like 'CHARTTIME' if they are not in the given data)
+ 2. When transfroming given dataset, consider contextual information.
+ 3. If the given data includes relative dates (like 'admission'), replace it with the corresponding actual date from the patient's record.
+ 4. Ensure all data matches the format of the existing table.
+ 5. We use 24hours format.
+ 6. Please format your transformed data in this manner: {TableName}.{ColumnName} = {TransformedValue}. Ensure to only include the columns explicitly mentioned in the given data.
+
+Existing Database Schema Overview: The schema consists of two tables: Outputevents and D_items.
+Existing Table Schema: {'Outputevents': {'CHARTTIME':<class 'datetime'>,'VALUENUM':<class 'float'>,'VALUEUOM':<class 'str'>},'D_ITEMS':{'LABEL':<class 'str'>,'LINKSTO':<class 'str'>}}
+
+Example Rows from Existing Table Data:
+Outputevents.CHARTTIME: 2101-10-12 16:07:00
+Outputevents.VALUE: 7.10
+Outputevents.VALUEUOM: mg/dL
+D_items.LABEL: Blasts
+D_items.LINKSTO: NaN 
+
+Example Rows from Existing Table Data:
+Outputevents.CHARTTIME: 2904-09-25 00:00:00
+Outputevents.VALUE: 30.0 
+Outputevents.VALUEUOM: %
+D_items.LABEL: Monocytes
+D_items.LINKSTO: NaN 
+
+Example Rows from Existing Table Data:
+Outputevents.CHARTTIME: 2904-09-22 20:00:00
+Outputevents.VALUE: NaN
+Outputevents.VALUEUOM: NaN
+D_items.LABEL: Eosinophils
+D_items.LINKSTO: NaN
+
+Let's transform the given dataset to match the database table formats for Outputevents and D_items.
+
+Contextual Information:
+- Chartdate of <<<<NOTE_TYPE>>>> note: <<<<Charttime>>>> (Today)
+- Patient Admission Date:  <<<<Admission>>>>
+
+Given data:
+"<<<<GIVEN_DATA>>>>"
+
+Output: [Write answer here]
+
+Very Important: You must strictly adhere to the exact format: 'Output: {TableName}.{ColumnName} = {TransformedValue}'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format: 'Output: {TableName}.{ColumnName} = {TransformedValue}'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format: 'Output: {TableName}.{ColumnName} = {TransformedValue}'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.

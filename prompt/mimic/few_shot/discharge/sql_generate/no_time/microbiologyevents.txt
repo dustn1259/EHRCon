@@ -12,9 +12,9 @@ Microbiologyevents.org_name = Pseudomonas
 [given extra information]
 1. Utilize strftime function.
 2. Ensure that there is any overlap between the period defined by  ['Microbiologyevents.charttime'] and the period from one day before 2149-02-16 to one day after 2149-02-19. And maintain 'yyyy-mm-dd' format. 
-3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+3. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 10304 AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas' AND (strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN '2149-02-15' AND '2149-02-20')"}]
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS d1 ON Microbiologyevents.spec_itemid = d1.itemid JOIN D_items AS d2 ON Microbiologyevents.org_itemid = d2.itemid WHERE Microbiologyevents.hadm_id = 10304 AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas' AND strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN '2149-02-15' AND '2149-02-20'"}]
 
 Example 2) 
 [{table}.{column}={condition value}]
@@ -24,9 +24,9 @@ Microbiologyevents.org_name= ESCHERICHIA COLI
 [given extra information]
 1. Utilize strftime function.
 2. Ensure that there is any overlap between the period defined by  ['Microbiologyevents.charttime'] and the period from one day before 2121-07-03 to one day after 2121-07-10. And maintain 'yyyy-mm-dd' format. 
-3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+3. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 20202 AND Microbiologyevents.org_name = 'ESCHERICHIA COLI' AND (strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN '2121-07-02' AND '2121-07-11')"}]
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS d1 ON Microbiologyevents.spec_itemid = d1.itemid JOIN D_items AS d2 ON Microbiologyevents.org_itemid = d2.itemid WHERE Microbiologyevents.hadm_id = 20202 AND Microbiologyevents.org_name = 'ESCHERICHIA COLI' AND strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN '2121-07-02' AND '2121-07-11'"}]
 
 Your task:
 [{table}.{column}={condition value}]
@@ -36,6 +36,6 @@ Microbiologyevents.hadm_id = <<<HAMD_ID>>>
 [given extra information]
 1. Utilize strftime function.
 2. Ensure that there is any overlap between the period defined by ['Microbiologyevents.charttime'] and the period from one day before <<<ADMISSION>>> to one day after <<<CHARTTIME>>>. And maintain 'yyyy-mm-dd' format. 
-3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+3. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
 Write the query in [{'Q'}] form!

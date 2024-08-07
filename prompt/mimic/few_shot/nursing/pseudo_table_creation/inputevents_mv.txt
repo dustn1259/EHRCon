@@ -38,7 +38,7 @@ Pt returned to baseline O2 requirements"
 **Step 1) Identify and Extract Information about '{{**NaCl 0.9%**}}' in the given text.
 [Answer in step 1]: Action: Prednisone; vanc and zosyn for MRSA PNA; nebs. Administered 5.0 ml of {{**NaCl 0.9%**}} IV  
 
-**Step 2) Determine the CHARTTIME step-by-step: Identify when the '{{**NaCl 0.9%**}}' occurs.**
+**Step 2) Determine the STARTTIME and ENDTIME step-by-step: Identify when the '{{**NaCl 0.9%**}}' occurs.**
 [Answer in step 2]: The note lacks a specific date or time for the administration of {{NaCl 0.9%}}, and without structured dates, we assume the event occurred in real-time with the documented nursing actions. Therefore, we designate the starttime as 'charttime'.
 
 **Step 3) Fill the table with information Directly Related to '{{**NaCl 0.9%**}}' in the given text.**

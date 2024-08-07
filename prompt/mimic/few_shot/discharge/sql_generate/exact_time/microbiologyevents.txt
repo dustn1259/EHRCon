@@ -12,9 +12,9 @@ Microbiologyevents.org_name = Pseudomonas
 
 [given extra information]
 1. Utilize strftime function.
-2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+2. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 10304 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) = '2149-02-16' AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas'"}]
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS spec_items ON Microbiologyevents.spec_itemid = spec_items.itemid JOIN D_items AS org_items ON Microbiologyevents.org_itemid = org_items.itemid WHERE Microbiologyevents.hadm_id = 10304 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) = '2149-02-16' AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas'"}]
 
 Example 2) 
 [{table}.{column}={condition value}]
@@ -24,9 +24,9 @@ Microbiologyevents.org_name= ESCHERICHIA COLI
 
 [given extra information]
 1. Utilize strftime function.
-2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+2. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 20202 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) = '2121-07-03' AND Microbiologyevents.org_name = 'ESCHERICHIA COLI'"}]
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS spec_items ON Microbiologyevents.spec_itemid = spec_items.itemid JOIN D_items AS org_items ON Microbiologyevents.org_itemid = org_items.itemid WHERE Microbiologyevents.hadm_id = 20202 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) = '2121-07-03' AND Microbiologyevents.org_name = 'ESCHERICHIA COLI'"}]
 
 Example 3) 
 [{table}.{column}={condition value}]
@@ -36,9 +36,9 @@ Microbiologyevents.org_name= Staphylococcus
 
 [given extra information]
 1. Utilize strftime function.
-2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+2. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 55552 AND strftime('%Y-%m-%d %H:%M:%S', Microbiologyevents.charttime) = '2818-11-11 15:11:14' AND Microbiologyevents.org_name = 'Staphylococcus'"}] 
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS spec_items ON Microbiologyevents.spec_itemid = spec_items.itemid JOIN D_items AS org_items ON Microbiologyevents.org_itemid = org_items.itemid WHERE Microbiologyevents.hadm_id = 55552 AND strftime('%Y-%m-%d %H:%M:%S', Microbiologyevents.charttime) = '2818-11-11 15:11:14' AND Microbiologyevents.org_name = 'Staphylococcus'"}]
 
 Example 4) 
 [{table}.{column}={condition value}]
@@ -48,9 +48,9 @@ Microbiologyevents.spec_type_desc: blood
 
 [given extra information]
 1. Utilize strftime function.
-2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+2. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 5555 AND strftime('%Y-%m-%d %H:%M:%S', Microbiologyevents.charttime) = '2122-06-11 15:30:11' AND Microbiologyevents.spec_type_desc= 'sputum'"}] 
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS spec_items ON Microbiologyevents.spec_itemid = spec_items.itemid JOIN D_items AS org_items ON Microbiologyevents.org_itemid = org_items.itemid WHERE Microbiologyevents.hadm_id = 5555 AND strftime('%Y-%m-%d %H:%M:%S', Microbiologyevents.charttime) = '2122-06-11 15:30:11' AND Microbiologyevents.spec_type_desc = 'blood'"}]
 
 Your task:
 [{table}.{column}={condition value}]
@@ -59,6 +59,6 @@ Microbiologyevents.hadm_id = <<<HAMD_ID>>>
 
 [given extra information]
 1. Utilize strftime function.
-2. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+2. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
 Write the query in [{'Q'}] form!

@@ -1,0 +1,108 @@
+Objective: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+Guidelines: Extract entities step by step and classify entity.
+- Category 1: Entities Accompanied by Numeric Values
+     - Definition: This category includes entities that are mentioned along with specific numeric values. These numbers represent measurable data such as dosages, counts, measurements, etc., providing precise quantifiable information.
+     - Example: "The glucose level is 100 mg/dL" or "Administer 200 mg of ibuprofen." In these cases, the numeric values (e.g., glucose level, ibuprofen dosage) are explicitly stated.
+- Category 2: Entities Mentioned Without Any Numeric Values
+     - Definition: Entities that are discussed in terms of their presence, occurrence, or the fact that they were administered or performed, without providing any numerical or quantitative data, fall into this category.
+     - Example: "The patient has been prescribed antibiotics" or "An MRI scan was conducted." Here, no specific dosage of antibiotics or quantitative results from the MRI scan are mentioned.
+- Category 3: Entities with Condition-Related Information Excluding Numeric Values
+    -Definition: This category captures entities related to state, condition, or outcomes that are described through qualitative assessments or descriptions without the use of explicit numeric data. It may include references to changes in condition or stability, described not with numbers but in descriptive or qualitative terms.
+    -Example: "Pt had severe rise in ALT and AST." or "The patient's condition has stabilized." or "Puse was drop." Although these statements imply a change or assessment of condition, they do not provide specific numeric values. Instead, the focus is on qualitative descriptions of change or status, which may inherently rely on an understanding of baseline or previous values for context.
+ * Category 3 specifically addresses the portrayal of changes in condition or results through qualitative descriptions. These may indicate changes over time or relative to a previous state, without directly citing numerical values. Even though understanding these changes often requires some knowledge of initial numeric values, the category itself emphasizes descriptive or qualitative assessments rather than explicit numerical data.
+
+Example 1: Develop a NER system to identify and categorize specific named entities in clinical texts step by step. 
+
+- Clinical Text: "
+Physical Exam:
+Patient's t is 99.6, blood
+pressure 120/50, heart rate 57, 96% on room air.  He is alert
+and oriented times three, pupils are equal, round and
+reactive to light.  Tongue is midline.  Oropharynx is clear. His neck is supple. Heart is regular rate and rhythm. Pt had severe rise in ALT and AST.
+with a [**2-15**] harsh systolic ejection murmur at the base which
+radiates to the carotids
+Neck: supple
+
+HOSPITAL COURSE:  The patient underwent an elective coronary
+artery bypass graft times three on [**2143-4-26**] with grafts
+being a left internal mammary artery to left anterior
+descending artery, saphenous vein graft to ramus, and
+saphenous vein graft to posterior descending artery.  He was
+extubated on the day of surgery.  On postoperative day one,
+his nasogastric tubes were discontinued.
+
+LABORATORY DATA:  On admission, wbc 12.5, hematocrit
+33.8, platelet count 364,000, PT 12.5, PTT 29.7, INR 1.1"
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 
+
+Step 1) Extract entities related to medication or inputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: Nothing
+Step 2) Extract entities related to vital signs and classify each entity. Extract the entity written in the note without modifying it.
+Answer: t - catetgory 1 (numeric value: 99.6), blood pressure - category 1 (numeric value: 120/50), heart rate - category 1 (numeric value: 57), room air - category 1 (numeric value: 96), heart rate - category 3 (qualitative assessments or descriptions : regular), heart rhythm - category 3 (qualitative assessments or descriptions : regular)
+Step 3) Extract entitites related to outputevents  'T' classify each entity. Extract the entity written in the note without modifying it.
+Answer: Nothing
+Step 4)  Extract entities related to microbiologyevents or labevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: ALT - category 3 (qualitative assessments or descriptions : severe rise), AST - category 3 (qualitative assessments or descriptions : severe rise), wbc - catetgory 1 (numeric value: 12.5), hematocrit - category 1 (numeric value: 33.8), platelet count - category 1 (numeric value: 364,000), PT - category 1 (numeric value: 12.5), PTT - category 1 (numeric value: 29.7), INR- category 1 (numeric value: 1.1)
+Step 5) Only extract the procedures that are specifically listed under the section titled "Major Surgical or Invasive Procedure" and classify each entity. Extract the entity written in the note without modifying it.
+Answer: There are entities related to procedures, but they are not listed under 'Major Surgical or Invasive Procedure'.
+Step 6) Only extract the diagnoes that are specifically listed under the section titled "Discharge Diagnoses" and classify each entity. Extract the entity written in the note without modifying it.
+Answer: There are entities related to diagnoses, but they are not listed under 'Discharge Diagnosis'.
+Step 7) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
+- Identified Entities and Output Format: [{'E': 't', 'T': 1},{'E': 'blood pressure', 'T': 1},{'E': 'heart rate', 'T': 1},{'E': 'room air', 'T': 1},{'E': 'heart rate', 'T': 3},{'E': 'heart rhythm', 'T': 3},{'E': 'ALT', 'T': 3},{'E': 'AST', 'T': 3},{'E': 'wbc', 'T': 1},{'E': 'hematocrit', 'T': 1},{'E': 'platelet count', 'T': 1},{'E': 'PT', 'T': 1},{'E': 'PTT', 'T': 1},{'E': 'INR', 'T': 1}]
+
+Example 2: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+- Clinical Text: "
+On review of symptoms, he denies any prior history of stroke,
+TIA, deep venous thrombosis, pulmonary embolism, bleeding at the
+time of surgery, myalgias, joint pains, cough, hemoptysis, black
+stools or red stools. He denies recent fevers, chills or rigors.
+He denies exertional buttock or calf pain. All of the other
+review of systems were negative.
+
+Major Surgical or Invasive Procedure:
+bronchoscopy 3/31,4/2,3,[**6-12**], [**5-17**], [**5-19**]
+s/p trachealplasty [**5-5**]
+percutaneous tracheostomy [**5-13**] after failed extubation
+down size trach on [**5-25**] to size 6 cuffless
+ 
+ MEDICATIONS ON DISCHARGE:
+1. Lasix 20 mg IV p.o. q.d. (for one week).
+2. KCL 20 mEq IV p.o. q.d. (for one week).
+3. Colace 100 mg p.o. b.i.d.
+4. Zantac 150 mg p.o. b.i.d.
+5. Enteric-coated aspirin 325 mg p.o. q.d.
+6. Effexor
+
+PHYSICAL EXAMINATION:  Patient was afebrile.  Pulse was drop."
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 
+
+Step 1) Extract entities related to medication or inputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: Lasix - catetgory 1 (numeric value: 20), KCL - catetgory 1 (numeric value: 20), Colace - catetgory 1 (numeric value: 100), Zantac - catetgory 1 (numeric value: 150), Enteric-coated aspirin - catetgory 1 (numeric value: 325), Effexor - catetgory 2
+Step 2) Extract entities related to vital signs and classify each entity. Extract the entity written in the note without modifying it.
+Answer: pulse - category 3 (qualitative assessments or descriptions : drop)
+Step 3) Extract entitites related to outputevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: black stools - catetgory 2 , red stools - catetgory 2
+Step 4)  Extract entities related to microbiologyevents or labevents and classify each entity. Extract the entity written in the note without modifying it.
+Answer: Nothing
+Step 5) Only extract the procedures that are specifically listed under the section titled "Major Surgical or Invasive Procedure" and classify each entity. Extract the entity written in the note without modifying it.
+Answer: bronchoscopy- category 2 , s/p trachealplasty - category 2, percutaneous tracheostomy - category 2
+Step 6) Only extract the diagnoes that are specifically listed under the section titled "Discharge Diagnoses" and classify each entity. Extract the entity written in the note without modifying it.
+Answer: There are entities related to diagnoses, but they are not listed under 'Discharge Diagnosis'.
+Step 7) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
+- Identified Entities and Output Format: [{'E': 'Lasix', 'T': 1},{'E': 'KCL', 'T': 1},{'E': 'Colace', 'T': 1},{'E': 'Zantac', 'T': 1},{'E': 'Enteric-coated aspirin', 'T': 1},{'E': 'Effexor', 'T': 2},{'E': 'Pulse', 'T': 3},{'E': 'black stools', 'T': 2},{'E': 'red stools', 'T': 2},{'E': 'bronchoscopy', 'T': 2},{'E': 'trachealplasty', 'T': 2},{'E': 'percutaneous tracheostomy', 'T': 2}]
+
+Your task: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
+
+- New Clinical Text: "<<<CLINICAL_NOTE>>>"
+
+Extra Rules:
+1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
+2. Do not extract anything related to the Total. 

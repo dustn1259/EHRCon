@@ -1,0 +1,27 @@
+Task Overview:
+You are provided with a <<<<NOTE_TYPE>>>> and are required to analyze time information related to an entity mentioned within the note. Answer three questions.
+
+[Question 1] Based on the clinical note provided, did the measurement for {{**<<<ENTITY>>>**}} occur during the current hospitalization period? Respond with 'Yes' if it did, or 'No' if it pertains to past medical history or conditions.
+[Answer 1] [Write the answer here]
+
+[Question 2] Extract and note the specific section from the clinical note that mentions {{**<<<ENTITY>>>**}}, including any time expression associated with it. Ensure your transcription is accurate and does not infer or add details not present in the note.
+Format your response as follows:
+[Answer 2] 
+Note: [Write the answer here]
+Time: [Write the answer here]
+
+[Question 3] Determine how the time of the {{**<<<ENTITY>>>**}} measurement is recorded in the note. Select the appropriate option based on the description provided:
+1. Indeterminate Time stamp: Choose this option if the note describes the timing of the event in a vague or generalized manner, without providing specific dates or times.
+2. Directly written in the format yyyy-mm-dd: This choice is appropriate for notes that contain specific dates or times in a clear, numerical format. It applies when the note includes the year, month, day, and possibly the time, all in numbers. Formats such as '2000-11-11', '2130-11-10 10:00:00', or '11-13' are examples. Opt for this option only if the note unambiguously displays the date and time in this numerical fashion.
+Remember, Only provide the descriptor name as the answer without any additional explanation.
+[Answer 3] [Write the answer here]
+
+Let's solve three questions that focus on {{**<<<ENTITY>>>**}}.
+<<<<NOTE_TYPE>>>> note:
+    - Date of Note: <<<CHARTTIME>>> (Today)
+    - Admission Date: <<<ADMISSION>>>
+    - Content: "<<<CLINICAL_NOTE>>>"
+
+Very Important: You must strictly adhere to the exact format: [Answer #] Your answer'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format: [Answer #] Your answer'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format: [Answer #] Your answer'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.

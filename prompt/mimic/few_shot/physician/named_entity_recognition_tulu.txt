@@ -111,43 +111,6 @@ Answer: Nothing
 Step 5) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
 - Identified Entities and Output Format: [{'E': 'Tmax', 'T': 1},{'E': 'Tcurrent', 'T': 1},{'E': 'HR', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'RR', 'T': 1},{'E': 'SpO2', 'T': 1},{'E': 'Heart rhythm', 'T': 3}]
 
-Example 3: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
-
-Let's extract entity step by step! Entity extraction should only be performed on events that actually occurred. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
-
-Clinical Text:
-"Respiratory support
-   O2 Delivery Device: Endotracheal tube
-   Ventilator mode: CPAP/PSV
-   Vt (Set): 600 (600 - 600) mL
-   Vt (Spontaneous): 587 (582 - 3,380) mL
-   PS : 5 cmH2O
-   RR (Set): 14
-   RR (Spontaneous): 25
-
-   Physical Examination
-   GENERAL - intubated, responding to all commands, easily arousable
-   NECK - supple, no thyromegaly, JVP=to angle of ear
-
-   Other labs: PT / PTT / INR:16.2/65.7/1.4, Lactic Acid:1.3 mmol/L,
-   Albumin:3.8 g/dL, Ca++:8.6 mg/dL, Mg++:2.3 mg/dL, PO4:5.4 mg/dL
-   "
-
-Extra Rules:
-1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
-2. Do not extract anything related to the Total. 
-
-Step 1) Extract entities related to medication or inputevents and classify each entity. Extract the entity written in the note without modifying it.
-Answer: Nothing
-Step 2) Extract entities related to vital signs and classify each entity. Extract the entity written in the note without modifying it. 
-Answer: Vt (Set) - catetgory 1 (numeric value: 600), Vt (Spontaneous) - catetgory 1 (numeric value: 587), PS - category 1 (numeric value: 5), RR (Set) - category 1 (numeric value: 14), RR (Spontaneous) - category 1 (numeric value: 25)
-Step 3) Extract entitites related to outputevents and classify each entity. Extract the entity written in the note without modifying it.
-Answer: Nothing
-Step 4) Extract entities related to microbiologyevents or labevents and classify each entity. Extract the entity written in the note without modifying it.
-Answer: PT - catetgory 1 (numeric value: 16.2), PTT- catetgory 1 (numeric value: 65.7), INR - catetgory 1 (numeric value: 1.4), Lactic Acid - catetgory 1 (numeric value: 1.3), Albumin - catetgory 1 (numeric value: 3.8), Ca++ - catetgory 1 (numeric value: 8.6), Mg++ - catetgory 1 (numeric value: 2.3), PO4 - catetgory 1 (numeric value: 5.4)
-Step 5) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
-- Identified Entities and Output Format: [{'E': 'Vt (Set)', 'T': 1},{'E': 'Vt (Spontaneous)', 'T': 1},{'E': 'PS', 'T': 1},{'E': 'RR (Set)', 'T': 1},{'E': 'RR (Spontaneous)', 'T': 1},{'E': 'PT', 'T': 1},{'E': 'PTT', 'T': 1},{'E': 'INR', 'T': 1},{'E': 'Lactic Acid', 'T': 1},{'E': 'Albumin', 'T': 1},{'E': 'Ca++', 'T': 1},{'E': 'Mg++', 'T': 1},{'E': 'PO4', 'T': 1}]
-
 Your task: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
 
 - New Clinical Text: "<<<CLINICAL_NOTE>>>"

@@ -1,0 +1,48 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. DRUG: drug, STARTDATE: startdate, ENDDATE: enddate, DOSE_VAL_RX: dose_val_rx, DOSE_UNIT_RX: dose_unit_rx'
+
+Additional Requirements:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 1 to 2 p.o'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for DOSE_VAL_RX, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. DRUG: The Drug column lists the name of the medication that was prescribed to the patient.
+    - Datatype: <class 'str'>
+2. STARTDATE: The Startdate column records the date when a prescribed medication was first ordered or administered to the patient.
+    - Datatype:  <class 'datetime'>
+3. ENDDATE: The Enddate column records the date when the administration of a prescribed medication was completed or discontinued.
+    - Datatype: <class 'datetime'>
+4. DOSE_VAL_RX: The Dose_val_rx column specifies the numeric value of the prescribed dose for the medication.
+    - Datatype:  <class 'float'>
+5. DOSE_UNIT_RX: The Dose_unit_rx column specifies the unit of measurement for the prescribed dose of the medication, such as milligrams (mg) or milliliters (mL).
+    - Datatype:  <class 'str'>
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+**Step 1) Identify and Extract Information about '{{**<<<ENTITY>>>**}}' in the given text.
+[Answer in step 1]: [Write the answer]
+
+**Step 2) Determine the STARTDATE and ENDDATE step-by-step: Identify when the '{{**<<<ENTITY>>>**}}' occurs.**
+[Answer in step 2]: [Write the answer]
+
+**Step 3) Fill the EHR table with information directly related to '{{**<<<ENTITY>>>**}}', ensuring that this table records only events that occurred from the date of admission to the date of discharge.**
+Based on the mentions of '{{**<<<ENTITY>>>**}}' in the given text found in Step 1 and Step 2, fill in the EHR table with these column headers: DRUG, STARTDATE, ENDDATE, DOSE_VAL_RX, DOSE_UNIT_RX.  If specific details are not mentioned in the clinical note or do not pertain to the current hospitalization period like after discharge, record them as 'NaN'.
+[Answer in step 3]: [Write the answer]
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**<<<ENTITY>>>**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**<<<ENTITY>>>**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. DRUG: drug, STARTDATE: startdate, ENDDATE: endate, DOSE_VAL_RX: dose_val_rx, DOSE_UNIT_RX: dose_unit_rx"
+
+Very Important: You must strictly adhere to the exact format when extracting data: 'Mentioned [#]. DRUG: drug, STARTDATE: startdate, ENDDATE: enddate, DOSE_VAL_RX: dose_val_rx, DOSE_UNIT_RX: dose_unit_rx'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format when extracting data: 'Mentioned [#]. DRUG: drug, STARTDATE: startdate, ENDDATE: enddate, DOSE_VAL_RX: dose_val_rx, DOSE_UNIT_RX: dose_unit_rx'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format when extracting data: 'Mentioned [#]. DRUG: drug, STARTDATE: startdate, ENDDATE: enddate, DOSE_VAL_RX: dose_val_rx, DOSE_UNIT_RX: dose_unit_rx'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

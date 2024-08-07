@@ -1,0 +1,47 @@
+Task Overview: You will be given a passage of <<<<NOTE_TYPE>>>> note along with several questions that relate to specific details within that <<<<NOTE_TYPE>>>> note. Your job is to determine whether the <<<<NOTE_TYPE>>>> note explicitly mentions the details asked in the questions. 
+For each question, your response should be divided into two parts:
+1. Evidence quote: Provide a direct quote or the exact sentences from the <<<<NOTE_TYPE>>>> note that either confirm or refute the detail in question. Additionally, include a brief explanation of why this evidence supports your answer.
+2. Answer: Respond with "Yes" if the detail is explicitly mentioned in the <<<<NOTE_TYPE>>>> note using the exact words or phrases from the question. If the clnical note does not contain the specific detail, respond with "No". These are the only acceptable response options.
+Please format your responses according to the structure demonstrated in the examples below.
+
+Guidelines to Follow:
+    1. Time Interpretation: Unless stated otherwise, assume that <<<<NOTE_TYPE>>>>'s notes or any medical observations were recorded at the specified chart time.
+    2. Accuracy of Time-Value: Only consider the number of hours and entity values as accurate if they are explicitly stated. If there is a discrepancy between the number of hours and entity values, regard the information as inaccurate.
+    3. Interpretation of Valuenum: If a value is given as a range (e.g., 33-36) rather than a specific number, it should be considered incorrect.
+    4. FLOAT and INT types of numbers are considered equal. (e.g. 60.0 = 60)
+
+The following is an example to help better understand the task: Please answer the questions focusing on the specified entity named "Harry Potter". 
+Text:
+"Harry Potter is a young wizard and the protagonist of J.K. Rowling's series, discovering his magical heritage at age 11 and attending Hogwarts School of Witchcraft and Wizardry.
+Raised by abusive non-magical relatives, he's famous for surviving an attack by Voldemort, a dark wizard who seeks to dominate the wizarding world. 
+In wizarding world, Hermione Granger and Ron Weasley, are known for their intelligence and loyalty respectively, and together they face numerous magical challenges. 
+Throughout the series, Harry grows into a courageous hero, unraveling the mysteries of his past, and playing a key role in the fight against a dark wizard."
+
+Questions:
+[1] Is it directly mentioned that Harry Potter's relatives is 'wizard'?
+Evidence quote: ["Raised by abusive non-magical relatives" - The text explicitly states that Harry's relatives are non-magical, thus refuting the notion that they are wizards.]  
+Answer: No.  
+[2] Is it directly mentioned that Harry Potter's school is 'hogwarts School of WITCHCRAFT AND WIZARDRY'?
+Evidence quote: ["attending Hogwarts School of Witchcraft and Wizardry"- This phrase directly confirms Harry's attendance at Hogwarts.]
+Answer: Yes.
+[3] Is it directly mentioned that Harry Potter's age is '11.0'?
+Evidence quote: [Harry Potter is a young wizard and the protagonist of J.K. Rowling's series, discovering his magical heritage at age 11]
+Answer: Yes.
+[4] Is it directly mentioned that Harry Potter's key role is 'fight against a DARK WIZARD'?
+Evidence quote: ["playing a key role in the fight against a dark wizard." - This phrase directly confirms Harry's key role is fight against a dark wizard.]
+Answer: Yes.
+[5] Is it directly mentioned that Harry Potter's dormitory is 'Gryffindor'?
+Evidence quote: []
+Answer: No. It's not directly mentioned in the text.
+
+Your task: Please answer the questions focusing on the specified entity named "<<<ENTITY>>>". 
+
+<<<<NOTE_TYPE>>>> note:
+"<<<<CLINICAL_NOTE>>>>"      
+
+Questions:
+<<<Questions>>>
+
+Very Important: You must strictly adhere to the exact format [#] Question Evidence quote Answer:'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format [#] Question Evidence quote Answer:'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format [#] Question Evidence quote Answer:'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.

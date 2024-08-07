@@ -1,0 +1,66 @@
+Task: Select a table based on the provided table schemas and their interconnections within the database that can store specific entity-related information. Focus on tables that are likely to contain columns relevant to the entity you are searching.
+
+Requirements:
+1. Output format: [{table1, reference_table1},{table2, reference_table2},...].
+2. Choose from the set of table pairs: {Chartevents, D_items}, {Outputevents, D_items}, {Microbiologyevents, D_items}, {Inputevents_cv, D_items}, {Diagnoses_icd, D_icd_diagnoses}, {Procedures_icd, D_icd_procedures}, {Prescriptions}, {Inputevents_mv, D_items}, {Labevents, D_labitems}. If 'entity' is not clearly recorded in any of the tables, the output should be ['NONE'].
+
+Database Schema:
+1. D_items: D_items provides metadata for all recorded items, including medications, procedures, and other clinical measurements, with unique identifiers, labels, and descriptions.
+
+2. Chartevents: Chartevents contains time-stamped clinical data recorded by caregivers, such as vital signs, laboratory results, and other patient observations, with references to the D_items table for item details.
+    -Example Entities: 'T','R','BP','Blood Culture','Urine','Dry weight','EF','CO2','P','MULTI LUMEN' etc.
+
+3. Inputevents_cv: Inputevents_cv contains detailed data on all intravenous and fluid inputs for patients during their stay in the ICU and uses ITEMID to link to D_items.
+    -Example Entities: 'calcitonin','Insulin','Effexor','Synthroid','Prednisone', etc.
+
+4. Inputevents_mv: The inputevents_mv table records detailed information about medications and other fluids administered to patients, including dosages, timings, and routes of administration, specifically from the MetaVision ICU system.
+    -Example Entities: 'calcitonin','Insulin','Effexor','Synthroid','Prednisone','Cefipime' etc.
+
+5. Microbiologyevents: Microbiologyevents contains detailed information on microbiology tests, including specimen types, test results, and susceptibility data for pathogens identified in patient samples. This information is linked to D_items by ITEMID.
+    -Example Entities: 'pseudomonas','Blood Culture', etc.
+
+6. Outputevents: Records information about fluid outputs from patients, such as urine, blood, and other bodily fluids, including timestamps, amounts, and types of outputs, with references to the D_items table for item details.
+    -Example Entities: 'Urine','Stool', etc.
+
+7. D_labitems: D_labitems contains metadata about laboratory tests, including unique identifiers, labels, and descriptions for each lab test performed.
+
+8. Labevents: Labevents contains detailed records of laboratory test results, including test values, collection times, and patient identifiers, with references to the D_labitems table for test-specific metadata.
+    -Example Entities: 'WBC','Urine','Blood Culure','PT', etc.
+
+9. Prescriptions: Lists patient prescriptions with details on dose, administration route, and frequency. There is no reference table.
+    -Example Entities: 'calcitonin','Insulin','Effexor','Synthroid','Prednisone', etc.
+
+10. D_icd_diagnoses: The D_icd_diagnoses table provides descriptions and categorizations for ICD diagnosis codes used to classify patient diagnoses.
+    - Example: 'TB pneumonia-oth test','Chr amebiasis w/o absces','Portal gastropathy','Pneumonia','Diabetes', 'Mild respiratory distress secondary to retained fetal lung fluid', ect.
+
+11. Diagnoses_icd: The Diagnoses_icd table contains records of ICD diagnosis codes assigned to patients, linking each diagnosis to specific hospital admissions.
+
+12. D_icd_procedures: D_icd_procedures contains definitions and details for ICD procedure codes, including code descriptions and their corresponding categories.
+    - Example: 'Canthotomy', 'Adjust lid position NEC', 'Other adjustment of lid position', 'Insert endotracheal tube', etc.
+
+13. Procedures_icd: Procedures_icd records the procedures performed on patients during their hospital stay, indexed by ICD procedure codes and linked to specific hospital admissions.
+
+Inter-table Relationships:
+-Labevents is a child of D_Labitems.
+-Chartevents, Inputevents_mv, Inputevents_cv, Microbiology, Outputevents are children of D_items.
+-Diagnoses_icd is a child of D_icd_diagnoses.
+-Procedures_icd is a child of D_icd_procedures.
+
+Your task: Identify the specific tables that contain definitive records of '<<<<ENTITY>>>>'
+In order to locate the '<<<<ENTITY>>>>' within the database, examine the provided table schemas and their interconnections. Each table's purpose and the nature of the data they contain should be taken into account. Focus on the relevant columns that could store information related to '<<<<ENTITY>>>>'. If no explicit match is found for the entity in question, indicate this with '[none]'.
+
+Choose possible tables from Answer Candidate:
+1. {Chartevents, D_items}
+2. {Outputevents, D_items}
+3. {Microbiologyevents, D_items}
+4. {Inputevents_cv, D_items}
+5. {Inputevents_mv, D_items}
+6. {Labevents, D_labitems}
+7. {Procedure_icd, D_icd_procedures}
+8. {Diagnoses_icd, D_icd_diagnoses}
+9. {Prescriptions}
+10. ['none]
+
+Very Important: You must strictly adhere to the exact format: Selected-Table: [{tab1,tab2},{tab3,tab4}]'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format: Selected-Table: [{tab1,tab2},{tab3,tab4}]'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format: Selected-Table: [{tab1,tab2},{tab3,tab4}]'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.

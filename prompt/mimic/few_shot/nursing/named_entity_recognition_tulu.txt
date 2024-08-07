@@ -85,36 +85,6 @@ Answer: WBC - category 1 (numeric value: 17.9), Hct - category 1 (numeric value:
 Step 5) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
 - Identified Entities and Output Format: [{'E': 'weight', 'T': 3},{'E': 'T', 'T': 1},{'E': 'HR', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'O2sat', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'BP', 'T': 1},{'E': 'BRBPR', 'T': 2},{'E': 'stool', 'T': 2},{'E': 'WBC', 'T': 1},{'E': 'Hct', 'T': 1},{'E': 'plts', 'T': 1}]
 
-Example 3: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
-
-Clinical Text:
-"Family mtg with team and PC for Tuesday [**2-21**] @ 1730 to discuss Goal of
-   care.
-   Fever, unknown origin (FUO, Hyperthermia, Pyrexia) Sepsis  Fungemia
-   Assessment:
-    Febrile to 100.8 , continually low grade. Tyleono x2WBC 10.8..  skin
-   edema  cont diaphoresis
-   Action:
-   Received Abx meropenem, vancomycin and caspofungin. Vanco level 15.1..
-   Blood cultures sent.
-   Response:
-   Monitor temperature curve cont to spike s\despitie Tylenol/abx"
-
-Extra Rules:
-1. Entity extraction should only be performed on events that actually occurred during the current admission. It should not include any that were interrupted or discontinued partway through the process (e.g. 'Fentanyl drip dc').
-2. Do not extract anything related to the Total. 
-
-Step 1) Extract entities related to medication or inputevents and classify each entity. Extract the entity written in the note without modifying it.
-Answer: Tyleono - category 2 , meropenem - category 2, vancomycin - category 2, caspofungin -  category 2, Tylenol - category 2
-Step 2) Extract entities related to vital signs and classify each entity. Extract the entity written in the note without modifying it. 
-Answer: Febrile - catetgory1 (numeric value: 100.8), temperature - category 3(qualitative assessments or descriptions: curve cont)
-Step 3) Extract entitites related to outputevents and classify each entity. Extract the entity written in the note without modifying it.
-Answer: Nothing
-Step 4) Extract entities related to microbiologyevents or labevents and classify each entity. Extract the entity written in the note without modifying it.
-Answer: WBC - catetgory1 (numeric value: 10.8), vanco - category 1 (numeric value: 15.1), Blood culture - category 2
-Step 5) Summarize the answers. Present the extracted entities as a list of dictionaries, each with the entity under the key 'E' and its category under 'T'. Use this format: [{'E': 'EntityName', 'T': CategoryNumber}]. Please do not use ellipses (…) in responses. 
-- Identified Entities and Output Format: [{'E': 'Tyleono', 'T': 2},{'E': 'meropenem', 'T': 2},{'E': 'vancomycin', 'T': 2},{'E': 'caspofungin', 'T': 2},{'E': 'Tylenol', 'T': 2},{'E': 'Febrile', 'T': 1},{'E': 'temperature', 'T': 3},{'E': 'WBC', 'T': 1},{'E': 'vanco', 'T': 1},{'E': 'Blood culture', 'T': 2}]
-
 Your task: Develop a NER system to identify and categorize specific named entities in clinical texts step by step.
 
 - New Clinical Text: "<<<CLINICAL_NOTE>>>"

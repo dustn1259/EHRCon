@@ -1,0 +1,15 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Your task:
+[{table}.{column}={condition value}]
+Microbiologyevents.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime function.
+2. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
+
+Write the query in [{'Q'}] form!

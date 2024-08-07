@@ -1,0 +1,56 @@
+Task: Transform Given Data to Match a Database Table Format. Your goal is to modify a set of given data so that it matches the format of an existing database table. The data transformation should adhere to any constraints evident from the table's structure. Focus solely on the fields provided in the given data and do not add or infer any additional fields.
+** Only transform and include the fields mentioned in the given data. Do not add, create, or infer any additional fields beyond what is specified (e.g., do not include fields like 'CHARTTIME' if they are not in the given data)**
+
+Table Information:
+1. Existing Table Schema: {'Prescriptions': {'DRUG':<class 'str'>,'STARTDATE':<class 'datetime'>,'ENDDATE':<class 'datetime'>,'DOSE_VAL_RX':<class 'float'>,'DOSE_UNIT_RX':<class 'str'>}}
+    [Example row of Prescriptions table]
+        - Prescriptions.DRUG: Morphine Sulfate
+        - Prescriptions.STARTDATE: 2167-01-09
+        - Prescriptions.ENDDATE: 2167-01-12
+        - Prescriptions.DOSE_VAL_RX: 12.5
+        - Prescriptions.DOSE_UNIT_RX: mg
+
+2. There is no TIME VALUE in STARTDATE and ENDDATE.
+
+Extra Instructions: If the given data includes relative dates (like 'charttime'), replace it with the corresponding actual date from the patient's record.
+
+Example 1)
+Given data:
+Information:
+    - Patient Admission Date: 2175-06-13
+    - Patient Discharge Date: 2175-06-15 (same as discharge summary note's chartdate)
+Prescriptions.DRUG: Warfarin
+Prescriptions.STARTDATE: [**2175-06-15**] 8:00 PM
+Prescriptions.DOSE_VAL_RX: 5
+Prescriptions.DOSE_UNIT_RX: mg
+
+Output:
+Prescriptions.DRUG: Warfarin
+Prescriptions.STARTDATE: 2175-06-15
+Prescriptions.DOSE_VAL_RX: 5
+Prescriptions.DOSE_UNIT_RX: mg
+
+Example 2)
+Given data:
+Information:
+    - Patient Admission Date: 2108-03-10
+    - Patient Discharge Date: 2108-03-12 (same as discharge summary note's chartdate)
+Prescriptions.DRUG: Tacrolimus
+Prescriptions.STARTDATE: discharge
+Prescriptions.DOSE_VAL_RX: 2
+Prescriptions.DOSE_UNIT_RX: mg
+
+Output:
+Prescriptions.DRUG: Tacrolimus
+Prescriptions.STARTDATE: 2108-03-12
+Prescriptions.DOSE_VAL_RX: 2
+Prescriptions.DOSE_UNIT_RX: mg
+
+Your task:
+Given data:
+Information:
+    - Patient Admission Date: <<<<Admission>>>>
+    - Note's Chartdate: <<<<Charttime>>>> (Today)
+<<<<GIVEN_DATA>>>>
+
+Tell me output:

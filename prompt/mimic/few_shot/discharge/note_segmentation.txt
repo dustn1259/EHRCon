@@ -1,4 +1,4 @@
-Task: Your task is to analyze a clinical note and divide it into three sections based on thematic or semantic coherence. Each section should center around a unique theme or idea, providing a cohesive view of the content. 
+Your task is to analyze a clinical note and divide it into three sections based on thematic or semantic coherence. Each section should center around a unique theme or idea, providing a cohesive view of the content. 
 
 Please follow these guidelines:
 Guidelines 1) Thematic or Semantic Unity: Group content based on clear thematic or semantic relationships, ensuring that each section covers a distinct aspect related to the overall topic. Everything within a section should be related and contribute to a unified understanding of that theme.
@@ -58,6 +58,44 @@ Clinical note:
 
 Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
 Output: [section1: 6-10 section2: 11-14, section3: 15-17]
+
+Example 3)
+Clinical note:
+"0 Admission Date:  [**2124-7-21**]              Discharge Date:   [**2124-8-18**]
+1 
+2 
+3 Service: MEDICINE
+4 
+5 Allergies:
+6 Amlodipine
+7 
+8 Attending:[**First Name3 (LF) 898**]"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 0-2, section2: 3-7, section3: 8-8]
+
+Example 4)
+Clinical note:
+"44 On transfer, vitals were T 95.7, HR 60 (v-paced), BP 110/56, RR
+45 18, O2sat 100% on 2LNC.  She was drowsy, but denied current SOB,
+46 chest pain, palpitations, LE swelling.  She endorsed orthopnea
+47 (c/w baseline) cough productive of yellow sputum, nausea, RUQ
+48 discomfort, and anuria. Denied recent fevers/chills,
+49 diarrhea/constipation, melena/hematochezia, BRBPR.
+50 .
+51 Of note she was admitted 1 month ago (from [**Date range (1) 2266**]) for CHF
+52 exacerbation and hypervolemia. She was started on a lasix drip
+53 with metolazone but was ultimately started on ultrafiltration
+54 with a tunneled HD line which she tolerated well. She has not
+55 required outpatient HD since discharge.
+56 
+57 
+58 Past Medical History:
+59 1. CARDIAC RISK FACTORS: +Hypertension, +HLD
+60 2. CARDIAC HISTORY:"
+
+Output format must be [section1: (start_line_number(int)-end_line_number(int)), section2: (start_line_number(int)-end_line_number(int)), section3: (start_line_number(int)-end_line_number(int))], indicating the line numbers that mark the start and end of each section. 
+Output: [section1: 44-50, section2: 50-57, section3: 58-60]
 
 Your task:
 Clinical note:

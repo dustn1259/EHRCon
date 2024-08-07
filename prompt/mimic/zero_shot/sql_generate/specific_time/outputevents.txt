@@ -1,0 +1,16 @@
+Task: You are a highly intelligent and accurate sqlite3 query creator. You take a [{tablename}.{columnname}={condition value}] and given extra information and turn it into a [SQLite3 query].
+
+Please Use only the information given.
+Your output format is a dictionary with a single key 'Q' and the value is the SQLite3 query, so [{'Q':Query}] form. And begin the query with "SELECT *", to retrieve all columns.
+
+Your task:
+[{table}.{column}={condition value}]
+Outputevents.hadm_id = <<<HAMD_ID>>>
+<<<CONDITION_VALUE>>>
+
+[given extra information]
+1. Utilize strftime to maintain the given time format.
+2. Construct a query that filters records where Outputevents.charttime fall within one day before to one day after their respective specified dates, using the strftime function to keep the 'yyyy-mm-dd' format. 
+3. The 'Outputevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+
+Write the query in [{'Q'}] form!

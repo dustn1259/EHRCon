@@ -13,9 +13,9 @@ Microbiologyevents.org_name = Pseudomonas
 [given extra information]
 1. Utilize strftime to maintain the given time format.
 2. Construct a query that filters records where Microbiologyevents.charttime fall within one day before to one day after their respective specified dates, using the strftime function to keep the 'yyyy-mm-dd' format. 
-3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+3. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
-Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 10304 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN strftime('%Y-%m-%d', '2149-02-16', '-1 day') AND strftime('%Y-%m-%d', '2149-02-16', '+1 day') AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.org_name = 'Pseudomonas'"}]
+Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items AS D1 ON Microbiologyevents.spec_itemid = D1.itemid JOIN D_items AS D2 ON Microbiologyevents.org_itemid = D2.itemid WHERE Microbiologyevents.hadm_id = 10304 AND Microbiologyevents.spec_type_desc = 'sputum' AND Microbiologyevents.charttime BETWEEN strftime('%Y-%m-%d', '2149-02-16', '-1 day') AND strftime('%Y-%m-%d', '2149-02-16', '+1 day')"}]
 
 Example 2) 
 [{table}.{column}={condition value}]
@@ -26,7 +26,7 @@ Microbiologyevents.org_name= ESCHERICHIA COLI
 [given extra information]
 1. Utilize strftime to maintain the given time format.
 2. Construct a query that filters records where Microbiologyevents.charttime fall within one day before to one day after their respective specified dates, using the strftime function to keep the 'yyyy-mm-dd' format. 
-3. The 'Microbiologyevents' and 'D_items' tables need to be joined using the 'itemid' as the key for the join operation.
+3. 'Microbiologyevents.spec_itemid' and 'Microbiologyevents.org_itemid' need to be joined individually with the 'D_items.itemid' table, using them as the keys for the join operation.
 
 Output: [{'Q': "SELECT * FROM Microbiologyevents JOIN D_items ON Microbiologyevents.itemid = D_items.itemid WHERE Microbiologyevents.hadm_id = 20202 AND strftime('%Y-%m-%d', Microbiologyevents.charttime) BETWEEN strftime('%Y-%m-%d', '2121-07-03', '-1 day') AND strftime('%Y-%m-%d', '2121-07-03', '+1 day') AND Microbiologyevents.org_name = 'ESCHERICHIA COLI'"}]
 

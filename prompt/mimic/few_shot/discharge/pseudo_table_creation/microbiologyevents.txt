@@ -50,7 +50,7 @@ Clinical note:
 [Answer in step 2]: The test was conducted on Hospital Day 2, so the charttime for the 'ESCHERICHIA COLI' result would be Hospital Day 2.
 
 **Step 3) Fill the table with information Directly Related to '{{**ESCHERICHIA COLI**}}' in the given text.**
-Based on the mentions of '{{**STAPH AUREUS COAG +**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, ORG_NAME, SPEC_TYPE_DESC. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+Based on the mentions of '{{**ESCHERICHIA COLI**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: CHARTTIME, ORG_NAME, SPEC_TYPE_DESC. If specific details are not mentioned in the clinical note, record it as 'NaN'.
 [Answer in step 3]: Considering the response from Step 2, the 'charttime' value would be 'Hospital Day 2'. According to the clinical note, 'ORG_NAME' should be 'ESCHERICHIA COLI' and 'SPEC_TYPE_DESC' should be 'FLUID CULTURE'.
 
 **Step 4) Summarize and Present Your Findings Directly Related to '{{**ESCHERICHIA COLI**}}' in the given text in Detailed Rows**

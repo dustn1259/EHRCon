@@ -1,0 +1,50 @@
+Task: The objective is to analyze a clinical note to extract specific details about an indicated Entity, focusing solely on information that is directly stated. Extract and document findings related to this entity without making assumptions about unmentioned details. This involves identifying the time and values associated with this entity and documenting these findings in a structured manner. Adhere to the following instructions for a precise analysis.
+
+Instructions:
+1. Carefully examine the clinical note, paying close attention to any instance of the Entity highlighted as {{**Entity**}}. Focus solely on this entity for your analysis.
+2. Rely exclusively on the information provided within the clinical note, guided by the instructions and column descriptions provided.
+3. Extract and document only the information that directly pertains to the {{**Entity**}}, disregarding all other data.
+4. When extracting data, only include information that is explicitly mentioned in the text. Avoid making assumptions or inferring details that are not directly stated. 
+5. Each piece of extracted information related to the Entity must be documented in the specified output format in the EHR table, detailed below, with each piece of information in separate rows: 'Mentioned [#]. STARTTIME: starttime, ENDTIME: endtime, AMOUNT: amount, AMOUNTUOM: amountuom, RATE: rate, RATEUOM: rateuom'
+
+Additional Requirement:
+1. When the clinical note specifies a range for a measurement (for example, 'entity 120-130'), it indicates that the measurement can fall anywhere within that range. For these instances, you should skip documenting this information entirely in the table; do not fill in any value for VALUENUM, and do not create a table row for this range. Simply proceed as if the range mention does not provide a specific enough detail to be included.
+
+Column Descriptions and Schema Information:
+1. STARTTIME: The Starttime column records the timestamp indicating when the administration of a medication or other clinical intervention was initiated.
+    - Datatype: <class 'datetime'>
+2. ENDTIME: The Endtime column records the timestamp indicating when the administration of a medication or other clinical intervention was completed.
+    - Datatype:  <class 'datetime'>
+3. AMOUNT: Amount records the total quantity of a medication or fluid administered to the patient.
+    - Datatype:  <class 'float'>
+4. AMOUNTUOM: Amountuom specifies the unit of measurement for the amount of medication or fluid administered, such as milliliters (ml) or milligrams (mg).
+    - Datatype:  <class 'str'>
+5. RATE: Rate specifies the rate at which a medication or fluid was administered.
+    - Datatype:  <class 'float'>
+5. RATEUOM: Rateuom specifies the unit of measurement for the rate at which a medication or fluid was administered, such as milliliters per hour (mL/hr).
+    - Datatype:  <class 'str'>
+
+Your Task: Analyze the clinical note to extract {{**<<<ENTITY>>>**}} data and document the findings in the EHR table.
+
+**Step 1) Identify and Extract Information about '{{**<<<ENTITY>>>**}}' in the given text.
+[Answer in step 1]: [Write the answer]
+
+**Step 2) Determine the STARTTIME and ENDTIME step-by-step: Identify when the '{{**<<<ENTITY>>>**}}' occurs.**
+[Answer in step 2]: [Write the answer]
+
+**Step 3) Fill the table with information Directly Related to '{{**<<<ENTITY>>>**}}' in the given text.**
+Based on the mentions of '{{**<<<ENTITY>>>**}}' in the given text found in Step 1 and Step 2, fill in the table with these column headers: STARTTIME, ENDTIME, AMOUNT, AMOUNTUOM, RATE, RATEUOM. If specific details are not mentioned in the clinical note, record it as 'NaN'.
+[Answer in step 3]: [Write the answer]
+
+**Step 4) Summarize and Present Your Findings Directly Related to '{{**<<<ENTITY>>>**}}' in the given text in Detailed Rows**
+For each piece of information directly related to '{{**<<<ENTITY>>>**}}' in the given text, compile your findings into separate rows using the format below:
+- "Mentioned [1]. STARTTIME: starttime, ENDTIME: endtime, AMOUNT: amount, AMOUNTUOM: amoutuom, RATE: rate, RATEUOM: rateuom"
+
+Very Important: You must strictly adhere to the exact format when extracting data: 'Mentioned [#]. STARTTIME: starttime, ENDTIME: endtime, AMOUNT: amount, AMOUNTUOM: amoutuom, RATE: rate, RATEUOM: rateuom'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format when extracting data: 'Mentioned [#]. STARTTIME: starttime, ENDTIME: endtime, AMOUNT: amount, AMOUNTUOM: amoutuom, RATE: rate, RATEUOM: rateuom'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+Very Important: You must strictly adhere to the exact format when extracting data: 'Mentioned [#]. STARTTIME: starttime, ENDTIME: endtime, AMOUNT: amount, AMOUNTUOM: amoutuom, RATE: rate, RATEUOM: rateuom'. This requirement is non-negotiable and must be followed meticulously in every instance. Any deviation from this specified format is unacceptable and will not be tolerated. Ensure compliance without exception.
+
+Clinical note:
+"<<<<CLINICAL_NOTE>>>>"
+
+Let's solve task step by step!

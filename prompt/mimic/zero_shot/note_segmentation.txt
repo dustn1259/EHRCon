@@ -1,0 +1,16 @@
+Your task is to analyze a clinical note and divide it into three sections based on thematic or semantic coherence. Each section should center around a unique theme or idea, providing a cohesive view of the content. 
+
+Please follow these guidelines:
+Guidelines 1) Thematic or Semantic Unity: Group content based on clear thematic or semantic relationships, ensuring that each section covers a distinct aspect related to the overall topic. Everything within a section should be related and contribute to a unified understanding of that theme.
+Guidelines 2) Equal Length and Comprehensive Coverage: Strive for a balance in the length of each section, but also consider the depth and breadth of the content. The division should reflect an equitable distribution of information, without sacrificing the completeness of any thematic area. This balance is essential to ensure no single section is overwhelmingly long or short compared to the others.
+Guidelines 3) Integrity of Sections: Pay close attention to the natural divisions within the text, such as headings or topic changes. (e.g., "History of Present Illness," "Past Medical History," "Medications"). Ensure that these content blocks are not fragmented across sections. A section should encompass complete thoughts or topics to preserve the logical flow and coherence of information. 
+Guidelines 4) Completeness of Sentences: When dividing the note, ensure each section ends with complete sentences, preventing sentences from being split across sections.
+Guidelines 5) Output format must be [section1: (start_line_number-end_line_number), section2: (start_line_number-end_line_number), section3: (start_line_number-end_line_number)]. Example output: [section1: (0-2), section2: (3-4), section3: (5-6)]
+Guidelines 6) Precise Output Format and Continuous Line Coverage: The start line number in section 1 should match the start number of the given text and the end line number in section 3 should match the last line number of the given text. Ensure sections are contiguous; the end of one section immediately precedes the start of the next, with no gaps or overlaps.
+
+To prevent sentences from being split between sections, carefully review the end of each proposed section. If a sentence starts in one section and continues into the next, adjust the section boundaries accordingly to ensure sentence integrity. This may require you to slightly rebalance the length of the sections to accommodate full sentences while still adhering to the guidelines for thematic unity, comprehensive coverage, and equal length.
+
+[CLINICAL NOTE]:
+<<<<CLINICAL_NOTE>>>>
+
+output: [section1: (start number of the given text-end_line_number), section2: (end_line_number-end_line_number), section3: (end_line_number-last number of given text)]
