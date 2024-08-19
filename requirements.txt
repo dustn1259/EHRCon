@@ -1,0 +1,7 @@
+transformers==4.40.1
+bitsandbytes==0.43.1
+accelerate==0.29.3
+openai==0.28.0
+numpy==1.26.3
+pandas==2.2.2
+sentencepiece==0.2.0
