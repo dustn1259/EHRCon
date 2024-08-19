@@ -77,11 +77,34 @@ EHRCon
 
 ### EHRCon
 EHRCon contains the following fields for each database:
-```bash
+- ```hadm_id```: A unique identifier for a hospital admission
+- ```entity```: Test subject entity
+- ```data```: Data that can be mapped to a table from the clinical notes
+- ```label```: Whether the note and the table are consistent or not, with details on which columns have inconsistencies if any are found
+- ```errors```: Number of columns with inconsistencies
+- ```position```: Location of the entity in the note
+- ```source```: mimic
+- ```entity type```: 1 - entities with numerical values, 2- entities without values but whouse existence can be verified in the database, 3 - entitie4s with string values
 
+```json
+{"hadm_id": {"entity": {"data": [{'table_name1': {'column_name1': 'value'}}},
+      "label": "'charttime' and 'valuenum' are inconsistency",
+      "errors": 2}],
+    "position": '4',
+    "source": 'mimic',
+    "entity_type": '1'}
 ```
-
 
 ## CheckEHR
 
-### MIMIC-III
+### few shot
+```bash
+CUDA_VISIBLE_DEVICES=0 python main.py --model model_name --config_yaml /path/to/config
+```
+### zero shot
+```bash
+CUDA_VISIBLE_DEVICES=0 python main.py --model model_name --config_yaml /path/to/config --model zero_shot
+```
+
+## Question
+If you have any questions, contact us at ([yeonsu.k@kaist.ac.kr](mailto:yeonsu.k@kaist.ac.kr) or [jiho.kim@kaist.ac.kr](mailto:jiho.kim@kaist.ac.kr))
