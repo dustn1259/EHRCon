@@ -323,7 +323,7 @@ def main():
                                                 #print("no_time_prompt: ",no_time_prompt)
                                             else:
                                                 #print("join_key: ", join_keys)
-                                                no_time_prompt=open_file(f'/home/yskwon/Notable_Check/mimic/openmodels/main/few_shot/discharge/prompt/sql_generate/no_time/{overlap}.txt').replace("<<<TABLE_1>>>",table[0]).replace("<<<TABLE_2>>>",table[1]).replace("<<<JOIN_KEY>>>",join_keys).replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples)                      
+                                                no_time_prompt=open_file(f'{sql_generate_path}/no_time/{overlap}.txt').replace("<<<TABLE_1>>>",table[0]).replace("<<<TABLE_2>>>",table[1]).replace("<<<JOIN_KEY>>>",join_keys).replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples)                      
                                                 #print("no_time_prompt: ",no_time_prompt)
                                             if model_name == 'llama3':
                                                 no_time_output = open_source_model_inference_llama(no_time_prompt, model, tokenizer, model_config)
