@@ -503,7 +503,7 @@ def main():
                         
                         return_list_=processing_before_store_data(res_list_by_table)
                         print("Final Output: ", return_list_)
-                        print("############################")
+                        print("****************************")
                         print()
                         if len(return_list_) > 0:
                             for temp_result in return_list_:
