@@ -77,24 +77,28 @@ EHRCon
 
 ### EHRCon
 EHRCon contains the following fields for each database:
-- ```hadm_id```: A unique identifier for a hospital admission
-- ```entity```: Test subject entity
-- ```data```: Data that can be mapped to a table from the clinical notes
-- ```label```: Whether the note and the table are consistent or not, with details on which columns have inconsistencies if any are found
-- ```errors```: Number of columns with inconsistencies
-- ```position```: Location of the entity in the note
+- ```Row_id```: The ROW_ID of the clinical note
+- ```entity```: The entity that is the subject of the consistency check
+- ```data```:The values related to the entity extracted from the clinical note and mapped to the columns of the table
+- ```label```: Indicates whether the content related to the entity in the note is consistent with the table, with details on which columns have inconsistencies, if any are found.
+- ```errors```: The number of columns with inconsistencies
+- ```position```: The line number of the entity in the note
 - ```source```: mimic
-- ```entity type```: 1 - entities with numerical values, 2- entities without values but whouse existence can be verified in the database, 3 - entitie4s with string values
+- ```entity type```:
+    - 1 - entities with numerical values
+    - 2 - entities without values but who use existence can be verified in the database
+    - 3 - entities with string values
+- ```all_queries```: A list of all value pairs checked to determine the label for the entity
 
 ```json
-{"hadm_id": {"entity": {"data": [{'table_name1': {'column_name1': 'value'}}},
-      "label": "'charttime' and 'valuenum' are inconsistency",
+{"Row_id": [{"entity": {"data": [{'table_name1': {'column_name1': 'value'}}},
+      "label": '"charttime" and "valuenum" are inconsistency',
       "errors": 2}],
     "position": '4',
     "source": 'mimic',
-    "entity_type": '1'}
+    "entity_type": '1',
+"all_queries":[…]}
 ```
-
 ## CheckEHR
 
 ### few shot
