@@ -42,7 +42,7 @@ The EHRCon dataset is derived from MIMIC-III, which requires a credentialed Phys
 
 2. Sign the data use agreement (DUA) for each project and download the dataset.
     - MIMIC-III: https://physionet.org/content/mimiciii/1.4/
-    - EHRCon: Reviewing process
+    - EHRCon: https://physionet.org/content/ehrcon-consistency-of-notes/1.0.0/
 
 ### Build dataset and database directory
 ```bash
