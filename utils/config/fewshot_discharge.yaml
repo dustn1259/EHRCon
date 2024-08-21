@@ -1,0 +1,15 @@
+CSV_FILE: 'EHRCon/dataset/discharge_test/discharge_test.csv'
+
+note_types: 'discharge'
+# config.yaml
+prompt_files:
+  note_segmentation: 'EHRCon/prompt/mimic/few_shot/discharge/note_segmentation.txt'
+  named_entity_recognition: 'EHRCon/prompt/mimic/few_shot/discharge/named_entity_recognition'
+  table_identification: 'EHRCon/prompt/mimic/few_shot/discharge'
+  time_filtering: 'EHRCon/prompt/mimic/few_shot/discharge'
+  self_correction: 'EHRCon/prompt/mimic/few_shot/discharge/self_correction.txt'
+  pseudo_table_creation: 'EHRCon/prompt/mimic/few_shot/discharge/pseudo_table_creation'
+  value_reformatting: 'EHRCon/prompt/mimic/few_shot/discharge/value_reformatting'
+  sql_generate: 'EHRCon/prompt/mimic/few_shot/discharge/sql_generate'
+
+result_path: 'EHRCon/results'

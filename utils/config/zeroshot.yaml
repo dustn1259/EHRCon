@@ -1,0 +1,15 @@
+CSV_FILE: 'EHRCon/dataset/physician_test/physician_test.csv'
+
+note_types: 'physician'
+# config.yaml
+prompt_files:
+  note_segmentation: 'EHRCon/prompt/mimic/few_shot/physician/note_segmentation.txt'
+  named_entity_recognition: 'EHRCon/prompt/mimic/few_shot/physician/named_entity_recognition'
+  table_identification: 'EHRCon/prompt/mimic/few_shot/physician'
+  time_filtering: 'EHRCon/prompt/mimic/few_shot/physician'
+  self_correction: 'EHRCon/prompt/mimic/few_shot/physician/self_correction.txt'
+  pseudo_table_creation: 'EHRCon/prompt/mimic/few_shot/physician/pseudo_table_creation'
+  value_reformatting: 'EHRCon/prompt/mimic/few_shot/physician/value_reformatting'
+  sql_generate: 'EHRCon/prompt/mimic/few_shot/physician/sql_generate'
+
+result_path: 'EHRCon/results'

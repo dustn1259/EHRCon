@@ -1,0 +1,15 @@
+CSV_FILE: 'EHRCon/dataset/nursing_test/nursing_test.csv'
+
+note_types: 'nursing'
+# config.yaml
+prompt_files:
+  note_segmentation: 'EHRCon/prompt/mimic/few_shot/nursing/note_segmentation.txt'
+  named_entity_recognition: 'EHRCon/prompt/mimic/few_shot/nursing/named_entity_recognition'
+  table_identification: 'EHRCon/prompt/mimic/few_shot/nursing'
+  time_filtering: 'EHRCon/prompt/mimic/few_shot/nursing'
+  self_correction: 'EHRCon/prompt/mimic/few_shot/nursing/self_correction.txt'
+  pseudo_table_creation: 'EHRCon/prompt/mimic/few_shot/nursing/pseudo_table_creation'
+  value_reformatting: 'EHRCon/prompt/mimic/few_shot/nursing/value_reformatting'
+  sql_generate: 'EHRCon/prompt/mimic/few_shot/nursing/sql_generate'
+
+result_path: 'EHRCon/results'
