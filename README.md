@@ -107,7 +107,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py --model model_name --config_yaml /path/to/
 ```
 ### zero shot
 ```bash
-CUDA_VISIBLE_DEVICES=0 python main.py --model model_name --config_yaml /path/to/config --model zero_shot
+CUDA_VISIBLE_DEVICES=0 python main.py --model model_name --config_yaml /path/to/config --mode zero_shot
 ```
 
 ## Question
