@@ -38,7 +38,6 @@ def main():
         "API_BASE":config.API_BASE,
         "API_MODEL":config.API_MODEL
     }
-
     note_types = yaml_cnfig['note_types']
     result_path_=yaml_cnfig['result_path']
     OPEN_API_KEY= py_confoig['OPEN_API_KEY']
@@ -314,17 +313,12 @@ def main():
                                             time_value=str(time_value_)
                                             if 'Prescriptions' in table or 'prescriptions' in table:
                                                 no_time_prompt=open_file(f'{sql_generate_path}/no_time/{overlap}.txt').replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples).replace("3. The '<<<TABLE_1>>>' and '<<<TABLE_2>>>' tables need to be joined using the '<<<JOIN_KEY>>>' as the key for the join operation.","")                                                              
-                                                #print("no_time_prompt: ",no_time_prompt)
                                             elif 'procedures_icd' in table or 'procedures_icd' in table: 
                                                 no_time_prompt=open_file(f'{sql_generate_path}/no_time/procedures_icd.txt').replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples)                                                           
-                                                #print("no_time_prompt: ",no_time_prompt)
                                             elif 'diagnoses_icd' in table or 'Diagnoses_icd' in table: 
                                                 no_time_prompt=open_file(f'{sql_generate_path}/no_time/diagnoses_icd.txt').replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples)
-                                                #print("no_time_prompt: ",no_time_prompt)
                                             else:
-                                                #print("join_key: ", join_keys)
-                                                no_time_prompt=open_file(f'{sql_generate_path}/no_time/{overlap}.txt').replace("<<<TABLE_1>>>",table[0]).replace("<<<TABLE_2>>>",table[1]).replace("<<<JOIN_KEY>>>",join_keys).replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples)                      
-                                                #print("no_time_prompt: ",no_time_prompt)
+                                                no_time_prompt=open_file(f'/home/yskwon/Notable_Check/mimic/openmodels/main/few_shot/discharge/prompt/sql_generate/no_time/{overlap}.txt').replace("<<<TABLE_1>>>",table[0]).replace("<<<TABLE_2>>>",table[1]).replace("<<<JOIN_KEY>>>",join_keys).replace("<<<TIME_VALUES>>>",time_value).replace("<<<ADMISSION>>>",admission).replace("<<<CHARTTIME>>>",charttime).replace("<<<HADM_ID_TABLE>>>",overlap_).replace("<<<HAMD_ID>>>",hadm_id_string).replace("<<<CONDITION_VALUE>>>",reformat_samples)                      
                                             if model_name == 'llama3':
                                                 no_time_output = open_source_model_inference_llama(no_time_prompt, model, tokenizer, model_config)
                                             elif model_name == 'chatgpt':
@@ -345,7 +339,6 @@ def main():
                                                 }
                                                 for query in generated_sqls:
                                                     if 'error' == query[1]:
-
                                                         break
                                                     try:
                                                         cursor.execute(query[1].replace("%y","%Y").replace(":%m",":%M").replace("%h","%H").replace(f"%s",f"%S"))
@@ -367,7 +360,7 @@ def main():
                                         elif sql_number =='SQL_3':
                                             continue    
                                         
-                                        elif sql_number == 'SQL_1':  ###exact time
+                                        elif sql_number == 'SQL_1': 
                                             keys = find_keys_for_tables(table)
                                             if len(keys)>1:
                                                 join_keys=" and ".join(keys)
@@ -453,6 +446,7 @@ def main():
                                                 specific_time_outputt = open_source_model_inference(specific_time_prompt, model, tokenizer, config)
                                             specific_time_outputt=extract_section_ranges_sql(specific_time_outputt)
                                             specific_time_outputt=specific_time_outputt.replace("[","").replace("]","").replace('"Q"',"'Q'")
+                                            #print("query_made:", specific_time_outputt)
                                             try:
                                                 query_output_dict[key_entity]=clean_and_eval_query(specific_time_outputt)['Q']
                                                 
@@ -472,6 +466,7 @@ def main():
                                                     try:
                                                         cursor.execute(query[1].replace("%y","%Y").replace(":%m",":%M").replace("%h","%H").replace(f"%s",f"%S"))
                                                         results = cursor.fetchall()
+                                                        #result_dict[key_entity] = {'label':'False'}
                                                         result_dict[key_entity]['label'] = 'False'
 
                                                     except:
@@ -488,10 +483,12 @@ def main():
                                     else:
                                         print("All values are NaN, moving to the next table.")
                                         continue
+                                #print("result_dict: ",result_dict)
                                 res_list_by_occur.append(result_dict)   
                                 print("Output: ",res_list_by_occur) 
 
                             res_list_by_table.append(res_list_by_occur)
+                            #print("res_list_by_table: ",res_list_by_table)
                         
                         temp_result = {}
                         temp_result[key_entity] = {
@@ -503,7 +500,7 @@ def main():
                         
                         return_list_=processing_before_store_data(res_list_by_table)
                         print("Final Output: ", return_list_)
-                        print("****************************")
+                        print("*********************")
                         print()
                         if len(return_list_) > 0:
                             for temp_result in return_list_:
