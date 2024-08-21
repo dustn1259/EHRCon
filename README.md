@@ -91,13 +91,13 @@ EHRCon contains the following fields for each database:
 - ```all_queries```: A list of all value pairs checked to determine the label for the entity
 
 ```json
-{"Row_id": [{"entity": {"data": [{'table_name1': {'column_name1': 'value'}}},
-      "label": '"charttime" and "valuenum" are inconsistency',
+{"Row_id": [{"entity": {"data": [{"table_name1": {"column_name1": "value"},
+      "label": "'charttime' and 'valuenum' are inconsistency",
       "errors": 2}],
-    "position": '4',
-    "source": 'mimic',
-    "entity_type": '1',
-"all_queries":[…]}
+    "position": "4",
+    "source": "mimic",
+    "entity_type": "1",
+    "all_queries":[]}}]}
 ```
 ## CheckEHR
 
